@@ -35,26 +35,13 @@ This repository contains a solution to the **Traveling Salesman Problem (TSP)** 
 
    You can modify parameters inside `main.py` to run the TSP solver with different settings (e.g., number of points, maximum coordinate values).
 
-3. Run the tests:
-
-   ```bash
-   python tester.py
-   ```
-
-   This will execute various test cases to ensure the correctness of the TSP solver.
-
 ## Installation
 
 To run this project, you need:
 
 - Python 3.x
-- Any additional Python packages listed in `requirements.txt` (if applicable)
 
-To install dependencies, run:
-
-```bash
-pip install -r requirements.txt
-```
+There shouldn't be any other dependencies needed, but I'm not sure.
 
 ## Customization
 
@@ -71,3 +58,5 @@ pip install -r requirements.txt
 Feel free to submit pull requests or report issues. Contributions to improve the algorithms or add new features are welcome.
 
 ## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
