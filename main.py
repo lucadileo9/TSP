@@ -14,6 +14,23 @@ maxcoord = 100
 
 #_____________________________________________
 points, dist = get_or_create_graph_data(n, maxcoord, use_existing=False, debug=False)
+path= brute_force_tsp(points, dist)
+print_in_square("Brute force", path)
+
+if check_path(points, path):
+    print("Brute force is correct")
+else:
+    print("Brute force is not correct")
+
+path_length(dist, path)
+reset_points(points)
+research_path_time(points, dist, brute_force_tsp)
+
+reset_points(points)
+average_research_path_time(points, dist, brute_force_tsp)
+
+#_____________________________________________
+points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
 path = nearest_neighbor_first(points, dist)
 print_in_square("Path 1", path)
 

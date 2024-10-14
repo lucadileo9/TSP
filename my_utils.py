@@ -1,6 +1,52 @@
 import random
 import tsp_utils 
 import pickle
+import itertools
+
+def brute_force_tsp(points, dist):
+    """
+    Solves the TSP using brute force by exploring all permutations of points.
+
+    Parameters
+    ----------
+    points : list of tuples
+        Each tuple represents a point as (x, y, visited).
+    dist : dict
+        Dictionary of distances between points with keys as (i, j) representing 
+        the indices of the points and values as the distances between them.
+
+    Returns
+    -------
+    shortest_path : list
+        The list of point indices representing the shortest path.
+    min_distance : float
+        The total distance of the shortest path.
+    """
+    n = len(points)
+    
+    # Generate all permutations of points (ignoring the 'visited' flag)
+    permutations = itertools.permutations(range(n))
+    
+    # Variables to store the minimum distance and the corresponding path
+    min_distance = float('inf')
+    shortest_path = None
+
+    # Explore each possible permutation
+    for perm in permutations:
+        # Calculate the distance of this path
+        current_distance = 0
+        for i in range(n - 1):
+            current_distance += dist.get((perm[i], perm[i + 1]), float('inf'))
+        
+        # Add distance to return to the starting point (TSP is a cycle)
+        current_distance += dist.get((perm[-1], perm[0]), float('inf'))
+
+        # Update the minimum distance and path if this one is shorter
+        if current_distance < min_distance:
+            min_distance = current_distance
+            shortest_path = perm
+    
+    return list(shortest_path) + [shortest_path[0]] 
 
 def nearest_neighbor_first(points, dist, debug=False):
     """
