@@ -1,84 +1,111 @@
-# Traveling Salesman Problem (TSP): Given a weighted graph G = (V, E), find the Hamiltonian circuit with the minimum weight.
-# What I need to do is: (find the instances)
-# 1) Initialization: Start from a random node in the graph.
-# 2) Build the path: At each iteration, choose the next node to visit (among the 𝑘 closest nodes, sorted according to a greedy rule like the minimum distance).
-# 3) Randomization: Randomly select the next node to visit among these 𝑘 nodes, to introduce uncertainty.
-# Not executing this step could lead to a deterministic algorithm.
-# 4) Continue: Repeat the process until all nodes are covered.
-# 5) Close the circuit by returning to the starting node.
-
+import argparse
 from my_utils import *
 from tester import *
-n = 10
-maxcoord = 100
 
-#_____________________________________________
-points, dist = get_or_create_graph_data(n, maxcoord, use_existing=False, debug=False)
-path= brute_force_tsp(points, dist)
-print_in_square("Brute force", path)
-
-if check_path(points, path):
-    print("Brute force is correct")
-else:
-    print("Brute force is not correct")
-
-path_length(dist, path)
-reset_points(points)
-research_path_time(points, dist, brute_force_tsp)
-
-reset_points(points)
-average_research_path_time(points, dist, brute_force_tsp)
-
-#_____________________________________________
-points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
-path = nearest_neighbor_first(points, dist)
-print_in_square("Path 1", path)
-
-path_length(dist, path)
-
-if check_path(points, path):
-    print("Path 1 is correct")
-else:
-    print("Path 1 is not correct")
-  
-reset_points(points)
-research_path_time(points, dist, nearest_neighbor_first)
-
-reset_points(points)
-average_research_path_time(points, dist, nearest_neighbor_first)
-
-
+def main():
+    # Argument parser
+    parser = argparse.ArgumentParser(description="Solve the Traveling Salesman Problem (TSP) with various algorithms.")
     
-#_____________________________________________
-points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
-path = nearest_neighbor_second(points, dist)
-print_in_square("Path 2", path)
-if check_path(points, path):
-    print("Path 2 is correct")
-else:
-    print("Path 2 is not correct")
+    # Boolean to use existing data or create new data
+    parser.add_argument('-u_e','--use_existing', action='store_true', help="Boolean to indicate whether to use existing graph data.")
+    
+    # Number of points in the graph
+    parser.add_argument('-n', type=int, default=10, help="Number of points in the graph.")
+    
+    # Maximum value for the coordinates
+    parser.add_argument('-m', '--maxcoord', type=int, default=100, help="Maximum coordinate value for points.")
+    
+    # Boolean to run tests
+    parser.add_argument('-t', '--test',  action='store_true', help="Boolean to indicate whether to run tests.")
+    
+    # Boolean to test the data creation/loading
+    parser.add_argument('-dd', '--data_debug', action='store_true', help="Boolean to indicate whether to print debug information.")
+    
+    # Parse the command-line arguments
+    args = parser.parse_args()
+    print(args); input()
+    # Use the values passed from the command line
+    n = args.n
+    maxcoord = args.maxcoord
+    use_existing = args.use_existing
+    run_tests = args.test
+    data_debug = args.data_debug
 
-path_length(dist, path)
+    #_____________________________________________
+    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=use_existing, debug=data_debug)
+    path = brute_force_tsp(points, dist)
+    print_in_square("Brute force", path)
 
-reset_points(points)
-research_path_time(points, dist, nearest_neighbor_first)
+    if run_tests:
+        if check_path(points, path):
+            print("Brute force is correct")
+        else:
+            print("Brute force is not correct")
 
-reset_points(points)
-average_research_path_time(points, dist, nearest_neighbor_first)
+        path_length(dist, path)
+        reset_points(points)
+        research_path_time(points, dist, brute_force_tsp)
 
-#_____________________________________________
-points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
-path = nearest_neighbor_random(points, dist)
-print_in_square("Path 3", path)
-if check_path(points, path):
-    print("Path 3 is correct")
-else:
-    print("Path 3 is not correct")
+        reset_points(points)
+       # average_research_path_time(points, dist, brute_force_tsp, num_runs=5)
 
-path_length(dist, path)
+    #_____________________________________________
+    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=data_debug)
+    path = nearest_neighbor_first(points, dist)
+    print_in_square("Path 1", path)
 
-reset_points(points)
-research_path_time(points, dist, nearest_neighbor_first)
+    if run_tests:
+        path_length(dist, path)
 
-reset_points(points)
-average_research_path_time(points, dist, nearest_neighbor_first)
+        if check_path(points, path):
+            print("Path 1 is correct")
+        else:
+            print("Path 1 is not correct")
+
+        reset_points(points)
+        research_path_time(points, dist, nearest_neighbor_first)
+
+        reset_points(points)
+        average_research_path_time(points, dist, nearest_neighbor_first)
+
+    #_____________________________________________
+    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=data_debug)
+    path = nearest_neighbor_second(points, dist)
+    print_in_square("Path 2", path)
+    
+    if run_tests:
+        if check_path(points, path):
+            print("Path 2 is correct")
+        else:
+            print("Path 2 is not correct")
+
+        path_length(dist, path)
+
+        reset_points(points)
+        research_path_time(points, dist, nearest_neighbor_second)
+
+        reset_points(points)
+        average_research_path_time(points, dist, nearest_neighbor_second)
+
+    #_____________________________________________
+    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=data_debug)
+    path = nearest_neighbor_random(points, dist)
+    print_in_square("Path 3", path)
+    
+    if run_tests:
+        if check_path(points, path):
+            print("Path 3 is correct")
+        else:
+            print("Path 3 is not correct")
+
+        path_length(dist, path)
+
+        reset_points(points)
+        research_path_time(points, dist, nearest_neighbor_random)
+
+        reset_points(points)
+        average_research_path_time(points, dist, nearest_neighbor_random)
+
+
+if __name__ == "__main__":
+    main()
