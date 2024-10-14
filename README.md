@@ -18,7 +18,7 @@ This repository contains a solution to the **Traveling Salesman Problem (TSP)** 
    
 2. **Nearest Neighbor Algorithm with random choice**: A greedy algorithm that starts from a random point and at each step selects casually between the nearest unvisited neighbor and the second unvisited neighbor.
 
-3.**Brute Force**: This algorithm finds the shortest path by calculating the distance for every possible permutation of points. It guarantees the optimal solution but is computationally expensive for large graphs.
+3. **Brute Force**: This algorithm finds the shortest path by calculating the distance for every possible permutation of points. It guarantees the optimal solution but is computationally expensive for large graphs.
 
 ## How to Use
 
@@ -47,13 +47,13 @@ You can run the project from the command line using the `main.py` script. Severa
 
 ### Example Commands
 
-Generate a graph with 10 points, run the brute force algorithm, and test its correctness:
+Generate a graph with 10 points, and 100 as maximum value for the coordinates, run all the algorithms without running tests:
 ```bash
-python main.py -n 10 -t
+python main.py -n 10 -m 100
 ```
-Use existing graph data and run all the algorithms without running tests:
+Use existing graph data, run and all the algorithms:
 ```bash
-python main.py --use_existing
+python main.py --use_existing -t
 ```
 Enable debug mode to print additional information during data creation:
 ```bash
@@ -78,7 +78,7 @@ The project includes a testing framework to ensure the correctness of the algori
 - path_length(): Computes the total length of a given path.
 - research_path_time(): Measures the execution time of the algorithms.
 - average_research_path_time(): Averages the research time over multiple runs.
-- 
+
 ## Future Improvements
 
 - Implement other heuristic algorithms like Simulated Annealing or Genetic Algorithms to compare their performance with the nearest neighbor approach.
