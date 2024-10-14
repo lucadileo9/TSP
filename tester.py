@@ -45,7 +45,6 @@ def check_path(points, path):
             return False
     return True
 
-# Funzione che calcoli la lunghezza del percorso
 def path_length(dist, path):
     """
     Computes the length of a given path in a graph.
@@ -63,7 +62,6 @@ def path_length(dist, path):
     for i in range(len(path) - 1):
         length += dist[path[i],path[i + 1]]
     print("Path length:", round(length,2))
-
 
 def make_readable_time(time):
     """
@@ -103,7 +101,6 @@ def research_path_time(points, dist, function):
     time=end-start
     readable_time = make_readable_time(time)    
     print("Execution time:", readable_time)
-
 
 def average_research_path_time(points, dist, function, num_runs=1000):
     """

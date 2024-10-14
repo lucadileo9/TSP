@@ -17,19 +17,19 @@ points, dist = get_or_create_graph_data(n, maxcoord, use_existing=False, debug=F
 path = nearest_neighbor_first(points, dist)
 print_in_square("Path 1", path)
 
+path_length(dist, path)
 
 if check_path(points, path):
     print("Path 1 is correct")
 else:
     print("Path 1 is not correct")
-    
+  
 reset_points(points)
 research_path_time(points, dist, nearest_neighbor_first)
 
 reset_points(points)
 average_research_path_time(points, dist, nearest_neighbor_first)
 
-path_length(dist, path)
 
     
 #_____________________________________________
@@ -40,15 +40,14 @@ if check_path(points, path):
     print("Path 2 is correct")
 else:
     print("Path 2 is not correct")
-    
+
+path_length(dist, path)
+
 reset_points(points)
 research_path_time(points, dist, nearest_neighbor_first)
 
 reset_points(points)
 average_research_path_time(points, dist, nearest_neighbor_first)
-
-path_length(dist, path)
-
 
 #_____________________________________________
 points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
@@ -59,11 +58,10 @@ if check_path(points, path):
 else:
     print("Path 3 is not correct")
 
+path_length(dist, path)
+
 reset_points(points)
 research_path_time(points, dist, nearest_neighbor_first)
 
 reset_points(points)
 average_research_path_time(points, dist, nearest_neighbor_first)
-
-path_length(dist, path)
-
