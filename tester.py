@@ -4,6 +4,9 @@
 #  - the path is closed,
 #  - all nodes are present,
 #  - the nodes are part of the graph.
+import timeit
+from my_utils import reset_points
+
 def check_path(points, path):
     """
     Validates a given path in a graph.
@@ -41,3 +44,92 @@ def check_path(points, path):
             print("The path contains nodes more than once")
             return False
     return True
+
+# Funzione che calcoli la lunghezza del percorso
+def path_length(dist, path):
+    """
+    Computes the length of a given path in a graph.
+
+    This function calculates the total length of the given path by summing the distances between consecutive nodes.
+
+    Parameters:
+        dist (list): A 2D list representing the distances between nodes in the graph.
+        path (list): A list representing the path for which the length is to be calculated.
+
+    Returns:
+        float: The total length of the path.
+    """
+    length = 0
+    for i in range(len(path) - 1):
+        length += dist[path[i],path[i + 1]]
+    print("Path length:", round(length,2))
+
+
+def make_readable_time(time):
+    """
+    Convert a time duration in seconds to a human-readable string format.
+
+    Parameters:
+    time (float): The time duration in seconds.
+
+    Returns:
+    str: A string representing the time duration in a more readable format, 
+         using nanoseconds, microseconds, milliseconds, or seconds as appropriate.
+    """
+    if time < 1e-6:
+        readable_time = f"{time * 1e9:.2f} nanoseconds"  # nanosecondi
+    elif time < 1e-3:
+        readable_time = f"{time * 1e6:.2f} microseconds"  # microsecondi
+    elif time < 1:
+        readable_time = f"{time * 1e3:.2f} milliseconds"  # millisecondi
+    else:
+        readable_time = f"{time:.2f} s"         # secondi
+    return readable_time
+
+def research_path_time(points, dist, function):
+    """
+    Measures the execution time of a given function on a set of parameters.
+
+    This function calculates the time taken to execute the given function on the provided parameters.
+
+    Parameters:
+        points (list): A list of nodes in the graph.
+        dist (list): A 2D list representing the distances between nodes in the graph.
+        function (function): The function to be executed
+    """
+    start = timeit.default_timer()
+    function(points, dist)
+    end = timeit.default_timer()
+    time=end-start
+    readable_time = make_readable_time(time)    
+    print("Execution time:", readable_time)
+
+
+def average_research_path_time(points, dist, function, num_runs=1000):
+    """
+    Measures the execution time of a given function on a set of parameters.
+
+    This function calculates the time taken to execute the given function multiple times
+    and print the average time in a readble format.
+
+    Parameters:
+        points (list): A list of nodes in the graph.
+        dist (list): A 2D list representing the distances between nodes in the graph.
+        function (function): The function to be executed.
+        num_runs (int): The number of times the function is executed to calculate the average time.
+    
+    Returns:
+        print the average time in a readble format.
+    """
+
+    def wrapper():
+        function(points, dist)
+        reset_points(points)
+        
+
+    # Misura il tempo totale su num_runs esecuzioni e calcola la media
+    total_time = timeit.timeit(wrapper, number=num_runs)
+    avg_time = total_time / num_runs
+    readable_time = make_readable_time(avg_time)
+    
+    print(f"Average execution time over {num_runs} runs: {readable_time}")

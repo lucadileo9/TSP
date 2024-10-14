@@ -8,18 +8,30 @@
 # 5) Close the circuit by returning to the starting node.
 
 from my_utils import *
-from tester import check_path
-n = 5
+from tester import *
+n = 10
 maxcoord = 100
 
 #_____________________________________________
 points, dist = get_or_create_graph_data(n, maxcoord, use_existing=False, debug=False)
 path = nearest_neighbor_first(points, dist)
 print_in_square("Path 1", path)
+
+
 if check_path(points, path):
     print("Path 1 is correct")
 else:
     print("Path 1 is not correct")
+    
+reset_points(points)
+research_path_time(points, dist, nearest_neighbor_first)
+
+reset_points(points)
+average_research_path_time(points, dist, nearest_neighbor_first)
+
+path_length(dist, path)
+
+    
 #_____________________________________________
 points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
 path = nearest_neighbor_second(points, dist)
@@ -28,6 +40,16 @@ if check_path(points, path):
     print("Path 2 is correct")
 else:
     print("Path 2 is not correct")
+    
+reset_points(points)
+research_path_time(points, dist, nearest_neighbor_first)
+
+reset_points(points)
+average_research_path_time(points, dist, nearest_neighbor_first)
+
+path_length(dist, path)
+
+
 #_____________________________________________
 points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=False)
 path = nearest_neighbor_random(points, dist)
@@ -36,3 +58,12 @@ if check_path(points, path):
     print("Path 3 is correct")
 else:
     print("Path 3 is not correct")
+
+reset_points(points)
+research_path_time(points, dist, nearest_neighbor_first)
+
+reset_points(points)
+average_research_path_time(points, dist, nearest_neighbor_first)
+
+path_length(dist, path)
+

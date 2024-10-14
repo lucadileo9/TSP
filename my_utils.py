@@ -279,3 +279,12 @@ def print_in_square(title, content):
     print(f"| {title.ljust(max_length)} |")  # Align the title to the left
     print(f"| {str(content).ljust(max_length)} |")  # Print the content aligned to the left
     print(border)
+    
+def reset_points(points):
+    """
+    Resets the visited flag for all points in the list.
+    Args:
+        points (list): A list of points where each point is represented as a tuple (coordinate, visited_flag).
+    """
+    for i in range(len(points)):
+        points[i] = (points[i][0], False)
