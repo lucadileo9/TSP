@@ -1,7 +1,9 @@
 import random
 import tsp_utils 
 import pickle
+from tqdm import tqdm
 import itertools
+import math
 
 def brute_force_tsp(points, dist):
     """
@@ -31,8 +33,11 @@ def brute_force_tsp(points, dist):
     min_distance = float('inf')
     shortest_path = None
 
-    # Explore each possible permutation
-    for perm in permutations:
+    # Total number of permutations
+    total_permutations = math.factorial(n)
+
+    # Explore each possible permutation with a progress bar
+    for perm in tqdm(permutations, total=total_permutations, desc="Exploring permutations"):
         # Calculate the distance of this path
         current_distance = 0
         for i in range(n - 1):
@@ -46,7 +51,7 @@ def brute_force_tsp(points, dist):
             min_distance = current_distance
             shortest_path = perm
     
-    return list(shortest_path) + [shortest_path[0]] 
+    return list(shortest_path) + [shortest_path[0]]
 
 def nearest_neighbor_first(points, dist, debug=False):
     """

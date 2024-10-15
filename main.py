@@ -23,7 +23,7 @@ def main():
     
     # Parse the command-line arguments
     args = parser.parse_args()
-    print(args); input()
+    print(args); 
     # Use the values passed from the command line
     n = args.n
     maxcoord = args.maxcoord
