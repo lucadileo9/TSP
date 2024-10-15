@@ -107,10 +107,6 @@ def randomEuclGraph (n, maxcoord):
     for i in range(n):
         points[i] = (points[i], False)
     
-    for key in list(dist):
-        if key[0] == key[1]:
-            del dist[key]
-            
     # Modifico le distanze in modo che abbiano al più due cifre decimali
     for key in dist.keys():
         dist[key] = round(dist[key], 2)
@@ -129,7 +125,8 @@ def randomGraphGeo (n, d):
     n number of vertices
     d max distance between two connected vertices 
     """
-    points = [(random.random(), random.random()) for i in range(n)]
+    points = [(round(random.random(),2), round(random.random(),2)) for i in range(n)]            
+
     dist = {}
     for i in range(len(points)-1):
         for j in range(i+1,len(points)): 
@@ -137,6 +134,16 @@ def randomGraphGeo (n, d):
             dij = math.sqrt(sum((points[i][k]-points[j][k])**2 for k in range(2)))
             if dij < d:
                 dist.update({(i,j) : dij})
+                dist.update({(j,i) : dij})
+    
+    
+    # Modifico le distanze in modo che abbiano al più due cifre decimali
+    for key in dist.keys():
+        dist[key] = round(dist[key], 4)
+    
+    # Adesso aggiungo che ogni punto ha un flag che indica se è stato visitato o meno
+    for i in range(n):
+        points[i] = (points[i], False)
     
     return points, dist
 
@@ -150,7 +157,7 @@ def randomGraph2D (n, p):
     n number of vertices
     d max distance between two connected vertices 
     """
-    points = [(random.random(), random.random()) for i in range(n)]
+    points = [(round(random.random(),2), round(random.random(),2)) for i in range(n)]
     dist = {}
     for i in range(len(points)-1):
         for j in range(i+1,len(points)): 
@@ -158,7 +165,16 @@ def randomGraph2D (n, p):
             dij = math.sqrt(sum((points[i][k]-points[j][k])**2 for k in range(2)))
             if prob < p:
                 dist.update({(i,j) : dij})
+                dist.update({(j,i) : dij})
     
+    # Modifico le distanze in modo che abbiano al più due cifre decimali
+    for key in dist.keys():
+        dist[key] = round(dist[key], 4)
+    
+    # Adesso aggiungo che ogni punto ha un flag che indica se è stato visitato o meno
+    for i in range(n):
+        points[i] = (points[i], False)
+        
     return points, dist    
 
 def readTSPLIB(file_path):

@@ -1,6 +1,7 @@
 import argparse
 from my_utils import *
 from tester import *
+from tsp_utils import *
 
 def main():
     # Argument parser
@@ -13,7 +14,7 @@ def main():
     parser.add_argument('-n', type=int, default=10, help="Number of points in the graph.")
     
     # Maximum value for the coordinates
-    parser.add_argument('-m', '--maxcoord', type=int, default=100, help="Maximum coordinate value for points.")
+    parser.add_argument('-s', '--second_parametr', type=int, default=100, help="Second parameter of the function.")
     
     # Boolean to run tests
     parser.add_argument('-t', '--test',  action='store_true', help="Boolean to indicate whether to run tests.")
@@ -32,7 +33,7 @@ def main():
     data_debug = args.data_debug
 
     #_____________________________________________
-    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=use_existing, debug=data_debug)
+    points, dist = get_or_create_graph_data(n, maxcoord, function=randomGraphGeo, use_existing=use_existing, debug=data_debug)
     path = brute_force_tsp(points, dist)
     print_in_square("Brute force", path)
 
@@ -50,7 +51,7 @@ def main():
        # average_research_path_time(points, dist, brute_force_tsp, num_runs=5)
 
     #_____________________________________________
-    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=data_debug)
+    reset_points(points)
     path = nearest_neighbor_first(points, dist)
     print_in_square("Path 1", path)
 
@@ -69,7 +70,7 @@ def main():
         average_research_path_time(points, dist, nearest_neighbor_first)
 
     #_____________________________________________
-    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=data_debug)
+    reset_points(points)
     path = nearest_neighbor_second(points, dist)
     print_in_square("Path 2", path)
     
@@ -88,7 +89,7 @@ def main():
         average_research_path_time(points, dist, nearest_neighbor_second)
 
     #_____________________________________________
-    points, dist = get_or_create_graph_data(n, maxcoord, use_existing=True, debug=data_debug)
+    reset_points(points)
     path = nearest_neighbor_random(points, dist)
     print_in_square("Path 3", path)
     

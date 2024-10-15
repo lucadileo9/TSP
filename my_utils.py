@@ -256,7 +256,7 @@ def nearest_neighbor_random(points, dist, debug=False):
     path.append(last_point)
     return path
 
-def get_or_create_graph_data(n, maxcoord, file_name='graph_data.pkl', use_existing=True, debug=False):
+def get_or_create_graph_data(n, maxcoord, function, file_name='graph_data.pkl', use_existing=True, debug=False):
     """
     Generates or loads graph data for a Traveling Salesman Problem (TSP) instance.
     This function either loads existing graph data from a file or generates new data
@@ -265,6 +265,7 @@ def get_or_create_graph_data(n, maxcoord, file_name='graph_data.pkl', use_existi
     Parameters:
         n (int): The number of points (nodes) in the graph.
         maxcoord (int): The maximum coordinate value for the points.
+        function (function): The function to generate the graph data. 
         file_name (str, optional): The name of the file to load from or save to. Defaults to 'graph_data.pkl'.
         use_existing (bool, optional): If True, attempts to load existing data from the file. If False, generates new data. Defaults to True.
         debug (bool, optional): If True, prints debug information. Defaults to False.
@@ -285,7 +286,7 @@ def get_or_create_graph_data(n, maxcoord, file_name='graph_data.pkl', use_existi
         except FileNotFoundError:
             # If the file doesn't exist, generate new data
             print(f'File {file_name} not found. Generating new data.')
-            points, dist = tsp_utils.randomEuclGraph(n, maxcoord)
+            points, dist = function(n, maxcoord)
             # Save the new data to file
             with open(file_name, 'wb') as f:
                 pickle.dump((points, dist), f)
@@ -295,7 +296,7 @@ def get_or_create_graph_data(n, maxcoord, file_name='graph_data.pkl', use_existi
                 print("Generated distances:", dist)
     else:
         # Generate new data without trying to load from file
-        points, dist = tsp_utils.randomEuclGraph(n, maxcoord)
+        points, dist = function(n, maxcoord)
         # Save the new data to file
         with open(file_name, 'wb') as f:
             pickle.dump((points, dist), f)
