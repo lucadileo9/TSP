@@ -27,7 +27,7 @@ def main():
     print(args); 
     # Use the values passed from the command line
     n = args.n
-    maxcoord = args.maxcoord
+    maxcoord = args.second_parametr
     use_existing = args.use_existing
     run_tests = args.test
     data_debug = args.data_debug
@@ -43,11 +43,11 @@ def main():
         else:
             print("Brute force is not correct")
 
-        path_length(dist, path)
+        path_length(dist, path, print_length=True)
         reset_points(points)
-        research_path_time(points, dist, brute_force_tsp)
+        research_path_time(points, dist, brute_force_tsp, print_time=True)
 
-        reset_points(points)
+       # reset_points(points)
        # average_research_path_time(points, dist, brute_force_tsp, num_runs=5)
 
     #_____________________________________________
@@ -56,18 +56,19 @@ def main():
     print_in_square("Path 1", path)
 
     if run_tests:
-        path_length(dist, path)
 
         if check_path(points, path):
             print("Path 1 is correct")
         else:
             print("Path 1 is not correct")
+        
+        path_length(dist, path, print_length=True)
 
         reset_points(points)
-        research_path_time(points, dist, nearest_neighbor_first)
+        research_path_time(points, dist, nearest_neighbor_first, print_time=True)
 
         reset_points(points)
-        average_research_path_time(points, dist, nearest_neighbor_first)
+        average_research_path_time(points, dist, nearest_neighbor_first, print_time=True)
 
     #_____________________________________________
     reset_points(points)
@@ -80,13 +81,13 @@ def main():
         else:
             print("Path 2 is not correct")
 
-        path_length(dist, path)
+        path_length(dist, path, print_length=True)
 
         reset_points(points)
-        research_path_time(points, dist, nearest_neighbor_second)
+        research_path_time(points, dist, nearest_neighbor_second, print_time=True)
 
         reset_points(points)
-        average_research_path_time(points, dist, nearest_neighbor_second)
+        average_research_path_time(points, dist, nearest_neighbor_second, print_time=True)
 
     #_____________________________________________
     reset_points(points)
@@ -99,13 +100,13 @@ def main():
         else:
             print("Path 3 is not correct")
 
-        path_length(dist, path)
+        path_length(dist, path, print_length=True)
 
         reset_points(points)
-        research_path_time(points, dist, nearest_neighbor_random)
+        research_path_time(points, dist, nearest_neighbor_random, print_time=True)
 
         reset_points(points)
-        average_research_path_time(points, dist, nearest_neighbor_random)
+        average_research_path_time(points, dist, nearest_neighbor_random, print_time=True)
 
 
 if __name__ == "__main__":
