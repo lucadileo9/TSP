@@ -25,7 +25,9 @@ def brute_force_tsp(points, dist):
         The total distance of the shortest path.
     """
     n = len(points)
-    
+    if n>10:
+        print("The number of points is too high to calculate the brute force solution.")
+        return None
     # Generate all permutations of points (ignoring the 'visited' flag)
     permutations = itertools.permutations(range(n))
     
