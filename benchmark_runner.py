@@ -16,7 +16,28 @@ def save_results(results, output_file):
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=4)
 
-def insert_results(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time):
+def print_results(results):
+    """
+    Stampa in maniera chiara e leggibile i risultati contenuti nel dizionario.
+    Il dizionario ha chiavi come tuple (num_vertices, max_coord) e valori come liste di tuple
+    (path_distance, execution_time, average_execution_time).
+    
+    Parametri:
+    results (dict): Dizionario che contiene i risultati delle istanze TSP.
+    """
+    for key, values in results.items():
+        num_vertices, max_coord = key
+        print(f"Numero Vertici: {num_vertices}, Max Coordinata: {max_coord}")
+        print("--------------------------------------------------------")
+        print(f"{'Path Distance':<20} {'Execution Time (s)':<20} {'Avg Execution Time (s)':<25}")
+        print("-" * 65)
+        
+        for path_distance, execution_time, avg_execution_time in values:
+            print(f"{path_distance:<20.5f} {execution_time:} {avg_execution_time:}")
+        
+        print("\n")  # Stampa una riga vuota tra le diverse combinazioni
+
+def insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time):
     """
     Inserts the results of a TSP benchmark into the results dictionary.
     Parameters:
@@ -38,27 +59,6 @@ def insert_results(results, num_vertices, max_coord, path_distance, execution_ti
     
     # Aggiungi i nuovi risultati alla lista
     results[key].append((path_distance, execution_time, average_execution_time))
-
-def print_results(results):
-    """
-    Stampa in maniera chiara e leggibile i risultati contenuti nel dizionario.
-    Il dizionario ha chiavi come tuple (num_vertices, max_coord) e valori come liste di tuple
-    (path_distance, execution_time, average_execution_time).
-    
-    Parametri:
-    results (dict): Dizionario che contiene i risultati delle istanze TSP.
-    """
-    for key, values in results.items():
-        num_vertices, max_coord = key
-        print(f"Numero Vertici: {num_vertices}, Max Coordinata: {max_coord}")
-        print("--------------------------------------------------------")
-        print(f"{'Path Distance':<20} {'Execution Time (s)':<20} {'Avg Execution Time (s)':<25}")
-        print("-" * 65)
-        
-        for path_distance, execution_time, avg_execution_time in values:
-            print(f"{path_distance:<20.5f} {execution_time:} {avg_execution_time:}")
-        
-        print("\n")  # Stampa una riga vuota tra le diverse combinazioni
 
 def generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function):
     """
@@ -85,7 +85,7 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
     
     total_files = len(num_vertices_list) * len(max_coords_list) * num_instances
     results = {}
-    with tqdm(total=total_files, desc="Esecuzione benchmark TSP") as pbar:
+    with tqdm(total=total_files, desc=f"Esecuzione benchmark of {function.__name__} on {input_dir.split("/")[1]}") as pbar:
             for num_vertices in num_vertices_list: # For each number of vertices
                     for max_coord in max_coords_list:  # For each maximum coordinate value     --> this create all the possible combinations
                         
@@ -102,7 +102,7 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 execution_time = research_path_time(points, dist, function)
                                 average_execution_time = average_research_path_time(points, dist, function, num_runs=1000)
                                 
-                                insert_results(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)
+                                insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)
                                 
                                 instance_bar.update(1)
                                 pbar.update(1)  
