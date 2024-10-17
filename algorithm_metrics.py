@@ -131,8 +131,6 @@ def average_research_path_time(points, dist, function, num_runs=1000, print_time
     def wrapper():
         function(points, dist)
         reset_points(points)
-        
-
     # Misura il tempo totale su num_runs esecuzioni e calcola la media
     total_time = timeit.timeit(wrapper, number=num_runs)
     avg_time = total_time / num_runs

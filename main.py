@@ -1,6 +1,6 @@
 import argparse
 from my_utils import *
-from tester import *
+from algorithm_metrics import *
 from tsp_utils import *
 
 def main():

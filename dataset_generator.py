@@ -92,7 +92,7 @@ import tsp_utils
 import shutil
 from tqdm import tqdm
 
-def generate_all_benchmark():
+def generate_all_dataset():
     """
     Generates benchmark datasets for different types of graphs and saves them to specified directories.
 
@@ -109,11 +109,11 @@ def generate_all_benchmark():
     Returns:
     None
     """
-    generate_benchmark([10, 50, 100, 500, 1000], [50, 100, 1000], tsp_utils.randomEuclGraph, 20, "./data/euclidean")
-    generate_benchmark([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraphGeo, 20, "./data/graphGeo")
-    generate_benchmark([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraph2D, 20, "./data/graph2D")    
+    generate_dataset([10, 50, 100, 500, 1000], [50, 100, 1000], tsp_utils.randomEuclGraph, 20, "./data/euclidean")
+    generate_dataset([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraphGeo, 20, "./data/graphGeo")
+    generate_dataset([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraph2D, 20, "./data/graph2D")    
     
-def generate_benchmark(num_vertices_list, max_coords_list, function,  num_instances, output_dir):
+def generate_dataset(num_vertices_list, max_coords_list, function,  num_instances, output_dir):
     """
     Generates random Euclidean graphs and saves them in structured folders.
 
@@ -161,7 +161,33 @@ def generate_benchmark(num_vertices_list, max_coords_list, function,  num_instan
                             instance_bar.update(1)
                             pbar.update(1)
 
+def clean_directory(dir_path):
+    """
+    Empties the specified directory.
 
+    Parameters:
+    dir_path (str): The path of the directory to empty.
+
+    Returns:
+    None
+    """
+    # Controlla se la directory esiste
+    if os.path.exists(dir_path):
+        # Itera attraverso tutti i file e le sottodirectory nella directory
+        for filename in os.listdir(dir_path):
+            file_path = os.path.join(dir_path, filename)
+            try:
+                # Se è un file, lo rimuove
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.remove(file_path)
+                # Se è una directory, la rimuove ricorsivamente
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                print(f'Error removing {file_path}: {e}')
+    else:
+        print(f"The directory {dir_path} does not exist.")
+        
 def load_graph_data(file_path):
     """
     Carica i dati del grafo da un file CSV e restituisce le coordinate dei punti e le distanze.
@@ -208,32 +234,7 @@ def load_graph_data(file_path):
 
     return points, dist
 
-def clean_directory(dir_path):
-    """
-    Empties the specified directory.
 
-    Parameters:
-    dir_path (str): The path of the directory to empty.
-
-    Returns:
-    None
-    """
-    # Controlla se la directory esiste
-    if os.path.exists(dir_path):
-        # Itera attraverso tutti i file e le sottodirectory nella directory
-        for filename in os.listdir(dir_path):
-            file_path = os.path.join(dir_path, filename)
-            try:
-                # Se è un file, lo rimuove
-                if os.path.isfile(file_path) or os.path.islink(file_path):
-                    os.remove(file_path)
-                # Se è una directory, la rimuove ricorsivamente
-                elif os.path.isdir(file_path):
-                    shutil.rmtree(file_path)
-            except Exception as e:
-                print(f'Error removing {file_path}: {e}')
-    else:
-        print(f"The directory {dir_path} does not exist.")
 if __name__ == "__main__":
     clean_directory('./data')
-    generate_all_benchmark()
+    generate_all_dataset()
