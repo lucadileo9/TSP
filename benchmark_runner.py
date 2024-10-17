@@ -61,6 +61,27 @@ def print_results(results):
         print("\n")  # Stampa una riga vuota tra le diverse combinazioni
 
 def generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function):
+    """
+    Generates statistics for the Traveling Salesman Problem (TSP) benchmark.
+    This function iterates over combinations of vertex counts and maximum coordinate values,
+    runs a specified TSP algorithm on generated instances, and collects performance metrics.
+    Args:
+        num_vertices_list (list of int): List of different numbers of vertices to test.
+        max_coords_list (list of int): List of different maximum coordinate values to test.
+        num_instances (int): Number of instances to generate for each combination of vertices and coordinates.
+        input_dir (str): Directory where the input instances are stored.
+        function (callable): The TSP algorithm function to be tested. It should take points and distance matrix as input and return a path.
+    Returns:
+        dict: A dictionary containing the results of the benchmarks, including path distances, execution times, and average execution times.
+        results = {
+                                (num_vertices, max_coord): [
+                                    (path_distance_1, execution_time_1, average_execution_time_1),
+                                    (path_distance_2, execution_time_2, average_execution_time_2),
+                                    ...
+                                ],
+                                ...
+                    }
+        """
     
     total_files = len(num_vertices_list) * len(max_coords_list) * num_instances
     results = {}
@@ -89,6 +110,17 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
             return results
             
 def generate_all_statistics():
+    """
+    Generates and prints statistics for various TSP instances using different algorithms.
+    This function iterates over a list of TSP solving functions and input directories,
+    generating statistics for each combination of number of vertices, maximum coordinates,
+    and number of instances. The results are then printed.
+    Parameters:
+    None
+    Returns:
+    None
+    """
+    
     num_vertices_list= [10, 50, 100, 500, 1000]
     max_coords_list = [50, 100, 1000]
     num_instances = 20
