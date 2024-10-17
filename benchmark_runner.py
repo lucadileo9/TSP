@@ -1,4 +1,3 @@
-
 import os, json
 from tqdm import tqdm
 from my_utils import *
@@ -62,9 +61,9 @@ def print_results(results):
         print("\n")  # Stampa una riga vuota tra le diverse combinazioni
 
 def generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function):
+    
     total_files = len(num_vertices_list) * len(max_coords_list) * num_instances
     results = {}
-
     with tqdm(total=total_files, desc="Esecuzione benchmark TSP") as pbar:
             for num_vertices in num_vertices_list: # For each number of vertices
                     for max_coord in max_coords_list:  # For each maximum coordinate value     --> this create all the possible combinations
@@ -74,7 +73,7 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 # Create the path of the file
                                 instance_path = os.path.join(input_dir, f"NumVertices_{num_vertices}", f"MaxVal_{max_coord}", f"instance_{instance_num}.csv")
                                 # Load the graph graph
-                                points, dist = load_graph_data(instance_path)
+                                points, dist = load_graph_data(instance_path) # Try catch ?????????????
                                 # Run the algorithm
                                 path= function(points, dist) # oppure la funzione passata come parametro 
                                 # Compute the metrics
@@ -86,9 +85,25 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 
                                 instance_bar.update(1)
                                 pbar.update(1)  
-            save_results(results, "better_name.json")   
+            save_results(results, f"{function.__name__}_{input_dir.split("/")[1]}_results.json")   
             return results
-                # La struttura dati per memorizzare queste info sarà fatta così:
+            
+def generate_all_statistics():
+    num_vertices_list= [10, 50, 100, 500, 1000]
+    max_coords_list = [50, 100, 1000]
+    num_instances = 20
+    input_dir = ["data/euclidean", "data/graph2D", "data/graphGeo"]
+    functions = [nearest_neighbor_first, nearest_neighbor_random]
+    for function in functions:
+        for dir in input_dir:
+            dictionary = generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function)
+            print_results(dictionary)
+    
+if __name__ == "__main__":
+    generate_all_statistics()
+
+
+# La struttura dati per memorizzare queste info sarà fatta così:
                 # dizionario chaive = coppia (num_vertices, max_coord) e valore = lista di tuple (path_distance, execution_time, average_execution_time)
                 # Ci sarà un dizionario per ogni algoritmo
                 # Visivamente:
@@ -119,11 +134,3 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                 #             ]
                 #         }
                 
-# Allora adesso ho salvato tutti i grafi in file csv che faranno parte del mio benchmarks. Adesso ho bisogno di chiamare il mio algoritmo nearest_neighbor_first su ogni istanza. E in seguito ottenere i dati statistici dell'algoritmo.
-num_vertices_list= [10, 50, 100, 500, 1000]
-max_coords_list = [50, 100, 1000]
-num_instances = 20
-input_dir = "./data/euclidean"
-function = nearest_neighbor_first
-dictionary = generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function)
-print_results(dictionary)
