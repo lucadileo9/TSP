@@ -1,105 +1,177 @@
 import matplotlib.pyplot as plt
 from benchmark_runner import *  
+import numpy as np
+from enum import Enum
 
+class DataType(Enum):
+    DISTANCE = (0,'Distance', 'Path Distance per Instance')
+    TIME = (1, "Execution Time", 'Execution Time per Instance')
+    AVG_TIME = (2, "Average Execution Time", 'Average Execution Time per Instance')
+
+    def get_number(self):
+        return self.value[0]
+    def get_name(self):
+        return self.value[1]
+    def get_title(self):
+        return self.value[2]
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+def plot_two_bar_charts(file_name_1, file_name_2, data_type: DataType):
+    results_1 = load_results(file_name_1)
+    results_2 = load_results(file_name_2)
 
-import matplotlib.pyplot as plt
-import numpy as np
+    # Creiamo i grafici con una griglia 1x2
+    fig, axes = plt.subplots(1, 2, figsize=(15, 6))  # Due grafici affiancati
+    cmap = plt.colormaps['tab20']  # Mappa di colori
 
-# Dati di esempio (results)
-results = {
-    (10, 50): [(12, "info1", "info2"), (14, "info3", "info4")],
-    (50, 100): [(50, "info1", "info2"), (53, "info3", "info4")],
-    (100, 50): [(120, "info1", "info2"), (140, "info3", "info4")],
-    (500, 1000): [(600, "info1", "info2"), (640, "info3", "info4")]
-}
-results = load_results("nearest_neighbor_random_euclidean_results.json")
-# Imposto il numero di grafici da disporre in una griglia (es. 2x2)
-n_graphs = len(results)
-cols = 5  # Numero di colonne
-rows = (n_graphs // cols) + (n_graphs % cols > 0)  # Numero di righe
-
-fig, axs = plt.subplots(rows, cols, figsize=(12, 8))
-
-# Flatten degli assi per poterli usare in un ciclo
-axs = axs.ravel()
-
-# Iteriamo su ciascuna combinazione di numero di vertici e massimo numero di coordinate
-for i, ((num_vertices, max_coord), distances_info) in enumerate(results.items()):
-    distances = [info[0] for info in distances_info]
-    instances = [f'Instance {i+1}' for i in range(len(distances))]
+# Impostare il grafico a schermo intero
     
-    # Creiamo un'etichetta per ogni coppia (num_vertices, max_coord)
-    label = f'Vertices: {num_vertices}, Max Coord: {max_coord}'
+    def plot_chart(ax, results, datum):
+        labels = []
+        path_distances = []
+        colors = []
+        color_map = {}
+        color_index = 0
+        
+        for (num_vertices, max_coord), infos in results.items():
+            distances = [info[datum] for info in infos]
+            if (num_vertices, max_coord) not in color_map:
+                color_map[(num_vertices, max_coord)] = cmap(color_index % cmap.N)
+                color_index += 1
+
+            for i, distance in enumerate(distances):
+                labels.append(f"{len(labels) + 1}")
+                path_distances.append(distance)
+                colors.append(color_map[(num_vertices, max_coord)])
+
+        x_pos = np.arange(len(path_distances))
+        ax.bar(x_pos, path_distances, color=colors)
+        ax.set_xticks(x_pos)
+        ax.set_xticklabels(labels, rotation=90, ha='right')
+
+        handles = [plt.Rectangle((0, 0), 1, 1, color=color_map[key]) for key in color_map]
+        labels_legend = [f'Vertices: {k[0]}, Max Coord: {k[1]}' for k in color_map]
+        ax.legend(handles, labels_legend, title="Graph Configurations", bbox_to_anchor=(1.05, 1), loc='upper left')
+
+    # Dato da plottare
+    datum = data_type.get_number()
+
+    # Plot primo grafico
+    plot_chart(axes[0], results_1, datum)
+    axes[0].set_title(f'{file_name_1} - {data_type.get_title()}')
+    axes[0].set_xlabel('Instance Number')
+    axes[0].set_ylabel(data_type.get_name())
+
+    # Plot secondo grafico
+    plot_chart(axes[1], results_2, datum)
+    axes[1].set_title(f'{file_name_2} - {data_type.get_title()}')
+    axes[1].set_xlabel('Instance Number')
+
+    # Mostra i grafici affiancati
+    plt.tight_layout()
+    plt.show()
+
+
+
+def plot_bar_chart(file_name, data_type: DataType):
+        
+    results= load_results(file_name)
+    # Creiamo il grafico
+    fig, ax = plt.subplots(figsize=(15, 6))
+    # Liste per le etichette e per i valori delle distanze
+    labels = []
+    path_distances = []
+    colors = []  # Una lista per assegnare un colore diverso per ciascuna combinazione
+    color_map = {}  # Un dizionario per assegnare un colore unico a ciascuna combinazione
+
+    # Uso una mappa di colori più ampia come 'tab20' per più variazioni di colore
+    cmap = plt.colormaps['tab20']
+
+    # Iniziamo con un indice per assegnare i colori
+    color_index = 0
+
+    datum = data_type.get_number()
+    # Iteriamo su ciascuna combinazione di numero di vertici e massimo numero di coordinate
+    for (num_vertices, max_coord), infos in results.items():
+        # Estraggo le distanze dei percorsi
+        distances = [info[datum] for info in infos]
+        
+        # Se la combinazione non ha ancora un colore assegnato, ne assegniamo uno nuovo dalla mappa
+        if (num_vertices, max_coord) not in color_map:
+            color_map[(num_vertices, max_coord)] = cmap(color_index % cmap.N)
+            color_index += 1
+
+        # Aggiungiamo i dati al grafico
+        for i, distance in enumerate(distances):
+            labels.append(f"{len(labels) + 1}")  # Etichetta con il numero progressivo dell'istanza
+            path_distances.append(distance)
+            colors.append(color_map[(num_vertices, max_coord)])  # Usa il colore corrispondente
+
+    # Posizioni delle barre
+    x_pos = np.arange(len(path_distances))
+
+    # Creiamo il grafico a barre con colori distinti per ogni combinazione
+    ax.bar(x_pos, path_distances, color=colors)
+
+    # Etichette e titolo
+    ax.set_xlabel('Instance Number')
+    ax.set_ylabel(data_type.get_name())
+    ax.set_title(data_type.get_title())
+    ax.set_xticks(x_pos)
+    ax.set_xticklabels(labels, rotation=90, ha='right')
+
+
+    # Aggiungiamo una legenda che mostra le combinazioni di numero di vertici e massime coordinate
+    handles = [plt.Rectangle((0,0),1,1, color=color_map[key]) for key in color_map]
+    labels_legend = [f'Vertices: {k[0]}, Max Coord: {k[1]}' for k in color_map]
+    ax.legend(handles, labels_legend, title="Graph Configurations", bbox_to_anchor=(1.05, 1), loc='upper left')
+
+    # Mostra il grafico
+    plt.tight_layout()
+    plt.show()
+
+plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.DISTANCE)
+plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.TIME)
+plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.AVG_TIME)
+# Funzione per disegnare il grafo e mostrare le distanze tra i punti
+def plot_graph_with_distances(coordinates, distances):
+    coordinates = [coordinates for coordinates, _ in coordinates]
+
+    # Estrazione delle coordinate x e y
+    x_vals, y_vals = zip(*coordinates)  # Separiamo x e y per disegnare i punti
+    plt.scatter(x_vals, y_vals, color='blue')  # Disegna i punti sul grafico
     
-    # Creiamo il grafico a barre per la specifica combinazione
-    axs[i].bar(np.arange(len(distances)), distances, color=plt.cm.tab10(i))
-    axs[i].set_xticks(np.arange(len(distances)))
-    axs[i].set_xticklabels(instances)
-    axs[i].set_title(label)
-    axs[i].set_ylabel('Path Distance')
-    axs[i].set_xlabel('Instances')
+    # Annotazione dei punti sul grafico
+    for i, (x, y) in enumerate(coordinates):
+        plt.text(x, y, f'{i}', fontsize=12, ha='right')  # Mostra l'indice di ogni punto vicino al punto stesso
 
-# Rimozione dei subplot vuoti, se il numero di grafici è dispari
-if n_graphs % cols != 0:
-    for j in range(n_graphs, rows * cols):
-        fig.delaxes(axs[j])
+    # Aggiunta delle linee e delle etichette delle distanze tra i punti connessi
+    for (i, j), dist in distances.items():
+        x1, y1 = coordinates[i]  # Coordinate del primo punto
+        x2, y2 = coordinates[j]  # Coordinate del secondo punto
 
-# Aggiustiamo il layout per una migliore visualizzazione
-plt.tight_layout()
-plt.show()
+        # Disegna una linea grigia tratteggiata tra i due punti connessi
+        plt.plot([x1, x2], [y1, y2], color='gray', linestyle='--', linewidth=1)
 
-#______________________
-# Dati di esempio (results)
-results = {
-    (10, 50): [(12, "info1", "info2"), (14, "info3", "info4")],
-    (50, 100): [(50, "info1", "info2"), (53, "info3", "info4")],
-    (100, 50): [(120, "info1", "info2"), (140, "info3", "info4")],
-    (500, 1000): [(600, "info1", "info2"), (640, "info3", "info4")]
-}
-results = load_results("nearest_neighbor_random_euclidean_results.json")
-# Creiamo il grafico
-fig, ax = plt.subplots(figsize=(10, 6))
+        # Calcola il punto medio tra i due punti per posizionare l'etichetta della distanza
+        mid_x, mid_y = (x1 + x2) / 2, (y1 + y2) / 2
 
-# Creiamo una lista per le etichette e per i valori delle distanze
-labels = []
-path_distances = []
-colors = []  # Aggiungo colori per distinguere visivamente le diverse combinazioni
+        # Mostra la distanza tra i punti come etichetta in rosso e riduce la dimensione del testo a 8
+        plt.text(mid_x, mid_y, f'{dist}', fontsize=8, color='red', ha='center')
 
-# Iteriamo su ciascuna combinazione di numero di vertici e massimo numero di coordinate
-for (num_vertices, max_coord), distances_info in results.items():
-    # Estraggo le distanze dei percorsi
-    distances = [info[0] for info in distances_info]
-    
-    # Creiamo un'etichetta per ogni coppia (num_vertices, max_coord)
-    label = f'Vertices: {num_vertices}, Max Coord: {max_coord}'
-    
-    # Aggiungiamo i dati al nostro grafico
-    for i, distance in enumerate(distances):
-       # labels.append(f"{label} - Instance {i+1}")
-        path_distances.append(distance)
-        # Aggiungiamo un colore unico per ogni coppia (num_vertices, max_coord)
-        colors.append((num_vertices + max_coord) % 10)  # Giusto per diversificare i colori
+    # Etichette degli assi e titolo del grafico
+    plt.xlabel('X Coordinate')  # Etichetta asse X
+    plt.ylabel('Y Coordinate')  # Etichetta asse Y
+    plt.title('Graph with Distances')  # Titolo del grafico
 
-# Posizioni delle barre
-x_pos = np.arange(len(path_distances))
+    # Mostra una griglia di sfondo per facilitare la lettura del grafico
+    plt.grid(True)
 
-# Creiamo il grafico a barre
-ax.bar(x_pos, path_distances, color=plt.cm.tab10(colors))
+    # Visualizza il grafico finale
+    plt.show()
 
-# Etichette e titolo
-ax.set_xlabel('Graph Instances')
-ax.set_ylabel('Path Distance')
-ax.set_title('Path Distance per Instance for Different Graph Configurations')
-ax.set_xticks(x_pos)
-ax.set_xticklabels(labels, rotation=90, ha='right')
-
-# Mostra il grafico
-plt.tight_layout()
-plt.show()
 
 # def plot_boxplot_tempi(results, num_vertices_list, max_coords_list):
 #     fig, axes = plt.subplots(len(num_vertices_list), len(max_coords_list), figsize=(15, 10), sharey=True)
