@@ -106,13 +106,13 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 # Compute the metrics
                                 path_distance = path_length(dist, path)
                                 reset_points(points)
-                                execution_time = research_path_time(points, dist, function)
+                                execution_time = research_path_time(points, dist, function, print_time=False, make_readable=False)
                                 reset_points(points)
                                 if num_vertices < 500:
-                                    average_execution_time = average_research_path_time(points, dist, function, num_runs=100)
+                                    average_execution_time = average_research_path_time(points, dist, function, num_runs=100, print_time=False, make_readable=False)
                                 else:
-                                    average_execution_time = average_research_path_time_parallel(points, dist, function, num_runs=100)
-                                insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)
+                                    average_execution_time = average_research_path_time_parallel(points, dist, function, num_runs=100, print_time=False, make_readable=False)
+                                insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)    
                                 
                                 instance_bar.update(1)
                                 pbar.update(1)  

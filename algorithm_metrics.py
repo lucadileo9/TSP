@@ -88,7 +88,7 @@ def make_readable_time(time):
         readable_time = f"{time:.2f} s"         # secondi
     return readable_time
 
-def research_path_time(points, dist, function, print_time=False):
+def research_path_time(points, dist, function, print_time=False, make_readable=True):
     """
     Measures the execution time of a given function on a set of parameters.
 
@@ -103,12 +103,15 @@ def research_path_time(points, dist, function, print_time=False):
     function(points, dist)
     end = timeit.default_timer()
     time=end-start
-    readable_time = make_readable_time(time)    
+    if make_readable:
+        readable_time = make_readable_time(time)
+    else:
+        readable_time = time    
+        
     if print_time:
         print("Execution time:", readable_time)        
-        return readable_time
-    else:
-        return readable_time
+
+    return readable_time
     
 
 import timeit
@@ -124,7 +127,7 @@ def execute_run(args):
     points, dist, function = args
     return timeit.timeit(lambda: run_wrapper(points, dist, function), number=1)
 
-def average_research_path_time_parallel(points, dist, function, num_runs=1000, print_time=False):
+def average_research_path_time_parallel(points, dist, function, num_runs=1000, print_time=False, make_readable=True):
     """
     Measures the execution time of a given function on a set of parameters.
 
@@ -150,14 +153,17 @@ def average_research_path_time_parallel(points, dist, function, num_runs=1000, p
     # Calcola il tempo totale e la media
     total_time = sum(times)
     avg_time = total_time / num_runs
-    readable_time = make_readable_time(avg_time)
-
+    if make_readable:
+        readable_time = make_readable_time(avg_time)
+    else:
+        readable_time = avg_time
+        
     if print_time:
         print(f"Average execution time over {num_runs} runs: {readable_time}")
 
     return readable_time
 
-def average_research_path_time(points, dist, function, num_runs=1000, print_time=False):
+def average_research_path_time(points, dist, function, num_runs=1000, print_time=False, make_readable=True):
     """
     Measures the execution time of a given function on a set of parameters.
 
@@ -180,10 +186,13 @@ def average_research_path_time(points, dist, function, num_runs=1000, print_time
     # Misura il tempo totale su num_runs esecuzioni e calcola la media
     total_time = timeit.timeit(wrapper, number=num_runs)
     avg_time = total_time / num_runs
-    readable_time = make_readable_time(avg_time)
+    if make_readable:
+        readable_time = make_readable_time(avg_time)
+    else:
+        readable_time = avg_time
+        
     if print_time:
         print(f"Average execution time over {num_runs} runs: {readable_time}")
-        return readable_time
-    else:
-        return readable_time
+    
+    return readable_time
     
