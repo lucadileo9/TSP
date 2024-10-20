@@ -1,6 +1,7 @@
 import os, json
 from tqdm import tqdm
-from my_utils import *
+from my_utils import nearest_neighbor_second as nearest_neighbor
+from my_utils import nearest_neighbor_random
 from algorithm_metrics import *
 from tsp_utils import *
 from dataset_generator import *
@@ -13,8 +14,13 @@ def save_results(results, output_file):
     - results (dict): Dizionario con i risultati da salvare.
     - output_file (str): Percorso del file JSON dove salvare i risultati.
     """
+    # Converti il dizionario in un formato serializzabile
+    serializable_results = {str(key): value for key, value in results.items()}
+    
     with open(output_file, 'w') as f:
-        json.dump(results, f, indent=4)
+        json.dump(serializable_results, f, indent=4)
+
+
 
 def print_results(results):
     """
@@ -99,9 +105,13 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 path= function(points, dist) # oppure la funzione passata come parametro 
                                 # Compute the metrics
                                 path_distance = path_length(dist, path)
+                                reset_points(points)
                                 execution_time = research_path_time(points, dist, function)
-                                average_execution_time = average_research_path_time(points, dist, function, num_runs=1000)
-                                
+                                reset_points(points)
+                                if num_vertices < 500:
+                                    average_execution_time = average_research_path_time(points, dist, function, num_runs=100)
+                                else:
+                                    average_execution_time = average_research_path_time_parallel(points, dist, function, num_runs=100)
                                 insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)
                                 
                                 instance_bar.update(1)
@@ -119,20 +129,45 @@ def generate_all_statistics():
     None
     Returns:
     None
+    Non c'è bisogno di salvare nulla, perché i dizionario di ogni algoritmo vengono salvati automaticamente in memoria
     """
     
     num_vertices_list= [10, 50, 100, 500, 1000]
     max_coords_list = [50, 100, 1000]
     num_instances = 20
-    input_dir = ["data/euclidean", "data/graph2D", "data/graphGeo"]
-    functions = [nearest_neighbor_first, nearest_neighbor_random]
+    input_dir = ["data/euclidean"]
+    functions = [nearest_neighbor, nearest_neighbor_random]
     for function in functions:
         for dir in input_dir:
-            dictionary = generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function)
-            print_results(dictionary)
+            generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function)
     
+
+def load_results(file_path):
+    """
+    Carica i risultati del benchmark da un file JSON.
+    
+    Parametri:
+    - file_path (str): Percorso del file JSON da cui caricare i risultati.
+    
+    Returns:
+    - dict: Dizionario con i risultati del benchmark.
+    """
+    with open(file_path, 'r') as f:
+        serializable_results = json.load(f)
+    
+    # Converti le chiavi in tuple di interi
+    results = {eval(key): value for key, value in serializable_results.items()}
+    
+    return results
+
+
+
 if __name__ == "__main__":
     generate_all_statistics()
+    # print("Dizionario dell'algoritmo nearest_neighbor")
+    # print_results(results[0])
+    # print("Dizionario dell'algoritmo nearest_neighbor_random")
+    # print_results(results[1])
 
 
 # La struttura dati per memorizzare queste info sarà fatta così:

@@ -1,0 +1,1532 @@
+{
+    "(10, 50)": [
+        [
+            157.26,
+            "16.20 microseconds",
+            "13.25 microseconds"
+        ],
+        [
+            137.91,
+            "12.30 microseconds",
+            "12.58 microseconds"
+        ],
+        [
+            186.84,
+            "12.90 microseconds",
+            "12.50 microseconds"
+        ],
+        [
+            138.79,
+            "12.70 microseconds",
+            "12.12 microseconds"
+        ],
+        [
+            155.2,
+            "12.80 microseconds",
+            "12.42 microseconds"
+        ],
+        [
+            131.41,
+            "12.80 microseconds",
+            "24.11 microseconds"
+        ],
+        [
+            176.57,
+            "13.60 microseconds",
+            "10.66 microseconds"
+        ],
+        [
+            171.87,
+            "12.50 microseconds",
+            "10.36 microseconds"
+        ],
+        [
+            141.24,
+            "13.10 microseconds",
+            "10.59 microseconds"
+        ],
+        [
+            161.17,
+            "12.50 microseconds",
+            "10.74 microseconds"
+        ],
+        [
+            207.94,
+            "12.60 microseconds",
+            "10.36 microseconds"
+        ],
+        [
+            162.86,
+            "12.40 microseconds",
+            "10.53 microseconds"
+        ],
+        [
+            174.07,
+            "12.30 microseconds",
+            "10.49 microseconds"
+        ],
+        [
+            128.62,
+            "12.70 microseconds",
+            "10.46 microseconds"
+        ],
+        [
+            189.4,
+            "12.90 microseconds",
+            "10.89 microseconds"
+        ],
+        [
+            163.76,
+            "12.20 microseconds",
+            "10.33 microseconds"
+        ],
+        [
+            121.7,
+            "12.50 microseconds",
+            "10.62 microseconds"
+        ],
+        [
+            141.03,
+            "12.60 microseconds",
+            "10.31 microseconds"
+        ],
+        [
+            163.85,
+            "12.50 microseconds",
+            "10.78 microseconds"
+        ],
+        [
+            184.56,
+            "12.60 microseconds",
+            "10.97 microseconds"
+        ]
+    ],
+    "(10, 100)": [
+        [
+            272.19,
+            "12.20 microseconds",
+            "11.33 microseconds"
+        ],
+        [
+            257.6,
+            "12.80 microseconds",
+            "10.65 microseconds"
+        ],
+        [
+            250.17,
+            "12.50 microseconds",
+            "10.83 microseconds"
+        ],
+        [
+            397.91,
+            "12.30 microseconds",
+            "10.31 microseconds"
+        ],
+        [
+            255.98,
+            "13.00 microseconds",
+            "10.71 microseconds"
+        ],
+        [
+            350.33,
+            "13.70 microseconds",
+            "10.56 microseconds"
+        ],
+        [
+            316.92,
+            "12.70 microseconds",
+            "16.93 microseconds"
+        ],
+        [
+            270.67,
+            "12.40 microseconds",
+            "12.56 microseconds"
+        ],
+        [
+            333.14,
+            "13.00 microseconds",
+            "12.86 microseconds"
+        ],
+        [
+            335.89,
+            "12.50 microseconds",
+            "12.15 microseconds"
+        ],
+        [
+            312.78,
+            "12.70 microseconds",
+            "12.34 microseconds"
+        ],
+        [
+            264.76,
+            "10.60 microseconds",
+            "10.57 microseconds"
+        ],
+        [
+            292.94,
+            "12.80 microseconds",
+            "11.12 microseconds"
+        ],
+        [
+            240.47,
+            "12.60 microseconds",
+            "11.13 microseconds"
+        ],
+        [
+            339.19,
+            "12.80 microseconds",
+            "11.21 microseconds"
+        ],
+        [
+            256.25,
+            "15.90 microseconds",
+            "11.73 microseconds"
+        ],
+        [
+            262.84,
+            "12.60 microseconds",
+            "11.75 microseconds"
+        ],
+        [
+            305.01,
+            "12.10 microseconds",
+            "11.58 microseconds"
+        ],
+        [
+            341.24,
+            "12.30 microseconds",
+            "11.29 microseconds"
+        ],
+        [
+            299.65,
+            "12.50 microseconds",
+            "11.72 microseconds"
+        ]
+    ],
+    "(10, 1000)": [
+        [
+            4384.75,
+            "12.80 microseconds",
+            "12.14 microseconds"
+        ],
+        [
+            3018.54,
+            "12.40 microseconds",
+            "12.10 microseconds"
+        ],
+        [
+            3695.68,
+            "13.40 microseconds",
+            "18.55 microseconds"
+        ],
+        [
+            3793.26,
+            "13.60 microseconds",
+            "12.50 microseconds"
+        ],
+        [
+            2898.24,
+            "13.40 microseconds",
+            "118.70 microseconds"
+        ],
+        [
+            2924.92,
+            "13.60 microseconds",
+            "12.71 microseconds"
+        ],
+        [
+            3053.72,
+            "13.20 microseconds",
+            "12.46 microseconds"
+        ],
+        [
+            3217.84,
+            "12.80 microseconds",
+            "12.21 microseconds"
+        ],
+        [
+            3070.74,
+            "42.30 microseconds",
+            "17.98 microseconds"
+        ],
+        [
+            3216.21,
+            "13.40 microseconds",
+            "13.03 microseconds"
+        ],
+        [
+            2427.91,
+            "12.70 microseconds",
+            "18.03 microseconds"
+        ],
+        [
+            2495.67,
+            "11.80 microseconds",
+            "11.32 microseconds"
+        ],
+        [
+            3240.17,
+            "12.50 microseconds",
+            "11.29 microseconds"
+        ],
+        [
+            2941.54,
+            "12.40 microseconds",
+            "11.20 microseconds"
+        ],
+        [
+            3250.47,
+            "12.70 microseconds",
+            "11.07 microseconds"
+        ],
+        [
+            2657.67,
+            "26.30 microseconds",
+            "11.39 microseconds"
+        ],
+        [
+            3370.85,
+            "11.10 microseconds",
+            "10.96 microseconds"
+        ],
+        [
+            3259.36,
+            "12.70 microseconds",
+            "11.29 microseconds"
+        ],
+        [
+            3671.58,
+            "12.20 microseconds",
+            "10.96 microseconds"
+        ],
+        [
+            2961.48,
+            "11.60 microseconds",
+            "10.98 microseconds"
+        ]
+    ],
+    "(50, 50)": [
+        [
+            316.6,
+            "307.50 microseconds",
+            "264.57 microseconds"
+        ],
+        [
+            328.71,
+            "272.30 microseconds",
+            "264.50 microseconds"
+        ],
+        [
+            348.77,
+            "279.60 microseconds",
+            "259.93 microseconds"
+        ],
+        [
+            405.27,
+            "272.10 microseconds",
+            "370.40 microseconds"
+        ],
+        [
+            364.17,
+            "270.70 microseconds",
+            "263.29 microseconds"
+        ],
+        [
+            368.71,
+            "272.70 microseconds",
+            "275.29 microseconds"
+        ],
+        [
+            346.05,
+            "272.70 microseconds",
+            "294.89 microseconds"
+        ],
+        [
+            330.83,
+            "268.40 microseconds",
+            "261.66 microseconds"
+        ],
+        [
+            319.51,
+            "268.90 microseconds",
+            "235.90 microseconds"
+        ],
+        [
+            350.42,
+            "311.20 microseconds",
+            "242.90 microseconds"
+        ],
+        [
+            295.6,
+            "256.10 microseconds",
+            "262.25 microseconds"
+        ],
+        [
+            349.72,
+            "265.70 microseconds",
+            "320.82 microseconds"
+        ],
+        [
+            375.1,
+            "248.00 microseconds",
+            "229.10 microseconds"
+        ],
+        [
+            355.12,
+            "246.60 microseconds",
+            "259.74 microseconds"
+        ],
+        [
+            366.2,
+            "258.60 microseconds",
+            "268.88 microseconds"
+        ],
+        [
+            390.04,
+            "255.70 microseconds",
+            "248.90 microseconds"
+        ],
+        [
+            342.76,
+            "269.80 microseconds",
+            "260.50 microseconds"
+        ],
+        [
+            339.85,
+            "269.30 microseconds",
+            "290.76 microseconds"
+        ],
+        [
+            327.48,
+            "389.80 microseconds",
+            "260.74 microseconds"
+        ],
+        [
+            307.92,
+            "264.60 microseconds",
+            "262.22 microseconds"
+        ]
+    ],
+    "(50, 100)": [
+        [
+            749.01,
+            "277.20 microseconds",
+            "293.18 microseconds"
+        ],
+        [
+            570.56,
+            "275.50 microseconds",
+            "237.10 microseconds"
+        ],
+        [
+            725.07,
+            "253.60 microseconds",
+            "289.33 microseconds"
+        ],
+        [
+            615.02,
+            "265.10 microseconds",
+            "280.27 microseconds"
+        ],
+        [
+            758.8,
+            "251.10 microseconds",
+            "230.10 microseconds"
+        ],
+        [
+            545.1,
+            "235.30 microseconds",
+            "267.97 microseconds"
+        ],
+        [
+            632.97,
+            "270.70 microseconds",
+            "236.34 microseconds"
+        ],
+        [
+            754.0,
+            "235.30 microseconds",
+            "224.49 microseconds"
+        ],
+        [
+            603.64,
+            "253.90 microseconds",
+            "259.34 microseconds"
+        ],
+        [
+            758.91,
+            "277.20 microseconds",
+            "264.68 microseconds"
+        ],
+        [
+            732.27,
+            "256.40 microseconds",
+            "250.78 microseconds"
+        ],
+        [
+            641.93,
+            "259.90 microseconds",
+            "273.04 microseconds"
+        ],
+        [
+            704.05,
+            "253.00 microseconds",
+            "251.33 microseconds"
+        ],
+        [
+            686.56,
+            "239.20 microseconds",
+            "231.08 microseconds"
+        ],
+        [
+            660.02,
+            "244.40 microseconds",
+            "256.11 microseconds"
+        ],
+        [
+            643.78,
+            "257.90 microseconds",
+            "269.26 microseconds"
+        ],
+        [
+            722.03,
+            "265.90 microseconds",
+            "262.83 microseconds"
+        ],
+        [
+            700.78,
+            "268.60 microseconds",
+            "265.27 microseconds"
+        ],
+        [
+            731.69,
+            "242.40 microseconds",
+            "285.52 microseconds"
+        ],
+        [
+            662.23,
+            "258.60 microseconds",
+            "240.89 microseconds"
+        ]
+    ],
+    "(50, 1000)": [
+        [
+            6895.31,
+            "244.00 microseconds",
+            "239.50 microseconds"
+        ],
+        [
+            8385.55,
+            "250.40 microseconds",
+            "296.71 microseconds"
+        ],
+        [
+            6233.03,
+            "241.50 microseconds",
+            "233.38 microseconds"
+        ],
+        [
+            7437.85,
+            "264.20 microseconds",
+            "255.29 microseconds"
+        ],
+        [
+            7357.9,
+            "384.30 microseconds",
+            "253.92 microseconds"
+        ],
+        [
+            6481.48,
+            "265.30 microseconds",
+            "268.05 microseconds"
+        ],
+        [
+            7136.28,
+            "264.50 microseconds",
+            "256.81 microseconds"
+        ],
+        [
+            6772.89,
+            "261.50 microseconds",
+            "268.50 microseconds"
+        ],
+        [
+            6731.96,
+            "269.70 microseconds",
+            "268.65 microseconds"
+        ],
+        [
+            7117.9,
+            "270.50 microseconds",
+            "262.29 microseconds"
+        ],
+        [
+            6487.91,
+            "272.60 microseconds",
+            "335.86 microseconds"
+        ],
+        [
+            6212.32,
+            "264.10 microseconds",
+            "263.18 microseconds"
+        ],
+        [
+            6854.93,
+            "270.10 microseconds",
+            "264.18 microseconds"
+        ],
+        [
+            6655.64,
+            "330.50 microseconds",
+            "295.17 microseconds"
+        ],
+        [
+            6662.7,
+            "267.20 microseconds",
+            "260.05 microseconds"
+        ],
+        [
+            6718.91,
+            "269.60 microseconds",
+            "262.05 microseconds"
+        ],
+        [
+            7822.97,
+            "287.40 microseconds",
+            "271.06 microseconds"
+        ],
+        [
+            7607.13,
+            "264.80 microseconds",
+            "269.11 microseconds"
+        ],
+        [
+            6929.72,
+            "271.20 microseconds",
+            "276.70 microseconds"
+        ],
+        [
+            7587.91,
+            "239.40 microseconds",
+            "236.96 microseconds"
+        ]
+    ],
+    "(100, 50)": [
+        [
+            522.32,
+            "1.19 milliseconds",
+            "1.02 milliseconds"
+        ],
+        [
+            504.46,
+            "975.30 microseconds",
+            "1.14 milliseconds"
+        ],
+        [
+            496.79,
+            "1.46 milliseconds",
+            "1.13 milliseconds"
+        ],
+        [
+            492.14,
+            "1.46 milliseconds",
+            "1.11 milliseconds"
+        ],
+        [
+            434.57,
+            "1.12 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            474.04,
+            "1.21 milliseconds",
+            "1.49 milliseconds"
+        ],
+        [
+            500.12,
+            "1.08 milliseconds",
+            "1.48 milliseconds"
+        ],
+        [
+            510.37,
+            "1.20 milliseconds",
+            "1.51 milliseconds"
+        ],
+        [
+            477.37,
+            "1.06 milliseconds",
+            "1.11 milliseconds"
+        ],
+        [
+            505.2,
+            "1.07 milliseconds",
+            "1.08 milliseconds"
+        ],
+        [
+            516.98,
+            "1.04 milliseconds",
+            "1.05 milliseconds"
+        ],
+        [
+            480.95,
+            "1.06 milliseconds",
+            "1.11 milliseconds"
+        ],
+        [
+            484.89,
+            "1.00 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            467.7,
+            "1.68 milliseconds",
+            "1.04 milliseconds"
+        ],
+        [
+            503.25,
+            "1.07 milliseconds",
+            "1.02 milliseconds"
+        ],
+        [
+            529.28,
+            "1.07 milliseconds",
+            "1.11 milliseconds"
+        ],
+        [
+            495.59,
+            "1.08 milliseconds",
+            "1.12 milliseconds"
+        ],
+        [
+            422.83,
+            "1.06 milliseconds",
+            "1.08 milliseconds"
+        ],
+        [
+            540.65,
+            "1.10 milliseconds",
+            "1.15 milliseconds"
+        ],
+        [
+            507.71,
+            "1.10 milliseconds",
+            "1.11 milliseconds"
+        ]
+    ],
+    "(100, 100)": [
+        [
+            948.78,
+            "1.04 milliseconds",
+            "1.12 milliseconds"
+        ],
+        [
+            846.86,
+            "1.08 milliseconds",
+            "1.17 milliseconds"
+        ],
+        [
+            1127.88,
+            "1.55 milliseconds",
+            "1.12 milliseconds"
+        ],
+        [
+            864.76,
+            "1.10 milliseconds",
+            "1.17 milliseconds"
+        ],
+        [
+            854.97,
+            "1.09 milliseconds",
+            "1.16 milliseconds"
+        ],
+        [
+            1054.97,
+            "1.09 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            1012.35,
+            "1.11 milliseconds",
+            "1.20 milliseconds"
+        ],
+        [
+            1035.54,
+            "2.21 milliseconds",
+            "990.30 microseconds"
+        ],
+        [
+            1012.02,
+            "1.12 milliseconds",
+            "1.12 milliseconds"
+        ],
+        [
+            921.91,
+            "1.17 milliseconds",
+            "1.19 milliseconds"
+        ],
+        [
+            951.13,
+            "1.32 milliseconds",
+            "1.12 milliseconds"
+        ],
+        [
+            946.35,
+            "1.06 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            863.2,
+            "1.09 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            1008.75,
+            "1.15 milliseconds",
+            "984.16 microseconds"
+        ],
+        [
+            986.8,
+            "1.00 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            946.21,
+            "988.90 microseconds",
+            "1.08 milliseconds"
+        ],
+        [
+            829.25,
+            "1.07 milliseconds",
+            "1.16 milliseconds"
+        ],
+        [
+            969.18,
+            "1.09 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            918.15,
+            "1.10 milliseconds",
+            "1.13 milliseconds"
+        ],
+        [
+            994.4,
+            "1.19 milliseconds",
+            "1.05 milliseconds"
+        ]
+    ],
+    "(100, 1000)": [
+        [
+            9671.61,
+            "1.09 milliseconds",
+            "1.13 milliseconds"
+        ],
+        [
+            9590.75,
+            "1.13 milliseconds",
+            "1.22 milliseconds"
+        ],
+        [
+            10102.83,
+            "1.07 milliseconds",
+            "982.40 microseconds"
+        ],
+        [
+            9674.34,
+            "1.10 milliseconds",
+            "1.14 milliseconds"
+        ],
+        [
+            9710.45,
+            "1.11 milliseconds",
+            "1.14 milliseconds"
+        ],
+        [
+            9585.17,
+            "1.09 milliseconds",
+            "1.03 milliseconds"
+        ],
+        [
+            9891.19,
+            "1.22 milliseconds",
+            "1.17 milliseconds"
+        ],
+        [
+            9095.28,
+            "1.10 milliseconds",
+            "1.06 milliseconds"
+        ],
+        [
+            9494.88,
+            "984.50 microseconds",
+            "1.06 milliseconds"
+        ],
+        [
+            10021.74,
+            "1.10 milliseconds",
+            "1.24 milliseconds"
+        ],
+        [
+            8822.47,
+            "1.27 milliseconds",
+            "1.20 milliseconds"
+        ],
+        [
+            8687.8,
+            "998.20 microseconds",
+            "1.09 milliseconds"
+        ],
+        [
+            8929.68,
+            "1.11 milliseconds",
+            "1.10 milliseconds"
+        ],
+        [
+            9332.31,
+            "1.24 milliseconds",
+            "1.08 milliseconds"
+        ],
+        [
+            9592.39,
+            "1.08 milliseconds",
+            "1.11 milliseconds"
+        ],
+        [
+            9685.7,
+            "1.04 milliseconds",
+            "1.14 milliseconds"
+        ],
+        [
+            10607.04,
+            "1.37 milliseconds",
+            "1.09 milliseconds"
+        ],
+        [
+            9727.32,
+            "1.08 milliseconds",
+            "1.04 milliseconds"
+        ],
+        [
+            9059.0,
+            "987.00 microseconds",
+            "1.05 milliseconds"
+        ],
+        [
+            9542.89,
+            "1.22 milliseconds",
+            "1.06 milliseconds"
+        ]
+    ],
+    "(500, 50)": [
+        [
+            1099.0,
+            "35.80 milliseconds",
+            "48.86 milliseconds"
+        ],
+        [
+            1074.15,
+            "35.41 milliseconds",
+            "48.93 milliseconds"
+        ],
+        [
+            1093.02,
+            "34.17 milliseconds",
+            "49.70 milliseconds"
+        ],
+        [
+            1038.63,
+            "35.31 milliseconds",
+            "49.56 milliseconds"
+        ],
+        [
+            1083.3,
+            "36.19 milliseconds",
+            "50.63 milliseconds"
+        ],
+        [
+            1066.29,
+            "36.93 milliseconds",
+            "48.44 milliseconds"
+        ],
+        [
+            1054.7,
+            "35.61 milliseconds",
+            "51.02 milliseconds"
+        ],
+        [
+            1031.57,
+            "36.13 milliseconds",
+            "49.38 milliseconds"
+        ],
+        [
+            1045.56,
+            "35.53 milliseconds",
+            "49.44 milliseconds"
+        ],
+        [
+            1005.51,
+            "36.58 milliseconds",
+            "48.05 milliseconds"
+        ],
+        [
+            1084.58,
+            "36.43 milliseconds",
+            "49.49 milliseconds"
+        ],
+        [
+            987.32,
+            "37.34 milliseconds",
+            "49.49 milliseconds"
+        ],
+        [
+            1065.4,
+            "36.62 milliseconds",
+            "48.91 milliseconds"
+        ],
+        [
+            1047.23,
+            "36.28 milliseconds",
+            "48.24 milliseconds"
+        ],
+        [
+            991.08,
+            "36.17 milliseconds",
+            "49.22 milliseconds"
+        ],
+        [
+            1027.97,
+            "39.22 milliseconds",
+            "49.50 milliseconds"
+        ],
+        [
+            1062.47,
+            "35.60 milliseconds",
+            "51.34 milliseconds"
+        ],
+        [
+            1029.94,
+            "36.84 milliseconds",
+            "50.99 milliseconds"
+        ],
+        [
+            991.91,
+            "37.67 milliseconds",
+            "49.29 milliseconds"
+        ],
+        [
+            1046.75,
+            "37.65 milliseconds",
+            "48.84 milliseconds"
+        ]
+    ],
+    "(500, 100)": [
+        [
+            2113.93,
+            "36.72 milliseconds",
+            "49.01 milliseconds"
+        ],
+        [
+            2105.36,
+            "36.51 milliseconds",
+            "49.85 milliseconds"
+        ],
+        [
+            2123.85,
+            "39.91 milliseconds",
+            "49.26 milliseconds"
+        ],
+        [
+            2063.87,
+            "36.72 milliseconds",
+            "49.03 milliseconds"
+        ],
+        [
+            2081.37,
+            "36.33 milliseconds",
+            "48.43 milliseconds"
+        ],
+        [
+            2046.15,
+            "35.55 milliseconds",
+            "49.85 milliseconds"
+        ],
+        [
+            1934.55,
+            "35.59 milliseconds",
+            "48.91 milliseconds"
+        ],
+        [
+            2038.45,
+            "37.15 milliseconds",
+            "51.56 milliseconds"
+        ],
+        [
+            2093.39,
+            "36.57 milliseconds",
+            "49.88 milliseconds"
+        ],
+        [
+            2092.56,
+            "37.47 milliseconds",
+            "48.83 milliseconds"
+        ],
+        [
+            2068.62,
+            "36.99 milliseconds",
+            "47.56 milliseconds"
+        ],
+        [
+            2071.27,
+            "37.13 milliseconds",
+            "48.13 milliseconds"
+        ],
+        [
+            2081.04,
+            "41.59 milliseconds",
+            "48.03 milliseconds"
+        ],
+        [
+            2186.64,
+            "37.37 milliseconds",
+            "50.00 milliseconds"
+        ],
+        [
+            2220.65,
+            "36.77 milliseconds",
+            "50.67 milliseconds"
+        ],
+        [
+            2133.42,
+            "36.13 milliseconds",
+            "49.91 milliseconds"
+        ],
+        [
+            2081.5,
+            "36.70 milliseconds",
+            "48.19 milliseconds"
+        ],
+        [
+            2053.77,
+            "37.19 milliseconds",
+            "49.46 milliseconds"
+        ],
+        [
+            2073.48,
+            "35.02 milliseconds",
+            "48.77 milliseconds"
+        ],
+        [
+            2050.39,
+            "35.27 milliseconds",
+            "48.05 milliseconds"
+        ]
+    ],
+    "(500, 1000)": [
+        [
+            20401.16,
+            "40.60 milliseconds",
+            "48.91 milliseconds"
+        ],
+        [
+            20726.04,
+            "37.80 milliseconds",
+            "48.59 milliseconds"
+        ],
+        [
+            20278.04,
+            "38.41 milliseconds",
+            "48.56 milliseconds"
+        ],
+        [
+            20756.83,
+            "35.85 milliseconds",
+            "50.25 milliseconds"
+        ],
+        [
+            21902.54,
+            "36.81 milliseconds",
+            "48.87 milliseconds"
+        ],
+        [
+            19863.95,
+            "39.18 milliseconds",
+            "49.73 milliseconds"
+        ],
+        [
+            20847.92,
+            "36.73 milliseconds",
+            "48.61 milliseconds"
+        ],
+        [
+            21068.59,
+            "36.13 milliseconds",
+            "50.51 milliseconds"
+        ],
+        [
+            20166.75,
+            "37.39 milliseconds",
+            "50.34 milliseconds"
+        ],
+        [
+            20706.67,
+            "35.87 milliseconds",
+            "48.96 milliseconds"
+        ],
+        [
+            21252.74,
+            "36.87 milliseconds",
+            "49.69 milliseconds"
+        ],
+        [
+            20247.94,
+            "36.39 milliseconds",
+            "49.58 milliseconds"
+        ],
+        [
+            21314.26,
+            "37.36 milliseconds",
+            "48.77 milliseconds"
+        ],
+        [
+            20675.03,
+            "36.18 milliseconds",
+            "49.27 milliseconds"
+        ],
+        [
+            21469.01,
+            "38.55 milliseconds",
+            "48.77 milliseconds"
+        ],
+        [
+            21103.28,
+            "38.43 milliseconds",
+            "51.04 milliseconds"
+        ],
+        [
+            20697.86,
+            "44.95 milliseconds",
+            "48.13 milliseconds"
+        ],
+        [
+            20491.3,
+            "41.51 milliseconds",
+            "49.64 milliseconds"
+        ],
+        [
+            20264.22,
+            "37.26 milliseconds",
+            "49.96 milliseconds"
+        ],
+        [
+            21200.11,
+            "37.85 milliseconds",
+            "49.58 milliseconds"
+        ]
+    ],
+    "(1000, 50)": [
+        [
+            1451.84,
+            "176.95 milliseconds",
+            "224.25 milliseconds"
+        ],
+        [
+            1525.65,
+            "180.67 milliseconds",
+            "231.48 milliseconds"
+        ],
+        [
+            1460.94,
+            "171.57 milliseconds",
+            "226.92 milliseconds"
+        ],
+        [
+            1481.43,
+            "176.35 milliseconds",
+            "227.79 milliseconds"
+        ],
+        [
+            1491.86,
+            "171.51 milliseconds",
+            "223.88 milliseconds"
+        ],
+        [
+            1478.86,
+            "199.75 milliseconds",
+            "225.20 milliseconds"
+        ],
+        [
+            1432.05,
+            "171.79 milliseconds",
+            "222.41 milliseconds"
+        ],
+        [
+            1420.54,
+            "174.66 milliseconds",
+            "224.13 milliseconds"
+        ],
+        [
+            1438.27,
+            "178.41 milliseconds",
+            "231.13 milliseconds"
+        ],
+        [
+            1535.87,
+            "167.04 milliseconds",
+            "224.19 milliseconds"
+        ],
+        [
+            1465.91,
+            "179.38 milliseconds",
+            "227.41 milliseconds"
+        ],
+        [
+            1428.4,
+            "167.19 milliseconds",
+            "226.20 milliseconds"
+        ],
+        [
+            1452.44,
+            "178.22 milliseconds",
+            "221.71 milliseconds"
+        ],
+        [
+            1483.45,
+            "173.50 milliseconds",
+            "220.20 milliseconds"
+        ],
+        [
+            1414.93,
+            "168.68 milliseconds",
+            "221.57 milliseconds"
+        ],
+        [
+            1474.4,
+            "182.05 milliseconds",
+            "223.79 milliseconds"
+        ],
+        [
+            1482.03,
+            "171.07 milliseconds",
+            "224.27 milliseconds"
+        ],
+        [
+            1476.42,
+            "169.47 milliseconds",
+            "229.87 milliseconds"
+        ],
+        [
+            1481.29,
+            "177.50 milliseconds",
+            "231.33 milliseconds"
+        ],
+        [
+            1455.75,
+            "181.18 milliseconds",
+            "224.26 milliseconds"
+        ]
+    ],
+    "(1000, 100)": [
+        [
+            2955.07,
+            "168.58 milliseconds",
+            "225.41 milliseconds"
+        ],
+        [
+            2972.51,
+            "171.86 milliseconds",
+            "227.94 milliseconds"
+        ],
+        [
+            2935.54,
+            "173.43 milliseconds",
+            "222.54 milliseconds"
+        ],
+        [
+            2940.66,
+            "177.48 milliseconds",
+            "226.66 milliseconds"
+        ],
+        [
+            2775.72,
+            "175.73 milliseconds",
+            "225.59 milliseconds"
+        ],
+        [
+            2910.92,
+            "179.78 milliseconds",
+            "228.16 milliseconds"
+        ],
+        [
+            2893.93,
+            "183.44 milliseconds",
+            "224.93 milliseconds"
+        ],
+        [
+            2914.45,
+            "174.07 milliseconds",
+            "231.48 milliseconds"
+        ],
+        [
+            2965.75,
+            "167.81 milliseconds",
+            "235.36 milliseconds"
+        ],
+        [
+            2924.46,
+            "186.39 milliseconds",
+            "224.42 milliseconds"
+        ],
+        [
+            2828.23,
+            "184.41 milliseconds",
+            "228.27 milliseconds"
+        ],
+        [
+            2914.67,
+            "168.22 milliseconds",
+            "226.73 milliseconds"
+        ],
+        [
+            2984.12,
+            "187.78 milliseconds",
+            "225.01 milliseconds"
+        ],
+        [
+            2834.93,
+            "167.66 milliseconds",
+            "226.13 milliseconds"
+        ],
+        [
+            2976.0,
+            "179.48 milliseconds",
+            "241.67 milliseconds"
+        ],
+        [
+            2893.47,
+            "238.90 milliseconds",
+            "230.31 milliseconds"
+        ],
+        [
+            3004.38,
+            "185.96 milliseconds",
+            "233.73 milliseconds"
+        ],
+        [
+            2850.13,
+            "194.48 milliseconds",
+            "226.30 milliseconds"
+        ],
+        [
+            2997.71,
+            "182.29 milliseconds",
+            "225.56 milliseconds"
+        ],
+        [
+            2894.82,
+            "207.41 milliseconds",
+            "226.09 milliseconds"
+        ]
+    ],
+    "(1000, 1000)": [
+        [
+            28247.64,
+            "174.75 milliseconds",
+            "222.31 milliseconds"
+        ],
+        [
+            29020.41,
+            "184.48 milliseconds",
+            "222.24 milliseconds"
+        ],
+        [
+            29068.79,
+            "166.79 milliseconds",
+            "222.00 milliseconds"
+        ],
+        [
+            29655.22,
+            "170.66 milliseconds",
+            "224.95 milliseconds"
+        ],
+        [
+            28755.76,
+            "168.63 milliseconds",
+            "235.57 milliseconds"
+        ],
+        [
+            28862.06,
+            "203.05 milliseconds",
+            "239.68 milliseconds"
+        ],
+        [
+            29516.11,
+            "168.05 milliseconds",
+            "233.87 milliseconds"
+        ],
+        [
+            28648.89,
+            "205.58 milliseconds",
+            "228.94 milliseconds"
+        ],
+        [
+            29850.0,
+            "173.04 milliseconds",
+            "226.85 milliseconds"
+        ],
+        [
+            29404.85,
+            "174.66 milliseconds",
+            "225.54 milliseconds"
+        ],
+        [
+            29345.47,
+            "172.21 milliseconds",
+            "227.69 milliseconds"
+        ],
+        [
+            30177.93,
+            "168.00 milliseconds",
+            "225.50 milliseconds"
+        ],
+        [
+            28464.61,
+            "166.91 milliseconds",
+            "230.07 milliseconds"
+        ],
+        [
+            28307.41,
+            "170.89 milliseconds",
+            "228.92 milliseconds"
+        ],
+        [
+            28737.27,
+            "167.14 milliseconds",
+            "226.40 milliseconds"
+        ],
+        [
+            28966.08,
+            "190.88 milliseconds",
+            "225.30 milliseconds"
+        ],
+        [
+            28873.38,
+            "182.50 milliseconds",
+            "229.69 milliseconds"
+        ],
+        [
+            29641.86,
+            "169.33 milliseconds",
+            "229.25 milliseconds"
+        ],
+        [
+            28370.37,
+            "168.36 milliseconds",
+            "225.28 milliseconds"
+        ],
+        [
+            28482.7,
+            "168.58 milliseconds",
+            "228.05 milliseconds"
+        ]
+    ]
+}

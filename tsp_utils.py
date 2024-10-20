@@ -102,7 +102,6 @@ def randomEuclGraph (n, maxcoord):
     points = [(random.randint(0, maxcoord), random.randint(0, maxcoord)) for i in range(n)]    
     dist = EuclDist(points)
         
-    points = [(random.randint(0, maxcoord), random.randint(0, maxcoord)) for i in range(n)]    
     # Adesso aggiungo che ogni punto ha un flag che indica se è stato visitato o meno
     for i in range(n):
         points[i] = (points[i], False)
