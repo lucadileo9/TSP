@@ -4,6 +4,21 @@ import numpy as np
 from enum import Enum
 
 class DataType(Enum):
+    """
+    DataType(Enum):
+        An enumeration to represent different types of data metrics for TSP (Traveling Salesman Problem) instances.
+        Attributes:
+            DISTANCE (tuple): Represents the distance metric with a unique identifier, a name, and a title.
+            TIME (tuple): Represents the execution time metric with a unique identifier, a name, and a title.
+            AVG_TIME (tuple): Represents the average execution time metric with a unique identifier, a name, and a title.
+        Methods:
+            get_number():
+                Returns the unique identifier of the data type.
+            get_name():
+                Returns the name of the data type.
+            get_title():
+                Returns the title of the data type.
+    """
     DISTANCE = (0,'Distance', 'Path Distance per Instance')
     TIME = (1, "Execution Time", 'Execution Time per Instance')
     AVG_TIME = (2, "Average Execution Time", 'Average Execution Time per Instance')
@@ -15,20 +30,18 @@ class DataType(Enum):
     def get_title(self):
         return self.value[2]
 
-import matplotlib.pyplot as plt
-import numpy as np
-
-def plot_two_bar_charts(file_name_1, file_name_2, data_type: DataType):
-    results_1 = load_results(file_name_1)
-    results_2 = load_results(file_name_2)
-
-    # Creiamo i grafici con una griglia 1x2
-    fig, axes = plt.subplots(1, 2, figsize=(15, 6))  # Due grafici affiancati
-    cmap = plt.colormaps['tab20']  # Mappa di colori
-
-# Impostare il grafico a schermo intero
-    
-    def plot_chart(ax, results, datum):
+def plot_chart(ax, results, datum, cmap):
+        """
+        Plots a bar chart based on the provided results.
+        Parameters:
+        ax (matplotlib.axes.Axes): The axes on which to plot the chart.
+        results (dict): A dictionary where keys are tuples of (num_vertices, max_coord) and values are lists of dictionaries containing data.
+        datum (str): The key in the dictionaries within `results` to extract the data to be plotted. (e.g., 'distance', 'time', 'avg_time')
+        cmap (matplotlib.colors.Colormap): The colormap to use for coloring the bars.
+        The function will create a bar chart where each bar represents a distance value from the `results` dictionary.
+        The bars are colored based on the (num_vertices, max_coord) configuration using the provided colormap.
+        A legend is added to the plot to indicate which color corresponds to which (num_vertices, max_coord) configuration.
+        """
         labels = []
         path_distances = []
         colors = []
@@ -55,17 +68,36 @@ def plot_two_bar_charts(file_name_1, file_name_2, data_type: DataType):
         labels_legend = [f'Vertices: {k[0]}, Max Coord: {k[1]}' for k in color_map]
         ax.legend(handles, labels_legend, title="Graph Configurations", bbox_to_anchor=(1.05, 1), loc='upper left')
 
+def plot_two_bar_charts(file_name_1, file_name_2, data_type: DataType):
+    """
+    Plots two bar charts side by side for comparison.
+    Parameters:
+    file_name_1 (str): The name of the first file containing the results to plot.
+    file_name_2 (str): The name of the second file containing the results to plot.
+    data_type (DataType): An instance of DataType that provides methods to get the data to plot.
+    The function loads results from the given files, extracts the necessary data using the provided
+    DataType instance, and plots two bar charts side by side for visual comparison. Each chart is 
+    labeled with the file name and the data type title.
+    """
+
+    results_1 = load_results(file_name_1)
+    results_2 = load_results(file_name_2)
+
+    # Creiamo i grafici con una griglia 1x2
+    fig, axes = plt.subplots(1, 2, figsize=(15, 6))  # Due grafici affiancati
+    cmap = plt.colormaps['tab20']  # Mappa di colori    
+    
     # Dato da plottare
     datum = data_type.get_number()
 
     # Plot primo grafico
-    plot_chart(axes[0], results_1, datum)
+    plot_chart(axes[0], results_1, datum, cmap)
     axes[0].set_title(f'{file_name_1} - {data_type.get_title()}')
     axes[0].set_xlabel('Instance Number')
     axes[0].set_ylabel(data_type.get_name())
 
     # Plot secondo grafico
-    plot_chart(axes[1], results_2, datum)
+    plot_chart(axes[1], results_2, datum, cmap)
     axes[1].set_title(f'{file_name_2} - {data_type.get_title()}')
     axes[1].set_xlabel('Instance Number')
 
@@ -132,11 +164,25 @@ def plot_bar_chart(file_name, data_type: DataType):
     plt.tight_layout()
     plt.show()
 
-plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.DISTANCE)
-plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.TIME)
-plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.AVG_TIME)
-# Funzione per disegnare il grafo e mostrare le distanze tra i punti
+
+
 def plot_graph_with_distances(coordinates, distances):
+    """
+    Plots a graph with given coordinates and distances between points.
+    Args:
+        coordinates (list of tuples): A list of tuples where each tuple contains the x and y coordinates of a point.
+        distances (dict): A dictionary where keys are tuples of point indices (i, j) and values are the distances between those points.
+    The function performs the following steps:
+        1. Extracts x and y coordinates from the input list.
+        2. Plots the points on a scatter plot.
+        3. Annotates each point with its index.
+        4. Draws dashed lines between connected points and labels the lines with the distances.
+        5. Adds axis labels and a title to the plot.
+        6. Displays a grid for better readability.
+        7. Shows the final plot.
+    Note:
+        The function uses matplotlib for plotting and assumes it is already imported as plt.
+    """
     coordinates = [coordinates for coordinates, _ in coordinates]
 
     # Estrazione delle coordinate x e y
@@ -301,3 +347,9 @@ def plot_graph_with_distances(coordinates, distances):
 # plt.boxplot([distanze_algoritmo_A, distanze_algoritmo_B], labels=['Algoritmo A', 'Algoritmo B'])
 # plt.ylabel('Distanza')
 # plt.show()
+
+
+if __name__ == "__main__":
+    plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.DISTANCE)
+    plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.TIME)
+    plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.AVG_TIME)
