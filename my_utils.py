@@ -260,7 +260,7 @@ def nearest_neighbor_random(points, dist, debug=False):
     path.append(last_point)
     return path
 
-def get_or_create_graph_data(n, maxcoord, function, file_name='graph_data.pkl', use_existing=True, debug=False):
+def get_or_create_graph_data(n=0, maxcoord=0, function=None, file_name='graph_data.pkl', use_existing=True, debug=False):
     """
     Generates or loads graph data for a Traveling Salesman Problem (TSP) instance.
     This function either loads existing graph data from a file or generates new data
