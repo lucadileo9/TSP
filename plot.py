@@ -205,7 +205,7 @@ def plot_graph_with_distances(coordinates, distances):
         mid_x, mid_y = (x1 + x2) / 2, (y1 + y2) / 2
 
         # Mostra la distanza tra i punti come etichetta in rosso e riduce la dimensione del testo a 8
-        plt.text(mid_x, mid_y, f'{dist}', fontsize=8, color='red', ha='center')
+        #plt.text(mid_x, mid_y, f'{dist}', fontsize=8, color='red', ha='center')
 
     # Etichette degli assi e titolo del grafico
     plt.xlabel('X Coordinate')  # Etichetta asse X
@@ -353,3 +353,5 @@ if __name__ == "__main__":
     plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.DISTANCE)
     plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.TIME)
     plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.AVG_TIME)
+    # coordinates, distances = load_graph_data("./data/euclidean/NumVertices_500/MaxVal_50/instance_13.csv")
+    # plot_graph_with_distances(coordinates, distances)
