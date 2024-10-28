@@ -1,5 +1,6 @@
 from algorithm_metrics import path_length
-from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second
+from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second, brute_force_tsp
+from local_search import local_search
 # Pseudocode:
 # procedure 2optSwap(route, v1, v2) {
 #     1. take route[start] to route[v1] and add them in order to new_route
@@ -30,12 +31,18 @@ def two_opt_neighborhood(path):
     return neighbors
 
 # Esempio di utilizzo
+# Inizializza i dati del grafo e la soluzione iniziale
 points, dist = get_or_create_graph_data(function=print, use_existing=True)
 path = nearest_neighbor_second(points, dist)
-print_in_square("Path", path)
-neighbors = two_opt_neighborhood(path)
+brute_force_path = brute_force_tsp(points, dist)
+print_in_square("Initial Path", path)
+print("Initial Path Length:", path_length(dist, path))
 
-# Stampa i vicini generati
-for neighbor in neighbors:
-    print(neighbor)
-    path_length(dist, neighbor, print_length=True)
+# Applica la ricerca locale
+optimized_path = local_search(dist, path, two_opt_neighborhood)
+
+# Stampa i risultati
+print_in_square("Brute Force Path", brute_force_path)
+path_length(dist, brute_force_path, print_length=True)
+print_in_square("Optimized Path", optimized_path)
+path_length(dist, optimized_path, print_length=True)

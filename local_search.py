@@ -8,7 +8,7 @@
 #  if f(x) < f(x) then set x := x
 #  else continue := false
 from algorithm_metrics import path_length
-def local_search(dist, path, neighborhood_function, improvement_function):
+def local_search(dist, path, neighborhood_function):
     """
     Performs a local search on a given path in the Traveling Salesman Problem (TSP) using a given neighborhood function.
     The local search iteratively explores the neighborhood of the current path and moves to the best neighbor that improves the path.
@@ -34,3 +34,4 @@ def local_search(dist, path, neighborhood_function, improvement_function):
                 improved = True
                 
     return current_path
+
