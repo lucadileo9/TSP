@@ -193,7 +193,7 @@ def readTSPLIB(file_path):
     nodes = list(problem.get_nodes()) # get nodes
     nodes = [x-1 for x in nodes] # shift nodes to start from 0
 
-    points = tuple(problem.node_coords.values()) # get coordinates of nodes
+    points = [((x, y), False) for x, y in problem.node_coords.values()]
     if len(points) == 0:
         points = tuple(problem.display_data.values()) 
     

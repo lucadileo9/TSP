@@ -13,6 +13,13 @@ print ("points=", points)
 input("Press Enter to continue...")
 print ("dist=", dist)
 
+points, dist = randomGraph2D(10, 0.5)
+print ("n=", n)
+input("Press Enter to continue...")
+print ("points=", points)
+input("Press Enter to continue...")
+print ("dist=", dist)
+
 # Lista delle coordinate (x, y) dei punti del grafo
 #coordinates, distances = load_graph_data("./data/euclidean/NumVertices_1000/MaxVal_100/instance_13.csv")
 #coordinates, distances = randomGraph2D(10, 0.5)

@@ -1,7 +1,7 @@
 from algorithm_metrics import path_length
 from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second, brute_force_tsp
 from neighborhood import swap_neighborhood, two_opt_neighborhood
-
+from tsp_utils import readTSPLIB
 # Pseudocode:
 # Generate an initial solution x X; continue := true
 #  2. while continue do
@@ -42,6 +42,8 @@ def local_search(dist, path, neighborhood_function):
 if __name__ == "__main__":
     # Ottieni i dati del grafo
     points, dist = get_or_create_graph_data( use_existing=True)
+    n, points, dist = readTSPLIB("a280.tsp")
+
     # Calcola il percorso iniziale
     path = nearest_neighbor_second(points, dist)
     # Calcola il percorso ottimale con la ricerca locale
