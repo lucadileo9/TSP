@@ -1,3 +1,4 @@
+from my_utils import print_in_square
 def swap_neighborhood(path):
     """
     Generate all possible neighbors of a path by swapping two nodes.
