@@ -1,7 +1,3 @@
-from algorithm_metrics import path_length
-from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second, brute_force_tsp
-from local_search import local_search
-
 def swap_neighborhood(path):
     """
     Generate all possible neighbors of a path by swapping two nodes.
@@ -61,20 +57,3 @@ def two_opt_neighborhood(path, print_neighbors=False):
         for neighbor in neighbors:
             print(neighbor)
     return neighbors
-
-
-if __name__ == "__main__":
-    # Ottieni i dati del grafo
-    points, dist = get_or_create_graph_data( use_existing=True)
-    path = nearest_neighbor_second(points, dist)
-    brute_force_path = brute_force_tsp(points, dist)
-    print_in_square("Initial Path", path)
-    print("Initial Path Length:", path_length(dist, path))
-
-    optimized_path = local_search(dist, path, swap_neighborhood)
-    # Stampa i risultati
-    print_in_square("Brute Force Path", brute_force_path)
-    path_length(dist, brute_force_path, print_length=True)
-    print_in_square("Optimized Path", optimized_path)
-    path_length(dist, optimized_path, print_length=True)
-
