@@ -205,3 +205,34 @@ def readTSPLIB(file_path):
         dist[i,j] = problem.get_weight(i+1, j+1) # get weight of edge (i,j)
     
     return n, points, dist
+
+def read_optimal_tour(file_path):
+    """
+    Reads the optimal tour from a given file.
+
+    The file is expected to contain a section labeled "TOUR_SECTION" followed by a list of node indices, 
+    and ending with either "-1" or "EOF". The function reads these node indices and returns them as a list.
+
+    Args:
+        file_path (str): The path to the file containing the optimal tour.
+
+    Returns:
+        list: A list of integers representing the nodes in the optimal tour.
+    """
+    optimal_tour = []
+    with open(file_path, 'r') as file:
+        is_tour_section = False
+        for line in file:
+            line = line.strip()
+            # Controlla se inizia la TOUR_SECTION
+            if line == "TOUR_SECTION":
+                is_tour_section = True
+                continue
+            # Fine della sezione tour
+            elif line == "-1" or line == "EOF":
+                break
+            # Aggiungi nodi alla lista solo se siamo nella TOUR_SECTION
+            elif is_tour_section:
+                node = int(line)
+                optimal_tour.append(node)
+    return optimal_tour
