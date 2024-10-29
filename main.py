@@ -33,7 +33,7 @@ def main():
     data_debug = args.data_debug
 
     #_____________________________________________
-    points, dist = get_or_create_graph_data(n, maxcoord, function=randomGraphGeo, use_existing=use_existing, debug=data_debug)
+    points, dist = get_or_create_graph_data(function=randomGraphGeo, n=n, maxcoord=maxcoord, use_existing=use_existing, debug=data_debug)
     path = brute_force_tsp(points, dist)
     print_in_square("Brute force", path)
 
