@@ -41,18 +41,16 @@ def local_search(dist, path, neighborhood_function):
 
 if __name__ == "__main__":
     # Ottieni i dati del grafo
-    points, dist = get_or_create_graph_data( use_existing=True)
     n, points, dist = readTSPLIB("a280.tsp")
+    # Ottiene il percorso ottimale
     perfect_path = read_optimal_tour("a280.opt.tour")
     # Calcola il percorso iniziale
     path = nearest_neighbor_second(points, dist)
     print("Initial Path Found")
-    # Esegui la ricerca locale con la neighborhood di scambio
+    # Esegui la ricerca locale con la neighborhood passata
     optimized_path = local_search(dist, path, two_opt_neighborhood)
-    print("Local Search with Swap Neighborhood Completed")
     
     # Stampa i risultati
-   # print_in_square("Initial Path", path)
     print("Initial Path Length:", path_length(dist, path))
     print("Optimized Path Length:", path_length(dist, optimized_path))
     print("Perfect Path Length:", path_length(dist, perfect_path))
