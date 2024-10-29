@@ -233,6 +233,6 @@ def read_optimal_tour(file_path):
                 break
             # Aggiungi nodi alla lista solo se siamo nella TOUR_SECTION
             elif is_tour_section:
-                node = int(line)
+                node = int(line) -1
                 optimal_tour.append(node)
     return optimal_tour

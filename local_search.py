@@ -44,23 +44,16 @@ if __name__ == "__main__":
     points, dist = get_or_create_graph_data( use_existing=True)
     n, points, dist = readTSPLIB("a280.tsp")
     perfect_path = read_optimal_tour("a280.opt.tour")
-    print ("perfect_path=", perfect_path)
-    input("Press Enter to continue...")
     # Calcola il percorso iniziale
     path = nearest_neighbor_second(points, dist)
-    print ("path=", path)
-    input("Press Enter to continue...")
-    # Calcola il percorso ottimale con la ricerca locale
-    #brute_force_path = brute_force_tsp(points, dist)
+    print("Initial Path Found")
     # Esegui la ricerca locale con la neighborhood di scambio
-    optimized_path = local_search(dist, path, swap_neighborhood)
+    optimized_path = local_search(dist, path, two_opt_neighborhood)
+    print("Local Search with Swap Neighborhood Completed")
     
     # Stampa i risultati
    # print_in_square("Initial Path", path)
     print("Initial Path Length:", path_length(dist, path))
-    # print_in_square("Brute Force Path", brute_force_path)
-    # path_length(dist, brute_force_path, print_length=True)
-    #print_in_square("Optimized Path", optimized_path)
-    path_length(dist, optimized_path, print_length=True)
-    path_length(dist, perfect_path, print_length=True)
+    print("Optimized Path Length:", path_length(dist, optimized_path))
+    print("Perfect Path Length:", path_length(dist, perfect_path))
 
