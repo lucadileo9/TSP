@@ -1,6 +1,6 @@
 import os, json
 from tqdm import tqdm
-from my_utils import nearest_neighbor_second as nearest_neighbor
+from my_utils import nearest_neighbor_second as nearest_neighbor, reset_points
 from my_utils import nearest_neighbor_random
 from algorithm_metrics import *
 from tsp_utils import *
@@ -66,7 +66,7 @@ def insert_result(results, num_vertices, max_coord, path_distance, execution_tim
     # Aggiungi i nuovi risultati alla lista
     results[key].append((path_distance, execution_time, average_execution_time))
 
-def generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function):
+def generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function, average_time=False):
     """
     Generates statistics for the Traveling Salesman Problem (TSP) benchmark.
     This function iterates over combinations of vertex counts and maximum coordinate values,
@@ -102,17 +102,19 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 # Load the graph graph
                                 points, dist = load_graph_data(instance_path) # Try catch ?????????????
                                 # Run the algorithm
-                                path= function(points, dist) # oppure la funzione passata come parametro 
+                                path= function(points, dist)  
                                 # Compute the metrics
                                 path_distance = path_length(dist, path)
                                 reset_points(points)
                                 execution_time = research_path_time(points, dist, function, print_time=False, make_readable=False)
-                                reset_points(points)
-                                if num_vertices < 500:
-                                    average_execution_time = average_research_path_time(points, dist, function, num_runs=100, print_time=False, make_readable=False)
-                                else:
-                                    average_execution_time = average_research_path_time_parallel(points, dist, function, num_runs=100, print_time=False, make_readable=False)
-                                insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)    
+                                if average_time:
+                                    reset_points(points)
+                                    
+                                    if num_vertices < 500:
+                                        average_execution_time = average_research_path_time(points, dist, function, num_runs=100, print_time=False, make_readable=False)
+                                    else:
+                                        average_execution_time = average_research_path_time_parallel(points, dist, function, num_runs=100, print_time=False, make_readable=False)
+                                    insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)    
                                 
                                 instance_bar.update(1)
                                 pbar.update(1)  
@@ -139,6 +141,9 @@ def generate_all_statistics():
     functions = [nearest_neighbor, nearest_neighbor_random]
     for function in functions:
         for dir in input_dir:
+            
+            if function == nearest_neighbor_random: # This is to calculate the average time only for the nearest_neighbor algorithm
+                generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function, average_time=True)
             generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function)
     
 
