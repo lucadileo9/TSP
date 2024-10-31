@@ -5,7 +5,6 @@
 #  - all nodes are present,
 #  - the nodes are part of the graph.
 import timeit
-from my_utils import reset_points
 
 def check_path(points, path):
     """
@@ -118,6 +117,8 @@ import timeit
 from concurrent.futures import ProcessPoolExecutor
 
 def run_wrapper(points, dist, function):
+    from my_utils import reset_points
+
     """Esegue la funzione e resetta i punti."""
     function(points, dist)
     reset_points(points)
@@ -181,6 +182,7 @@ def average_research_path_time(points, dist, function, num_runs=1000, print_time
     """
 
     def wrapper():
+        from my_utils import reset_points
         function(points, dist)
         reset_points(points)
     # Misura il tempo totale su num_runs esecuzioni e calcola la media

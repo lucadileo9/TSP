@@ -1,24 +1,23 @@
-from my_utils import *
-from algorithm_metrics import *
+from my_utils import print_in_square, nearest_neighbor_random
 from tsp_utils import *
-from dataset_generator import *
+from algorithm_metrics import path_length
 
 
-import matplotlib.pyplot as plt
 
 n, points, dist = readTSPLIB("a280.tsp")
-print ("n=", n)
-input("Press Enter to continue...")
-print ("points=", points)
-input("Press Enter to continue...")
-print ("dist=", dist)
+print_in_square("Initial Path", path_length(dist, nearest_neighbor_random(points, dist)))
+# print ("n=", n)
+# input("Press Enter to continue...")
+# print ("points=", points)
+# input("Press Enter to continue...")
+# print ("dist=", dist)
 
-points, dist = randomGraph2D(10, 0.5)
-print ("n=", n)
-input("Press Enter to continue...")
-print ("points=", points)
-input("Press Enter to continue...")
-print ("dist=", dist)
+# points, dist = randomGraph2D(10, 0.5)
+# print ("n=", n)
+# input("Press Enter to continue...")
+# print ("points=", points)
+# input("Press Enter to continue...")
+# print ("dist=", dist)
 
 # Lista delle coordinate (x, y) dei punti del grafo
 #coordinates, distances = load_graph_data("./data/euclidean/NumVertices_1000/MaxVal_100/instance_13.csv")
