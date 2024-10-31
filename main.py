@@ -37,7 +37,7 @@ def main():
     path = brute_force_tsp(points, dist)
     print_in_square("Brute force", path)
 
-    if run_tests:
+    if run_tests and path is not None:
         if check_path(points, path):
             print("Brute force is correct")
         else:

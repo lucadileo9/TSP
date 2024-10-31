@@ -75,7 +75,7 @@ def nearest_neighbor_first(points, dist, debug=False):
     
     # Start from the first point (you can start from any point)
     current_point = random.randint(0, n - 1)
-    current_point = 0  # Forced to start at point 0
+   # current_point = 0  # Forced to start at point 0
     last_point = current_point
     points[current_point] = (points[current_point][0], True)  # Mark as visited
     path.append(current_point)
@@ -204,77 +204,46 @@ def nearest_neighbor_random(points, dist, debug=False):
         - The function marks points as visited by setting the second element of the point tuple to True.
         - The path is returned as a list of point indices.
     """
-    nearest_neighbor_random.__name__ = "random" # Set the function name for the name of the file to save the data
+    nearest_neighbor_random.__name__ = "random"
     n = len(points)
-    
-    # Start from the first point (you can start from any point)
+
     current_point = random.randint(0, n - 1)
-   # current_point = 0
     last_point = current_point
-    points[current_point] = (points[current_point][0], True)  # Mark as visited
-    
+
     path_length = float('inf')
     best_path = []
-    # Repeat the process 20 times and keep the best path
-    for _ in range(20):
-        path = []
-        path.append(current_point)
 
-        for _ in range(n - 1): 
-            if debug:
-                print("_________________________________________________________")
-                print("Current point: ", current_point)
-                print(f"Point: {_}, to be tested")
-                input("")  # This input is for debugging, you can remove it if not needed
-                
-            neighbors = [(i, dist[(current_point, i)]) for i in range(n)  
-                        if not points[i][1] and (current_point, i) in dist]  # If the point is unvisited and connected to the current point
-            
-            if debug:
-                print("Neighbors: ", neighbors)
-                input("")
-            
-            # Sort neighbors by distance
+    for _ in range(20):
+        reset_points(points)  # Reset dei flag di visita all'inizio di ogni ciclo
+        path = [last_point]
+        current_point = last_point
+        points[current_point] = (points[current_point][0], True)  # Marca come visitato
+
+        for _ in range(n - 1):
+            neighbors = [(i, dist[(current_point, i)]) for i in range(n)
+                         if not points[i][1] and (current_point, i) in dist]
+
             if neighbors:
-                neighbors.sort(key=lambda x: x[1])  # Sort neighbors by distance
-                if debug:
-                    print("Neighbors sorted: ", neighbors)
-                    input("")
-                
-                if len(neighbors) > 1:
-                    # Randomly choose between the first and second nearest neighbor
-                    nearest = random.choice([neighbors[0][0], neighbors[1][0]])
-                else:
-                    # If there's only one neighbor, choose that one
-                    nearest = neighbors[0][0]
-                
-                # Visit the nearest point
+                neighbors.sort(key=lambda x: x[1])
+                nearest = random.choice([neighbors[0][0], neighbors[1][0]]) if len(neighbors) > 1 else neighbors[0][0]
+
                 current_point = nearest
-                points[current_point] = (points[current_point][0], True)  # Mark as visited
+                points[current_point] = (points[current_point][0], True)
                 path.append(current_point)
-                
             else:
-                print("Error: No unvisited point found")
+                print("Errore: Nessun punto non visitato trovato")
                 break
-            
-            
-            if debug:
-                print("*" * 50)
-                print("New current point: ", current_point)
-                print("*" * 50)
-        # Check if the path is shorter than the previous best path
-        reset_points(points)
-        if (algorithm_metrics.path_length(dist, path) < path_length) :
-            print(f"New best path found because {algorithm_metrics.path_length(dist, path)} < {path_length}")
-            input("")
-            path_length = algorithm_metrics.path_length(dist, path)
-            best_path = path
-        else:
-            print(f"New best path not found because {algorithm_metrics.path_length(dist, path)} > {path_length}")
-            input("")
-            
+
+        # Valutazione del percorso attuale rispetto al migliore trovato
+        if len(path) == n:
+            current_path_length = algorithm_metrics.path_length(dist, path)
+            if current_path_length < path_length:
+                path_length = current_path_length
+                best_path = path[:]
+
     best_path.append(last_point)
     return best_path
+
 
 def get_or_create_graph_data(n=0, maxcoord=0, function=None, file_name='graph_data.pkl', use_existing=True, debug=False):
     """

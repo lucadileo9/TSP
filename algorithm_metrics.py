@@ -31,6 +31,10 @@ def check_path(points, path):
     for i in range(len(points)):
         if i not in path:
             print("The path doesn't contain all the nodes")
+            # Find the missing node
+            for j in range(len(points)):
+                if j not in path:
+                    print(f"Missing node: {j}")
             return False
     # check if the path contains only the nodes in the graph
     for i in path:
