@@ -309,18 +309,31 @@ def print_in_square(title, content):
         | This is the content |
         ______________________
     """
-    # Determine the length of the content
-    max_length = max(len(title), len(str(content)))
+    # Divide the content into lines if it is too long
+    max_length = max(len(title), 40)  # Limita la lunghezza massima di ogni riga
+    words = str(content).split()
     
-    # Construct the top and bottom borders
-    border = "_" * (max_length + 4)  # +4 to leave space for margins
+    # Suddivide il contenuto in righe della lunghezza massima
+    content_lines = []
+    line = ""
+    for word in words:
+        if len(line) + len(word) + 1 <= max_length:
+            line += (word + " ")
+        else:
+            content_lines.append(line.strip())
+            line = word + " "
+    content_lines.append(line.strip())  # Aggiunge l'ultima riga
+
+    # Costruisce il bordo superiore e inferiore
+    border = "_" * (max_length + 4)
     
-    # Print the frame
+    # Stampa il frame
     print(border)
-    print(f"| {title.ljust(max_length)} |")  # Align the title to the left
-    print(f"| {str(content).ljust(max_length)} |")  # Print the content aligned to the left
+    print(f"| {title.ljust(max_length)} |")  # Stampa il titolo allineato a sinistra
+    for line in content_lines:
+        print(f"| {line.ljust(max_length)} |")  # Stampa ogni riga del contenuto
     print(border)
-    
+
 def reset_points(points):
     """
     Resets the visited flag for all points in the list.
