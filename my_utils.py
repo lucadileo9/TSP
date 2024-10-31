@@ -189,7 +189,7 @@ def nearest_neighbor_second(points, dist, debug=False):
     path.append(last_point)
     return path
 
-def nearest_neighbor_random(points, dist, debug=False):
+def nearest_neighbor_random(points, dist, debug=False, itereations=20):
     """
     Generates a path using a nearest neighbor heuristic with a random element.
     Args:
@@ -213,7 +213,7 @@ def nearest_neighbor_random(points, dist, debug=False):
     path_length = float('inf')
     best_path = []
 
-    for _ in range(20):
+    for _ in range(itereations):
         reset_points(points)  # Reset dei flag di visita all'inizio di ogni ciclo
         path = [last_point]
         current_point = last_point
@@ -310,7 +310,7 @@ def print_in_square(title, content):
         ______________________
     """
     # Divide the content into lines if it is too long
-    max_length = max(len(title), 40)  # Limita la lunghezza massima di ogni riga
+    max_length = max(len(title), 80)  # Limita la lunghezza massima di ogni riga
     words = str(content).split()
     
     # Suddivide il contenuto in righe della lunghezza massima
