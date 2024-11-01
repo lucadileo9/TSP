@@ -13,6 +13,7 @@ from tqdm import tqdm
 #  if f(x) < f(x) then set x := x
 #  else continue := false
 from algorithm_metrics import path_length
+    
 def local_search(dist, path, neighborhood_function):
     """
     Performs a local search on a given path in the Traveling Salesman Problem (TSP) using a given neighborhood function.
@@ -61,7 +62,6 @@ if __name__ == "__main__":
     # Ottiene il percorso ottimale
     perfect_path = read_optimal_tour("a280.opt.tour")
     # Calcola il percorso iniziale
-    path = nearest_neighbor_second(points, dist)
     print("Initial Path Found")
     # Esegui la ricerca locale con la neighborhood passata
     optimized_path = local_search(dist, path, two_opt_neighborhood)
@@ -69,4 +69,5 @@ if __name__ == "__main__":
     # Stampa i risultati
     print("Initial Path Length:", path_length(dist, path))
     print("Optimized Path Length:", path_length(dist, optimized_path))
+    # # Stampa i risultati
     print("Perfect Path Length:", path_length(dist, perfect_path))
