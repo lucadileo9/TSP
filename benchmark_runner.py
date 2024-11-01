@@ -107,15 +107,15 @@ def generate_statistics(num_vertices_list, max_coords_list, num_instances, input
                                 path_distance = path_length(dist, path)
                                 reset_points(points)
                                 execution_time = research_path_time(points, dist, function, print_time=False, make_readable=False)
+                                # If average_time is True, calculate the average execution time
                                 if average_time:
-                                    reset_points(points)
-                                    
-                                    if num_vertices < 500:
-                                        average_execution_time = average_research_path_time(points, dist, function, num_runs=100, print_time=False, make_readable=False)
-                                    else:
-                                        average_execution_time = average_research_path_time_parallel(points, dist, function, num_runs=100, print_time=False, make_readable=False)
+                                    reset_points(points)        
+                                    average_execution_time = average_research_path_time(points, dist, function, num_runs=100, print_time=False, make_readable=False)
                                     insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time)    
-                                
+                                # Otherwise, set the average execution time to 0
+                                else:
+                                    insert_result(results, num_vertices, max_coord, path_distance, execution_time, 0)
+                                    
                                 instance_bar.update(1)
                                 pbar.update(1)  
             save_results(results, f"{function.__name__}_{input_dir.split("/")[1]}_results.json")   
