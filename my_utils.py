@@ -235,11 +235,10 @@ def nearest_neighbor_random(points, dist, debug=False, itereations=20):
                 break
 
         # Valutazione del percorso attuale rispetto al migliore trovato
-        if len(path) == n:
-            current_path_length = algorithm_metrics.path_length(dist, path)
-            if current_path_length < path_length:
-                path_length = current_path_length
-                best_path = path[:]
+        current_path_length = algorithm_metrics.path_length(dist, path)
+        if current_path_length < path_length:
+            path_length = current_path_length
+            best_path = path[:]
 
     best_path.append(last_point)
     return best_path
