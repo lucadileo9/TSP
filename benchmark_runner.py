@@ -144,7 +144,8 @@ def generate_all_statistics():
             
             if function == nearest_neighbor_random: # This is to calculate the average time only for the nearest_neighbor algorithm
                 generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function, average_time=True)
-            generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function)
+            else:
+                generate_statistics(num_vertices_list, max_coords_list, num_instances, dir, function)
     
 
 def load_results(file_path):
