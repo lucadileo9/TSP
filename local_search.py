@@ -1,7 +1,8 @@
 from algorithm_metrics import path_length
-from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second, brute_force_tsp
+from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second, brute_force_tsp, reset_points
 from neighborhood import swap_neighborhood, two_opt_neighborhood
 from tsp_utils import readTSPLIB, read_optimal_tour
+from tqdm import tqdm
 # Pseudocode:
 # Generate an initial solution x X; continue := true
 #  2. while continue do
@@ -24,19 +25,34 @@ def local_search(dist, path, neighborhood_function):
     Returns:
         list: The best path found during the local search.
     """
+    # Inizializziamo il percorso attuale con quello passato come parametro
     current_path = path
+    # Calcoliamo la lunghezza del percorso iniziale
     current_length = path_length(dist, path)
+    # Impostiamo la variabile 'improved' su True per entrare nel ciclo
     improved = True
+
+    i=1
+    # Questo ciclo continuerà fino a quando non ci saranno miglioramenti nel percorso
     while improved:
-        improved = False
+        # print con flush per vedere l'iterazione corrente
+        print("Iterazione: ", i , end="\r", flush=True)
+        i+=1
+        improved = False  # All'inizio di ogni iterazione, supponiamo che non ci siano miglioramenti
+        # Otteniamo una lista di "vicini" (percorsi alternativi) basati sul percorso attuale
         neighbors = neighborhood_function(current_path)
+        
+        # Per ogni vicino, calcoliamo la lunghezza del percorso
         for neighbor in neighbors:
             neighbor_length = path_length(dist, neighbor)
+            # Se il vicino ha una lunghezza minore (quindi è un miglioramento)
             if neighbor_length < current_length:
+                # Aggiorniamo il percorso e la sua lunghezza
                 current_path = neighbor
                 current_length = neighbor_length
-                improved = True
-                
+                improved = True  # Indichiamo che c'è stato un miglioramento, quindi il ciclo while ripeterà
+
+    # Restituiamo il percorso migliorato alla fine dell'algoritmo
     return current_path
 
 if __name__ == "__main__":
@@ -54,4 +70,3 @@ if __name__ == "__main__":
     print("Initial Path Length:", path_length(dist, path))
     print("Optimized Path Length:", path_length(dist, optimized_path))
     print("Perfect Path Length:", path_length(dist, perfect_path))
-
