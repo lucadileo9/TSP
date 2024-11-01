@@ -220,16 +220,30 @@ def nearest_neighbor_random(points, dist, debug=False, itereations=20):
         points[current_point] = (points[current_point][0], True)  # Marca come visitato
 
         for _ in range(n - 1):
+            if debug:
+                print("_________________________________________________________")
+                print("Current point: ", current_point)
+                print(f"Point: {_}, to be tested")
+                input("")  # This input is for debugging, you can remove it if not needed
+            
             neighbors = [(i, dist[(current_point, i)]) for i in range(n)
                          if not points[i][1] and (current_point, i) in dist]
-
+            
+            
             if neighbors:
                 neighbors.sort(key=lambda x: x[1])
+                if debug:
+                    print("Neighbors: ", neighbors)
+                    input("")
                 nearest = random.choice([neighbors[0][0], neighbors[1][0]]) if len(neighbors) > 1 else neighbors[0][0]
 
                 current_point = nearest
                 points[current_point] = (points[current_point][0], True)
                 path.append(current_point)
+                if debug:
+                    print("*" * 50)
+                    print("New current point: ", current_point)
+                    print("*" * 50)
             else:
                 print("Errore: Nessun punto non visitato trovato")
                 break
