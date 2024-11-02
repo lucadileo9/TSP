@@ -65,12 +65,8 @@ def local_search(dist, path, neighborhood_function):
     # Impostiamo la variabile 'improved' su True per entrare nel ciclo
     improved = True
 
-    i=1
     # Questo ciclo continuerà fino a quando non ci saranno miglioramenti nel percorso
     while improved:
-        # print con flush per vedere l'iterazione corrente
-        print("Iterazione: ", i , end="\r", flush=True)
-        i+=1
         improved = False  # All'inizio di ogni iterazione, supponiamo che non ci siano miglioramenti
         # Otteniamo una lista di "vicini" (percorsi alternativi) basati sul percorso attuale
         neighbors = neighborhood_function(current_path)
