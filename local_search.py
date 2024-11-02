@@ -1,5 +1,5 @@
 from algorithm_metrics import path_length
-from my_utils import get_or_create_graph_data, print_in_square, nearest_neighbor_second, brute_force_tsp, reset_points
+from my_utils import nearest_neighbor_second, nearest_neighbor_random, reset_points
 from neighborhood import swap_neighborhood, two_opt_neighborhood
 from tsp_utils import readTSPLIB, read_optimal_tour
 from tqdm import tqdm
@@ -107,6 +107,11 @@ if __name__ == "__main__":
     # print("Perfect Path Length:", path_length(dist, perfect_path))
     
     # PER ESEGUIRE LA MULTISTART LOCAL SEARCH__________________________
-    best_path, best_length = multistart_local_search(points, dist, two_opt_neighborhood, num_starts=10)
+    best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_second, two_opt_neighborhood, num_starts=10)
     print("Best Path Length:", best_length)
     print("Perfect Path Length:", path_length(dist, perfect_path))
+    
+    best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_random , two_opt_neighborhood, num_starts=10)
+    print("Best Path Length:", best_length)
+    print("Perfect Path Length:", path_length(dist, perfect_path))
+    
