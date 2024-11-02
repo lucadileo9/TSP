@@ -84,6 +84,38 @@ def local_search(dist, path, neighborhood_function):
     # Restituiamo il percorso migliorato alla fine dell'algoritmo
     return current_path
 
+def local_search_with_counted_iterations(dist, path, neighborhood_function, iterations=100):
+    """
+    Performs a local search on a given path in the Traveling Salesman Problem (TSP) using a given neighborhood function.
+    The local search iteratively explores the neighborhood of the current path and moves to the best neighbor that improves the path.
+    The search continues for a number of iterations as long as an improvement is found at each iteration until no neighbor is found that improves the path.
+    Args:
+        dist (dict): A dictionary containing the pairwise distances between nodes.
+        path (list): A list representing the current path of nodes in the TSP.
+        neighborhood_function (function): A function that generates the neighborhood of a given path.
+        iterations (int, optional): The number of iterations to perform. Default is 100.
+    Returns:
+        list: The best path found during the local search.
+    """
+    current_path = path
+    current_length = path_length(dist, path)
+    improved = True
+    
+    # Aggiungi una barra di caricamento sulle iterazioni
+    for _ in (range(iterations)):
+        improved = False
+        neighbors = neighborhood_function(current_path)
+        for neighbor in neighbors:
+            neighbor_length = path_length(dist, neighbor)
+            if neighbor_length < current_length:
+                current_path = neighbor
+                current_length = neighbor_length
+                improved = True
+        
+        if not improved:
+            break  # Esci dal ciclo se non ci sono miglioramenti
+
+    return current_path
 if __name__ == "__main__":
     # PER CARICARE I DATI DEL GRAFO____________________________________
     # Ottieni i dati del grafo
@@ -93,15 +125,15 @@ if __name__ == "__main__":
     
     # PER ESEGUIRE LA LOCAL SEARCH______________________________________
     # Calcola il percorso iniziale
-    # path = nearest_neighbor_second(points, dist)
-    # print("Initial Path Found")
+    path = nearest_neighbor_second(points, dist)
+    print("Initial Path Found")
     # Esegui la ricerca locale con la neighborhood passata
-    # optimized_path = local_search(dist, path, two_opt_neighborhood)
-    # # Stampa i risultati
-    # print("Initial Path Length:", path_length(dist, path))
-    # print("Optimized Path Length:", path_length(dist, optimized_path))
-    # print("Perfect Path Length:", path_length(dist, perfect_path))
-    
+    optimized_path = local_search_without_loops(dist, path, two_opt_neighborhood)
+    # Stampa i risultati
+    print("Initial Path Length:", path_length(dist, path))
+    print("Optimized Path Length:", path_length(dist, optimized_path))
+    print("Perfect Path Length:", path_length(dist, perfect_path))
+    input("Premi INVIO per continuare...")
     # PER ESEGUIRE LA MULTISTART LOCAL SEARCH__________________________
     best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_second, two_opt_neighborhood, num_starts=10)
     print("Best Path Length:", best_length)
