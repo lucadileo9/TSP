@@ -1,5 +1,5 @@
 from algorithm_metrics import path_length
-from my_utils import nearest_neighbor_second, nearest_neighbor_random, reset_points
+from my_utils import nearest_neighbor_second, nearest_neighbor_random, reset_points, print_in_square
 from neighborhood import swap_neighborhood, two_opt_neighborhood
 from tsp_utils import readTSPLIB, read_optimal_tour
 from tqdm import tqdm
@@ -38,14 +38,12 @@ def multistart_local_search(points, dist, path_function, neighborhood_function, 
     return best_path, best_length
 
 # Pseudocode:
-# Generate an initial solution x X; continue := true
-#  2. while continue do
-#  3.
-#  Find x : f(x) = minf(x)x N(x)
-#  4.
-#  5.
-#  if f(x) < f(x) then set x := x
-#  else continue := false
+# Local Search (LS):
+#  1. Start from an initial feasible solution
+#  2. Look for possible improvements in a neighborhood of the
+#  solution
+#  3. iterates 2. until no improvement can be found (local
+#  optimum)
 def local_search(dist, path, neighborhood_function):
     """
     Performs a local search on a given path in the Traveling Salesman Problem (TSP) using a given neighborhood function.
@@ -125,21 +123,28 @@ if __name__ == "__main__":
     
     # PER ESEGUIRE LA LOCAL SEARCH______________________________________
     # Calcola il percorso iniziale
-    path = nearest_neighbor_second(points, dist)
-    print("Initial Path Found")
-    # Esegui la ricerca locale con la neighborhood passata
-    optimized_path = local_search_without_loops(dist, path, two_opt_neighborhood)
-    # Stampa i risultati
-    print("Initial Path Length:", path_length(dist, path))
-    print("Optimized Path Length:", path_length(dist, optimized_path))
-    print("Perfect Path Length:", path_length(dist, perfect_path))
-    input("Premi INVIO per continuare...")
+    # path = nearest_neighbor_random(points, dist)
+    # print("Initial Path Found")
+    # # Esegui la ricerca locale con la neighborhood passata
+    # optimized_path = local_search(dist, path, two_opt_neighborhood)
+    # # Stampa i risultati
+    # print("Initial Path Length:", path_length(dist, path))
+    # # print_in_square("Initial path", path)
+    
+    # print("Optimized Path Length:", path_length(dist, optimized_path))
+    # # print_in_square("Optimized path", path)
+    
+    # print("Perfect Path Length:", path_length(dist, perfect_path))
+    # # print_in_square("Perfect path", path)
+    # input("Premi INVIO per continuare...")
+    
+    
     # PER ESEGUIRE LA MULTISTART LOCAL SEARCH__________________________
     best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_second, two_opt_neighborhood, num_starts=10)
     print("Best Path Length:", best_length)
-    print("Perfect Path Length:", path_length(dist, perfect_path))
     
     best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_random , two_opt_neighborhood, num_starts=10)
     print("Best Path Length:", best_length)
+
     print("Perfect Path Length:", path_length(dist, perfect_path))
     

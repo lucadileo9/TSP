@@ -58,3 +58,12 @@ def two_opt_neighborhood(path, print_neighbors=False):
         for neighbor in neighbors:
             print(neighbor)
     return neighbors
+
+if __name__ == "__main__":
+    path = [0, 1, 2, 3, 4, 5, 6, 7]
+    two_opt_neighborhood(path, print_neighbors=True)
+    swap_neighborhood(path)
+    print_in_square("Path", path)
+    print("Swap Neighborhood:")
+    for neighbor in swap_neighborhood(path):
+        print(neighbor)
