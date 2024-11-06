@@ -20,17 +20,17 @@ def multistart_local_search(points, dist, path_function, neighborhood_function, 
     best_path = None
     best_length = float('inf')
     
-    # Aggiungi una barra di caricamento per mostrare il progresso su ogni start
-    for _ in tqdm(range(num_starts), desc="Esecuzione Multistart"):
-        # Genera un percorso iniziale con la funzione passata
+    # Add a progress bar to show the progress on each start
+    for _ in tqdm(range(num_starts), desc="Multistart Execution"):
+        # Generate an initial path with the provided function
         reset_points(points)
         initial_path = path_function(points, dist)
         
-        # Esegui la local search con questo percorso iniziale
+        # Perform local search with this initial path
         current_path = local_search(dist, initial_path, neighborhood_function)
         current_length = path_length(dist, current_path)
         
-        # Aggiorna il miglior percorso se la nuova soluzione è migliore
+        # Update the best path if the new solution is better
         if current_length < best_length:
             best_path = current_path
             best_length = current_length
@@ -56,30 +56,30 @@ def local_search(dist, path, neighborhood_function):
     Returns:
         list: The best path found during the local search.
     """
-    # Inizializziamo il percorso attuale con quello passato come parametro
+    # Initialize the current path with the one provided as a parameter
     current_path = path
-    # Calcoliamo la lunghezza del percorso iniziale
+    # Calculate the length of the initial path
     current_length = path_length(dist, path)
-    # Impostiamo la variabile 'improved' su True per entrare nel ciclo
+    # Set the 'improved' variable to True to enter the loop
     improved = True
 
-    # Questo ciclo continuerà fino a quando non ci saranno miglioramenti nel percorso
+    # This loop will continue as long as there are improvements in the path
     while improved:
-        improved = False  # All'inizio di ogni iterazione, supponiamo che non ci siano miglioramenti
-        # Otteniamo una lista di "vicini" (percorsi alternativi) basati sul percorso attuale
+        improved = False  # At the beginning of each iteration, assume no improvements
+        # Obtain a list of "neighbors" (alternative paths) based on the current path
         neighbors = neighborhood_function(current_path)
         
-        # Per ogni vicino, calcoliamo la lunghezza del percorso
+        # For each neighbor, calculate the path length
         for neighbor in neighbors:
             neighbor_length = path_length(dist, neighbor)
-            # Se il vicino ha una lunghezza minore (quindi è un miglioramento)
+            # If the neighbor has a shorter length (indicating an improvement)
             if neighbor_length < current_length:
-                # Aggiorniamo il percorso e la sua lunghezza
+                # Update the path and its length
                 current_path = neighbor
                 current_length = neighbor_length
-                improved = True  # Indichiamo che c'è stato un miglioramento, quindi il ciclo while ripeterà
+                improved = True  # Indicate that there was an improvement, so the while loop will repeat
 
-    # Restituiamo il percorso migliorato alla fine dell'algoritmo
+    # Return the improved path at the end of the algorithm
     return current_path
 
 def local_search_with_counted_iterations(dist, path, neighborhood_function, iterations=100):
@@ -99,7 +99,7 @@ def local_search_with_counted_iterations(dist, path, neighborhood_function, iter
     current_length = path_length(dist, path)
     improved = True
     
-    # Aggiungi una barra di caricamento sulle iterazioni
+    # Add a progress bar to show iterations
     for _ in (range(iterations)):
         improved = False
         neighbors = neighborhood_function(current_path)
@@ -111,23 +111,23 @@ def local_search_with_counted_iterations(dist, path, neighborhood_function, iter
                 improved = True
         
         if not improved:
-            break  # Esci dal ciclo se non ci sono miglioramenti
+            break  # Exit the loop if there are no improvements
 
     return current_path
 if __name__ == "__main__":
-    # PER CARICARE I DATI DEL GRAFO____________________________________
-    # Ottieni i dati del grafo
+    # TO LOAD GRAPH DATA____________________________________
+    # Obtain graph data
     n, points, dist = readTSPLIB("a280.tsp")
-    # Ottiene il percorso ottimale
+    # Obtain the optimal path
     perfect_path = read_optimal_tour("a280.opt.tour")
     
-    # PER ESEGUIRE LA LOCAL SEARCH______________________________________
-    # Calcola il percorso iniziale
+    # TO EXECUTE LOCAL SEARCH______________________________________
+    # Calculate the initial path
     # path = nearest_neighbor_random(points, dist)
     # print("Initial Path Found")
-    # # Esegui la ricerca locale con la neighborhood passata
+    # # Execute local search with the provided neighborhood
     # optimized_path = local_search(dist, path, two_opt_neighborhood)
-    # # Stampa i risultati
+    # # Print results
     # print("Initial Path Length:", path_length(dist, path))
     # # print_in_square("Initial path", path)
     
@@ -136,10 +136,10 @@ if __name__ == "__main__":
     
     # print("Perfect Path Length:", path_length(dist, perfect_path))
     # # print_in_square("Perfect path", path)
-    # input("Premi INVIO per continuare...")
+    # input("Press ENTER to continue...")
     
     
-    # PER ESEGUIRE LA MULTISTART LOCAL SEARCH__________________________
+    # TO EXECUTE MULTISTART LOCAL SEARCH__________________________
     best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_second, two_opt_neighborhood, num_starts=10)
     print("Best Path Length:", best_length)
     
@@ -147,4 +147,3 @@ if __name__ == "__main__":
     print("Best Path Length:", best_length)
 
     print("Perfect Path Length:", path_length(dist, perfect_path))
-    

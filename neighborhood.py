@@ -1,4 +1,5 @@
 from my_utils import print_in_square
+
 def swap_neighborhood(path):
     """
     Generate all possible neighbors of a path by swapping two nodes.
@@ -12,14 +13,14 @@ def swap_neighborhood(path):
     neighbors = []
     n = len(path)
     
-    # Per ogni coppia di nodi (i, j) esegui uno swap
-    for i in range(1, n - 1):        # Evita di scambiare il nodo di partenza e arrivo (0 e ultimo)
+    # For each pair of nodes (i, j), perform a swap
+    for i in range(1, n - 1):        # Avoid swapping the start and end nodes (0 and last)
         for j in range(i + 1, n - 1):
-            # Crea una copia del percorso per evitare modifiche sull'originale
+            # Create a copy of the path to avoid modifying the original
             new_path = path[:]
-            # Esegui lo swap
+            # Perform the swap
             new_path[i], new_path[j] = new_path[j], new_path[i]
-            # Aggiungi il nuovo percorso al vicinato
+            # Add the new path to the neighborhood
             neighbors.append(new_path)
     
     return neighbors
@@ -45,11 +46,11 @@ def two_opt_neighborhood(path, print_neighbors=False):
     """
     neighbors = []
     n = len(path)
-    # Genera tutti i possibili vicini 2-opt
-    for i in range(1, n - 2): # i inizia da 1 per evitare il nodo di partenza e finisce a n - 2 per evitare il penultimo nodo, infatti non è possibilie scambiare l'ultimo nodo (che è tipicamente di nuovo il nodo di partenza) con alcun altro nodo
-        for j in range(i + 3, n - 1):  # se j iniziasse da i scambierebbe un nodo con sé stesso, se iniziasse da i+1 scambierebbe due nodi consecutivi, se iniziasse da i+2 scambierebbe due nodi con un solo nodo in mezzo, non facendo quindi una vera e propria iversione di percorso, ma uno swap
-            # e finisce a n - 1 per evitare il nodo di arrivo
-            new_path = path[:i] + path[i:j+1][::-1] + path[j+1:] # Dallo start fino a i {path[:i]}, poi da i+1 a j in ordine inverso {path[i:j+1][::-1]}, infine da j+1 fino alla fine {path[j+1:]}
+    # Generate all possible 2-opt neighbors
+    for i in range(1, n - 2): # i starts from 1 to avoid the start node and ends at n - 2 to avoid the second-to-last node, as the last node (typically the starting node again) cannot be swapped with any other node
+        for j in range(i + 3, n - 1):  # if j started from i it would swap a node with itself, if it started from i+1 it would swap two consecutive nodes, if it started from i+2 it would swap two nodes with only one node in between, not creating a true path inversion but rather a swap
+            # and ends at n - 1 to avoid the end node
+            new_path = path[:i] + path[i:j+1][::-1] + path[j+1:] # From start to i {path[:i]}, then from i+1 to j in reverse order {path[i:j+1][::-1]}, and finally from j+1 to the end {path[j+1:]}
             neighbors.append(new_path)
             
     if print_neighbors:
