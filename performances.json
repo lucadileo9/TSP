@@ -1,0 +1,92 @@
+{
+    "a280": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 3051
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 2844
+            }
+        }
+    },
+    "att48": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 12228
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 11206
+            }
+        }
+    },
+    "berlin52": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 9197
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 8029
+            }
+        }
+    },
+    "ch130": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 7317
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6608
+            }
+        }
+    },
+    "ch150": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 7504
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6793
+            }
+        }
+    },
+    "eil101": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 764
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 705
+            }
+        }
+    },
+    "eil51": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 486
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 449
+            }
+        }
+    },
+    "eil76": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 663
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 561
+            }
+        }
+    },
+    "kroA100": {
+        "1": {
+            "swap_neighborhood": {
+                "deterministic": 25386
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 22902
+            }
+        }
+    }
+}
