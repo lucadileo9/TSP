@@ -139,7 +139,7 @@ def nearest_neighbor_second(points, dist, debug=False):
         list: A list of indices representing the path through the points, starting and 
               ending at the initial point.
     """
-    nearest_neighbor_second.__name__ = "first" # Set the function name for the name of the file to save the data
+    nearest_neighbor_second.__name__ = "deterministic" # Set the function name for the name of the file to save the data
 
     n = len(points)
     path = []
@@ -189,7 +189,7 @@ def nearest_neighbor_second(points, dist, debug=False):
     path.append(last_point)
     return path
 
-def nearest_neighbor_random(points, dist, debug=False, itereations=20):
+def nearest_neighbor_random(points, dist, debug=False, itereations=10):
     """
     Generates a path using a nearest neighbor heuristic with a random element.
     Args:
@@ -204,7 +204,7 @@ def nearest_neighbor_random(points, dist, debug=False, itereations=20):
         - The function marks points as visited by setting the second element of the point tuple to True.
         - The path is returned as a list of point indices.
     """
-    nearest_neighbor_random.__name__ = "random"
+    nearest_neighbor_random.__name__ = "randomic"
     n = len(points)
 
     current_point = random.randint(0, n - 1)
