@@ -9,6 +9,8 @@ import random
 from csv import reader
 import matplotlib.pyplot as plt
 import tsplib95 
+import os
+import shutil
 
 
 
@@ -236,3 +238,56 @@ def read_optimal_tour(file_path):
                 node = int(line) -1
                 optimal_tour.append(node)
     return optimal_tour
+
+
+def filter_tsp_files(input_dir, output_dir):
+    """
+    Filtra i file .tsp per mantenere solo quelli con NODE_COORD_SECTION, e copia anche il corrispondente file .opt.tour
+    se presente, nella stessa directory di output.
+    
+    Args:
+        input_dir (str): Directory di input contenente i file .tsp e .opt.tour.
+        output_dir (str): Directory di output per i file validi con NODE_COORD_SECTION e il relativo tour ottimo.
+    """
+    # Crea la directory di output se non esiste
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Scorri i file nella directory di input
+    for filename in os.listdir(input_dir):
+        # Verifica se il file è un .tsp
+        if filename.endswith(".tsp"):
+            file_path = os.path.join(input_dir, filename)
+            base_name = os.path.splitext(filename)[0]  # Nome base del file senza estensione
+            
+            try:
+                # Carica il problema TSP
+                problem = tsplib95.load(file_path)
+                
+                # Controlla se contiene NODE_COORD_SECTION e un tipo di peso supportato
+                if problem.edge_weight_type in {'EUC_2D', 'ATT'} and problem.node_coords:
+                    # Copia il file .tsp nella directory di output
+                    shutil.copy(file_path, os.path.join(output_dir, filename))
+                    print(f"{filename} copiato nella directory output (include NODE_COORD_SECTION).")
+                    
+                    # Controlla e copia il corrispondente file .opt.tour se esiste
+                    optimal_tour_path = os.path.join(input_dir, f"{base_name}.opt.tour")
+                    if os.path.exists(optimal_tour_path):
+                        shutil.copy(optimal_tour_path, os.path.join(output_dir, f"{base_name}.opt.tour"))
+                        print(f"{base_name}.opt.tour copiato nella directory output.")
+                    else:
+                        print(f"{base_name}.opt.tour non trovato.")
+                else:
+                    print(f"{filename} scartato (no NODE_COORD_SECTION o tipo non supportato).")
+            except Exception as e:
+                print(f"Errore nel leggere {filename}: {e}")
+                
+    print("Filtraggio completato.")
+
+
+
+# Utilizzo
+if __name__ == "__main__":
+    input_dir = "TSP_instances"    # Directory con i file TSP originali
+    output_dir = "TSP_instances_clean"  # Directory per i file filtrati
+    filter_tsp_files(input_dir, output_dir)
+
