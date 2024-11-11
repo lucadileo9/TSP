@@ -14,7 +14,7 @@ import os
 # - Dare nomi più significativi alle funzioni
 
 
-def save_performances(performances, filename="performances.json"):
+def store_performance_data(performance_data, output_filepath="performances.json"):
     """
     Save the given performance data to a JSON file.
     Args:
@@ -27,13 +27,13 @@ def save_performances(performances, filename="performances.json"):
         None
     """  
     try:
-        with open(filename, "w") as file:
-            json.dump(performances, file, indent=4)
-        print(f"Performance salvate correttamente in '{filename}'")
+        with open(output_filepath, "w") as file:
+            json.dump(performance_data, file, indent=4)
+        print(f"Performance salvate correttamente in '{output_filepath}'")
     except IOError as e:
-        print(f"Errore nel salvataggio delle performances in '{filename}': {e}")
+        print(f"Errore nel salvataggio delle performances in '{output_filepath}': {e}")
 
-def load_performances(filename="performances.json"):
+def load_performance_data(input_filepath="performances.json"):
     """
     Load performance data from a JSON file.
     This function attempts to load performance data from the specified JSON file.
@@ -45,20 +45,20 @@ def load_performances(filename="performances.json"):
     Returns:
         dict: A dictionary containing the performance data, or an empty dictionary if an error occurs.
     """
-    if not os.path.exists(filename):
-        print(f"Attenzione: il file '{filename}' non esiste. Restituisco un dizionario vuoto.")
+    if not os.path.exists(input_filepath):
+        print(f"Attenzione: il file '{input_filepath}' non esiste. Restituisco un dizionario vuoto.")
         return {}
     try:
-        with open(filename, "r") as file:
+        with open(input_filepath, "r") as file:
             return json.load(file)
     except json.JSONDecodeError:
-        print(f"Errore di formattazione JSON nel file '{filename}'. Restituisco un dizionario vuoto.")
+        print(f"Errore di formattazione JSON nel file '{input_filepath}'. Restituisco un dizionario vuoto.")
         return {}
     except IOError as e:
-        print(f"Errore nel caricamento delle performances da '{filename}': {e}")
+        print(f"Errore nel caricamento delle performances da '{input_filepath}': {e}")
         return {}
 
-def save_optimal_lengths(optimal_lengths, filename="optimal_lengths.json"):
+def store_optimal_path_lengths(optimal_path_lengths, output_filepath="optimal_lengths.json"):
     """
     Save the optimal lengths to a JSON file.
     Parameters:
@@ -70,13 +70,13 @@ def save_optimal_lengths(optimal_lengths, filename="optimal_lengths.json"):
     IOError: If there is an error in writing to the file.
     """
     try:
-        with open(filename, "w") as file:
-            json.dump(optimal_lengths, file, indent=4)
-        print(f"Optimal lengths salvati correttamente in '{filename}'")
+        with open(output_filepath, "w") as file:
+            json.dump(optimal_path_lengths, file, indent=4)
+        print(f"Optimal lengths salvati correttamente in '{output_filepath}'")
     except IOError as e:
-        print(f"Errore nel salvataggio degli optimal lengths in '{filename}': {e}")
+        print(f"Errore nel salvataggio degli optimal lengths in '{output_filepath}': {e}")
 
-def load_optimal_lengths(filename="optimal_lengths.json"):
+def load_optimal_path_lengths(input_filepath="optimal_lengths.json"):
     """
     Load optimal lengths from a JSON file.
     This function attempts to load a dictionary of optimal lengths from a specified JSON file.
@@ -87,20 +87,20 @@ def load_optimal_lengths(filename="optimal_lengths.json"):
     Returns:
         dict: A dictionary containing the optimal lengths if the file is successfully loaded, otherwise an empty dictionary.
     """
-    if not os.path.exists(filename):
-        print(f"Attenzione: il file '{filename}' non esiste. Restituisco un dizionario vuoto.")
+    if not os.path.exists(input_filepath):
+        print(f"Attenzione: il file '{input_filepath}' non esiste. Restituisco un dizionario vuoto.")
         return {}   
     try:
-        with open(filename, "r") as file:
+        with open(input_filepath, "r") as file:
             return json.load(file)
     except json.JSONDecodeError:
-        print(f"Errore di formattazione JSON nel file '{filename}'. Restituisco un dizionario vuoto.")
+        print(f"Errore di formattazione JSON nel file '{input_filepath}'. Restituisco un dizionario vuoto.")
         return {}
     except IOError as e:
-        print(f"Errore nel caricamento degli optimal lengths da '{filename}': {e}")
+        print(f"Errore nel caricamento degli optimal lengths da '{input_filepath}': {e}")
         return {}
 
-def print_results(results):
+def print_tsp_analysis_summary(tsp_performance_data):
     """
     Prints the results of the TSP performance analysis in a structured format.
 
@@ -122,7 +122,7 @@ def print_results(results):
                 - 'path_type' (str) is the type of path (e.g., 'best', 'average').
                 - length (float) is the length of the path.
     """
-    for dataset, data in results.items():
+    for dataset, data in tsp_performance_data.items():
         print(f"\nDataset: {dataset}")
         for num_starts, neighborhood_data in data.items():
             print(f"  Starts: {num_starts}")
@@ -131,7 +131,7 @@ def print_results(results):
                 for path_type, length in lengths.items():
                     print(f"      {path_type}: {length}")
 
-def print_readable_dict(d):
+def print_performance_breakdown(nested_results):
     """
     Prints a nested dictionary in a readable format.
 
@@ -161,7 +161,7 @@ def print_readable_dict(d):
                 }
             }
         }
-        print_readable_dict(d)
+        print_performance_breakdown(d)
         # Output:
         # N_starts 1:
         #   neighborhood1:
@@ -176,7 +176,7 @@ def print_readable_dict(d):
         #     Method1: 50
         #     Method2: 60
     """
-    for key, neighborhoods in d.items():
+    for key, neighborhoods in nested_results.items():
         print(f"N_starts {key}:")
         for neighborhood, methods in neighborhoods.items():
             print(f"  {neighborhood}:")
@@ -184,7 +184,7 @@ def print_readable_dict(d):
                 print(f"    {method.capitalize()}: {value}")
         print()
 
-def analyze_single_file(dataset_file, best_path_file, path_functions=[], neighborhood_functions=[], num_starts=[5, 10, 20]):
+def analyze_tsp_instance(tsp_instance_filepath, optimal_path_filepath, init_path_strategies=[], neighborhood_search_strategies=[], num_starts=[5, 10, 20]):
     """
     Analyze the performances of the multistart local search algorithm on a single dataset file.
     Args:
@@ -199,24 +199,24 @@ def analyze_single_file(dataset_file, best_path_file, path_functions=[], neighbo
     results = defaultdict(lambda: defaultdict(dict))
     
     # Leggi il grafo e calcola le distanze dai dati .tsp
-    n, points, dist = readTSPLIB(dataset_file)
+    n, points, dist = readTSPLIB(tsp_instance_filepath)
     # Esempio n: 280 (numero di nodi)
     # Esempio points: [(x1, y1), (x2, y2), ...] (coordinate dei punti)
     # Esempio dist: [[0, d1, d2, ...], [d1, 0, d3, ...], ...] (matrice delle distanze)
     
     # Leggi il cammino ottimo e calcola la lunghezza
-    optimal_tour = read_optimal_tour(best_path_file ) 
+    optimal_tour = read_optimal_tour(optimal_path_filepath ) 
     optimal_length = path_length(dist, optimal_tour)
 
     # Esegui il multistart con tutte le combinazioni di parametri
     for n_starts in num_starts:        
-        for neighborhood_function in neighborhood_functions:
+        for neighborhood_function in neighborhood_search_strategies:
             neighborhood_function_name = neighborhood_function.__name__
             
             # Inizializza un dizionario per le lunghezze di percorso di ciascuna funzione di inizializzazione
             path_length_for_function = {}
 
-            for path_function in path_functions:
+            for path_function in init_path_strategies:
                 # Esegui il multistart e ottieni la lunghezza del miglior percorso trovato
                 best_path, best_path_length = multistart_local_search(
                     points, dist, path_function, neighborhood_function, n_starts
@@ -237,7 +237,7 @@ def analyze_single_file(dataset_file, best_path_file, path_functions=[], neighbo
             #                 "best_length_random": 0,
             #             }
             #         }
-            print_readable_dict(results)
+            print_performance_breakdown(results)
 
     return results, optimal_length
             # Esempio results:
@@ -255,7 +255,7 @@ def analyze_single_file(dataset_file, best_path_file, path_functions=[], neighbo
             # Esempio optimal_length:
             # 2579 , ossia la lunghezza del percorso ottimo per il file corrente
 
-def analyze_performances(dataset_folder):
+def batch_performance_analysis(tsp_datasets_folderpath):
     """
     Analyze the performances of the multistart local search algorithm across multiple datasets in a single folder.
     Args:
@@ -263,37 +263,37 @@ def analyze_performances(dataset_folder):
     Returns:
         dict: A dictionary containing the analysis results and optimal path lengths for each dataset.
     """
-    dataset_folder = Path(dataset_folder)
-    all_results = {}
-    optimal_lengths = {}
+    dataset_folder = Path(tsp_datasets_folderpath)
+    aggregate_performance_data = {}
+    optimal_path_lengths = {}
 
     # Filtra i file .tsp e crea un dizionario per i file .opt.tour con il nome base corretto
-    tsp_files = [f for f in dataset_folder.glob("*.tsp")]
+    tsp_instance_files = [f for f in dataset_folder.glob("*.tsp")]
     # Rimuoviamo l'estensione completa ".opt.tour" per ottenere il nome base
-    tour_files = {f.name.replace(".opt.tour", ""): f for f in dataset_folder.glob("*.opt.tour")}
+    optimal_tour_files = {f.name.replace(".opt.tour", ""): f for f in dataset_folder.glob("*.opt.tour")}
 
-    for tsp_file in tsp_files:
+    for tsp_file in tsp_instance_files:
         base_name = tsp_file.stem  # Questo è il nome senza ".tsp"
 
-        if base_name in tour_files:
-            single_file_results, optimal_length = analyze_single_file(
+        if base_name in optimal_tour_files:
+            single_file_results, optimal_length = analyze_tsp_instance(
                 tsp_file,
-                tour_files[base_name],
+                optimal_tour_files[base_name],
                 path_functions=[nearest_neighbor_second],
                 neighborhood_functions=[swap_neighborhood, two_opt_neighborhood],
                 num_starts=[1]
             )
-            all_results[base_name] = single_file_results
-            optimal_lengths[base_name] = optimal_length
-            print_results(all_results)
-            print(optimal_lengths)
+            aggregate_performance_data[base_name] = single_file_results
+            optimal_path_lengths[base_name] = optimal_length
+            print_tsp_analysis_summary(aggregate_performance_data)
+            print(optimal_path_lengths)
         else:
             print(f"Warning: No optimal tour file found for {tsp_file.name}")
 
     
-    save_optimal_lengths(optimal_lengths)
-    save_performances(all_results)
-    return all_results, optimal_lengths
+    store_optimal_path_lengths(optimal_path_lengths)
+    store_performance_data(aggregate_performance_data)
+    return aggregate_performance_data, optimal_path_lengths
 
 # Il dizionario con i risultati ottenuti sarà del tipo:
 # results = {
@@ -324,6 +324,6 @@ def analyze_performances(dataset_folder):
 
 if __name__ == "__main__":
     # Esempio di utilizzo
-    # results = analyze_single_file("a280.tsp", path_functions=[nearest_neighbor_second, nearest_neighbor_random], neighborhood_functions=[swap_neighborhood, two_opt_neighborhood], num_starts=[1,2,3])
-    all_results = analyze_performances("TSP_instances_clean/")
-    print_results(all_results)
+    # results = analyze_tsp_instance("a280.tsp", path_functions=[nearest_neighbor_second, nearest_neighbor_random], neighborhood_functions=[swap_neighborhood, two_opt_neighborhood], num_starts=[1,2,3])
+    all_results = batch_performance_analysis("TSP_instances_clean/")
+    print_tsp_analysis_summary(all_results)
