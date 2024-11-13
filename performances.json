@@ -2,90 +2,378 @@
     "a280": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 3051
+                "deterministic": 3134,
+                "randomic": 3447
             },
             "two_opt_neighborhood": {
-                "deterministic": 2844
+                "deterministic": 2730,
+                "randomic": 3162
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 3010,
+                "randomic": 3473
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 2792,
+                "randomic": 3126
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 2931,
+                "randomic": 3222
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 2780,
+                "randomic": 3155
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 2931,
+                "randomic": 3341
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 2692,
+                "randomic": 3085
             }
         }
     },
     "att48": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 12228
+                "deterministic": 12050,
+                "randomic": 11727
             },
             "two_opt_neighborhood": {
-                "deterministic": 11206
+                "deterministic": 11206,
+                "randomic": 12743
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 12012,
+                "randomic": 12990
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 11249,
+                "randomic": 11413
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 11711,
+                "randomic": 11128
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 11206,
+                "randomic": 11393
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 11794,
+                "randomic": 11733
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 11046,
+                "randomic": 11482
             }
         }
     },
     "berlin52": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 9197
+                "deterministic": 9338,
+                "randomic": 9958
             },
             "two_opt_neighborhood": {
-                "deterministic": 8029
+                "deterministic": 8081,
+                "randomic": 9169
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 8989,
+                "randomic": 8844
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 7863,
+                "randomic": 8399
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 8157,
+                "randomic": 8938
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 7738,
+                "randomic": 8275
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 8178,
+                "randomic": 8276
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 7838,
+                "randomic": 8525
             }
         }
     },
     "ch130": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 7317
+                "deterministic": 7363,
+                "randomic": 7872
             },
             "two_opt_neighborhood": {
-                "deterministic": 6608
+                "deterministic": 6432,
+                "randomic": 7155
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 7377,
+                "randomic": 7284
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6615,
+                "randomic": 6697
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 7227,
+                "randomic": 7514
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6546,
+                "randomic": 6849
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 6889,
+                "randomic": 7355
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6578,
+                "randomic": 7029
             }
         }
     },
     "ch150": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 7504
+                "deterministic": 7305,
+                "randomic": 8005
             },
             "two_opt_neighborhood": {
-                "deterministic": 6793
+                "deterministic": 6781,
+                "randomic": 7827
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 7380,
+                "randomic": 7846
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6781,
+                "randomic": 7671
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 7024,
+                "randomic": 7767
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6749,
+                "randomic": 7615
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 7153,
+                "randomic": 7974
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 6703,
+                "randomic": 7688
             }
         }
     },
     "eil101": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 764
+                "deterministic": 755,
+                "randomic": 760
             },
             "two_opt_neighborhood": {
-                "deterministic": 705
+                "deterministic": 708,
+                "randomic": 721
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 767,
+                "randomic": 765
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 670,
+                "randomic": 667
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 712,
+                "randomic": 732
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 670,
+                "randomic": 715
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 709,
+                "randomic": 753
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 668,
+                "randomic": 707
             }
         }
     },
     "eil51": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 486
+                "deterministic": 480,
+                "randomic": 485
             },
             "two_opt_neighborhood": {
-                "deterministic": 449
+                "deterministic": 466,
+                "randomic": 485
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 492,
+                "randomic": 490
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 461,
+                "randomic": 476
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 481,
+                "randomic": 489
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 444,
+                "randomic": 458
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 467,
+                "randomic": 470
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 445,
+                "randomic": 454
             }
         }
     },
     "eil76": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 663
+                "deterministic": 589,
+                "randomic": 662
             },
             "two_opt_neighborhood": {
-                "deterministic": 561
+                "deterministic": 573,
+                "randomic": 628
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 601,
+                "randomic": 628
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 554,
+                "randomic": 608
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 624,
+                "randomic": 618
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 557,
+                "randomic": 605
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 589,
+                "randomic": 594
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 556,
+                "randomic": 603
             }
         }
     },
     "kroA100": {
         "1": {
             "swap_neighborhood": {
-                "deterministic": 25386
+                "deterministic": 24388,
+                "randomic": 26720
             },
             "two_opt_neighborhood": {
-                "deterministic": 22902
+                "deterministic": 22616,
+                "randomic": 24747
+            }
+        },
+        "2": {
+            "swap_neighborhood": {
+                "deterministic": 24026,
+                "randomic": 24668
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 23132,
+                "randomic": 25969
+            }
+        },
+        "5": {
+            "swap_neighborhood": {
+                "deterministic": 22943,
+                "randomic": 25103
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 22413,
+                "randomic": 22922
+            }
+        },
+        "10": {
+            "swap_neighborhood": {
+                "deterministic": 23756,
+                "randomic": 25055
+            },
+            "two_opt_neighborhood": {
+                "deterministic": 22522,
+                "randomic": 24098
             }
         }
     }

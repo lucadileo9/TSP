@@ -217,6 +217,9 @@ def analyze_tsp_instance(tsp_instance_filepath, optimal_path_filepath, init_path
             path_length_for_function = {}
 
             for path_function in init_path_strategies:
+                # Prima di eseguire il multistart stampo un aggiornamento
+                # così da sapere a che punto è arrivato il programma
+                print(f"Multistart per il file {tsp_instance_filepath} con {n_starts} partenze, {neighborhood_function_name} e {path_function.__name__}")
                 # Esegui il multistart e ottieni la lunghezza del miglior percorso trovato
                 best_path, best_path_length = multistart_local_search(
                     points, dist, path_function, neighborhood_function, n_starts
@@ -237,7 +240,7 @@ def analyze_tsp_instance(tsp_instance_filepath, optimal_path_filepath, init_path
             #                 "best_length_random": 0,
             #             }
             #         }
-            print_performance_breakdown(results)
+            #print_performance_breakdown(results)
 
     return results, optimal_length
             # Esempio results:
@@ -279,14 +282,14 @@ def batch_performance_analysis(tsp_datasets_folderpath):
             single_file_results, optimal_length = analyze_tsp_instance(
                 tsp_file,
                 optimal_tour_files[base_name],
-                path_functions=[nearest_neighbor_second],
-                neighborhood_functions=[swap_neighborhood, two_opt_neighborhood],
-                num_starts=[1]
+                init_path_strategies=[nearest_neighbor_second, nearest_neighbor_random],
+                neighborhood_search_strategies=[swap_neighborhood, two_opt_neighborhood],
+                num_starts=[1, 2, 5, 10]
             )
             aggregate_performance_data[base_name] = single_file_results
             optimal_path_lengths[base_name] = optimal_length
-            print_tsp_analysis_summary(aggregate_performance_data)
-            print(optimal_path_lengths)
+            # print_tsp_analysis_summary(aggregate_performance_data)
+            # print(optimal_path_lengths)
         else:
             print(f"Warning: No optimal tour file found for {tsp_file.name}")
 
@@ -325,5 +328,6 @@ def batch_performance_analysis(tsp_datasets_folderpath):
 if __name__ == "__main__":
     # Esempio di utilizzo
     # results = analyze_tsp_instance("a280.tsp", path_functions=[nearest_neighbor_second, nearest_neighbor_random], neighborhood_functions=[swap_neighborhood, two_opt_neighborhood], num_starts=[1,2,3])
-    all_results = batch_performance_analysis("TSP_instances_clean/")
-    print_tsp_analysis_summary(all_results)
+    aggregate_performance_data, optimal_path_lengths = batch_performance_analysis("TSP_instances_clean/")
+    print_tsp_analysis_summary(aggregate_performance_data)
+    print(optimal_path_lengths)
