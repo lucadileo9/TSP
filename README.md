@@ -25,7 +25,7 @@ This repository contains a solution to the **Traveling Salesman Problem (TSP)** 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/tsp-solver.git
+   git clone https://github.com/lucadileo9/TSP.git
    cd tsp-solver
    ```
 
