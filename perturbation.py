@@ -3,7 +3,18 @@ from algorithm_metrics import check_path
 import random
 
 def two_opt_randomized(solution, n, points, DEBUG=False):
-    """Applica una perturbazione 2-opt randomizzata con controllo di validità."""
+    """
+    Effettua una perturbazione sul percorso attuale selezionando un segmento casuale e invertendone l'ordine.
+    È una variante del classico algoritmo 2-opt, ma il segmento da invertire viene scelto in modo casuale
+    Viene effettuato anche un controllo di validità.
+    Args:
+        solution (list): Il percorso attuale.
+        n (int): Lunghezza del segmento da invertire.
+        points (list): Lista di punti (coordinate o dati relativi al problema TSP).
+        DEBUG (bool): Se True, stampa informazioni aggiuntive.
+    Returns:
+        list: Il percorso perturbato valido.
+    """
     size = len(solution)
     while True:
         i = random.randint(0, size - n - 1)  # Indice di inizio casuale
@@ -17,7 +28,16 @@ def two_opt_randomized(solution, n, points, DEBUG=False):
             print(f"2-opt non valido: i={i}, j={j}. Rigenero...")
 
 def multi_swap(solution, k, points, DEBUG=False):
-    """Esegue k scambi casuali tra coppie di nodi con controllo di validità."""
+    """
+    Esegue k scambi casuali tra coppie di nodi con controllo di validità.
+    Args:
+        solution (list): Il percorso attuale.
+        k (int): Numero di scambi casuali da effettuare.
+        points (list): Lista di punti (coordinate o dati relativi al problema TSP).
+        DEBUG (bool): Se True, stampa informazioni aggiuntive.
+    Returns:
+        list: Il percorso perturbato valido.
+    """
     size = len(solution)
     while True:
         new_solution = solution[:]
@@ -32,7 +52,17 @@ def multi_swap(solution, k, points, DEBUG=False):
             print(f"Multi-swap non valido. Rigenero...")
 
 def shuffle_partial(solution, n, points, DEBUG=False):
-    """Mescola casualmente una sottosequenza del percorso con controllo di validità."""
+    """
+    Seleziona casualmente una sottosequenza di nodi nel percorso e la mescola in modo casuale.
+    Viene effettuato anche un controllo di validità.
+    Args:
+        solution (list): Il percorso attuale.
+        n (int): Lunghezza della sottosequenza da mescolare.
+        points (list): Lista di punti (coordinate o dati relativi al problema TSP).
+        DEBUG (bool): Se True, stampa informazioni aggiuntive.
+    Returns:
+        list: Il percorso perturbato valido.
+    """
     size = len(solution)
     while True:
         i = random.randint(0, size - n - 1)  # Indice di inizio casuale
@@ -48,7 +78,17 @@ def shuffle_partial(solution, n, points, DEBUG=False):
             print(f"Shuffle non valido: segmento [{i}:{j}]. Rigenero...")
 
 def three_opt_randomized(solution, points, DEBUG=False):
-    """Applica una perturbazione 3-opt randomizzata con controllo di validità."""
+    """
+    Applica una perturbazione 3-opt randomizzata con controllo di validità.
+    Introduce una perturbazione più complessa dividendo il percorso in tre segmenti casuali
+    e riconnettendoli in uno dei diversi modi possibili (incluso il loro ordine originale o inversioni).
+    Args:
+        solution (list): Il percorso attuale.
+        points (list): Lista di punti (coordinate o dati relativi al problema TSP).
+        DEBUG (bool): Se True, stampa informazioni aggiuntive.
+    Returns:
+        list: Il percorso perturbato valido.
+    """
     size = len(solution)
     while True:
         a, b, c = sorted(random.sample(range(size), 3))  # Tre indici casuali ordinati
@@ -70,7 +110,16 @@ def three_opt_randomized(solution, points, DEBUG=False):
             print(f"3-opt non valido: a={a}, b={b}, c={c}. Rigenero...")
 
 def double_bridge_move(solution, points, DEBUG=False):
-    """Applica una perturbazione Double Bridge Move con controllo di validità."""
+    """
+    Taglia il percorso in quattro segmenti distinti e li ricombina scambiando la posizione di due segmenti centrali
+    Viene effettuato anche un controllo di validità.
+    Args:
+        solution (list): Il percorso attuale.
+        points (list): Lista di punti (coordinate o dati relativi al problema TSP).
+        DEBUG (bool): Se True, stampa informazioni aggiuntive.
+    Returns:
+        list: Il percorso perturbato valido.
+    """
     size = len(solution)
     if size < 8:
         raise ValueError("La soluzione deve contenere almeno 8 nodi per il Double Bridge Move.")
@@ -93,8 +142,9 @@ def double_bridge_move(solution, points, DEBUG=False):
 
 def perturbation_swap_segments(solution, points, DEBUG=False):
     """
-    Perturba la soluzione corrente scambiando due segmenti casuali, con controllo di validità.
-
+    Seleziona due segmenti casuali nel percorso, assicurandosi che non si sovrappongano,
+    e li scambia di posizione
+    Viene effettuato anche un controllo di validità.
     Args:
         solution: Lista rappresentante il percorso attuale.
         points: Lista di punti (coordinate o dati relativi al problema TSP).
