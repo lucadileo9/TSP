@@ -60,6 +60,60 @@ def two_opt_neighborhood(path, print_neighbors=False):
             print(neighbor)
     return neighbors
 
+import random
+
+def two_opt_single_neighbor(path):
+    """
+    Genera un singolo vicino casuale utilizzando la mossa 2-opt su un dato percorso.
+    La mossa 2-opt scambia l'ordine dei nodi tra due indici casuali del percorso.
+
+    Args:
+        path (list): Un percorso rappresentato come lista di nodi.
+    
+    Returns:
+        list: Un percorso che rappresenta un vicino ottenuto con una mossa 2-opt.
+    """
+    n = len(path)
+    # Seleziona casualmente due indici validi i e j, rispettando i vincoli di 2-opt
+    i = random.randint(1, n - 1)  # i parte da 1 e termina a n-3 per evitare il nodo iniziale e la penultima posizione
+    j = random.randint(i + 1, n )  # j è sempre almeno 2 posizioni avanti rispetto a i, e finisce prima dell'ultimo nodo
+
+    # Crea il nuovo percorso invertendo i nodi tra i e j
+    new_path = path[:i] + path[i:j+1][::-1] + path[j+1:]
+
+    return new_path
+
+def swap_single_neighbor(path):
+    """
+    Genera un singolo vicino casuale effettuando uno swap di due nodi in un percorso.
+    Lo swap coinvolge due nodi scelti casualmente, evitando il primo e l'ultimo nodo.
+
+    Args:
+        path (list): Il percorso attuale (una lista di indici di nodi).
+
+    Returns:
+        list: Un percorso modificato in cui due nodi sono stati scambiati.
+    """
+    n = len(path)
+    
+    # Controlla che il percorso abbia almeno 3 nodi da poter scambiare
+    if n < 4:
+        raise ValueError("Il percorso è troppo corto per applicare la mossa di swap.")
+
+    # Seleziona casualmente due indici validi per il swap
+    while True:
+        i = random.randint(1, n - 2)  # i può essere qualsiasi nodo eccetto il primo e l'ultimo
+        j = random.randint(1, n - 2)  # j è anch'esso tra 1 e n-2
+        if i != j:  # Assicura che i due indici siano diversi
+            break
+
+    # Crea una copia del percorso per effettuare lo swap
+    new_path = path[:]
+    new_path[i], new_path[j] = new_path[j], new_path[i]
+
+    return new_path
+
+
 if __name__ == "__main__":
     path = [0, 1, 2, 3, 4, 5, 6, 7]
     two_opt_neighborhood(path, print_neighbors=True)
