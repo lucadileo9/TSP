@@ -1,0 +1,20 @@
+{
+    "a280": {
+        "ILS": 3147,
+        "SA": 3211,
+        "ILSSA": 2709,
+        "Optimal Cost": 2579
+    },
+    "berlin52": {
+        "ILS": 7984,
+        "SA": 8477,
+        "ILSSA": 8119,
+        "Optimal Cost": 7542
+    },
+    "bier127": {
+        "ILS": 123582,
+        "SA": 131517,
+        "ILSSA": 127189,
+        "Optimal Cost": 118282
+    }
+}
