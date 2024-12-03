@@ -137,15 +137,15 @@ def filter_solutions(solution_file, filtered_directory, output_file):
 # Esempio di utilizzo
 
 # Script principale
-# if __name__ == "__main__":
-#     # Percorsi delle directory
-#     source_directory = "new_instances"  # Cambia con il percorso reale della tua directory
-#     destination_directory = "new_instances_filtered"
+if __name__ == "__main__":
+    # Percorsi delle directory
+    source_directory = "new_instances"  # Cambia con il percorso reale della tua directory
+    destination_directory = "new_instances_filtered"
     
-#     # Filtro dei file TSPLIB
-#     print("Filtraggio dei file in corso...")
-#     filter_tsplib_files(source_directory, destination_directory)
-#     print(f"File filtrati salvati in: {destination_directory}")
+    # Filtro dei file TSPLIB
+    print("Filtraggio dei file in corso...")
+    filter_tsplib_files(source_directory, destination_directory)
+    print(f"File filtrati salvati in: {destination_directory}")
     
 #     # Analisi della directory filtrata
 #     print("\nAnalisi della directory filtrata...")
@@ -164,42 +164,42 @@ def filter_solutions(solution_file, filtered_directory, output_file):
 #         print("File:", ", ".join(files))
 #         print()
     
-#     solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
-#     filtered_directory = "new_instances_filtered"  # Directory con i file filtrati
-#     output_file = "new_instances_filtered/filtered_solutions"  # Nuovo file per le soluzioni filtrate
+    solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
+    filtered_directory = "new_instances_filtered"  # Directory con i file filtrati
+    output_file = "new_instances_filtered/solutions"  # Nuovo file per le soluzioni filtrate
 
-#     filter_solutions(solution_file, filtered_directory, output_file)
-#     print(f"Soluzioni filtrate salvate in: {output_file}")
+    filter_solutions(solution_file, filtered_directory, output_file)
+    print(f"Soluzioni filtrate salvate in: {output_file}")
 
 
 if __name__ == "__main__":
     directory_path = "new_instances_filtered"  # Cambia con la directory contenente i file filtrati
     
     # Controlla che la directory esista
-    if not os.path.exists(directory_path):
-        print(f"Errore: La directory '{directory_path}' non esiste.")
-        exit(1)
+    # if not os.path.exists(directory_path):
+    #     print(f"Errore: La directory '{directory_path}' non esiste.")
+    #     exit(1)
     
-    # Itera sui file nella directory
-    for filename in os.listdir(directory_path):
-        file_path = os.path.join(directory_path, filename)
+    # # Itera sui file nella directory
+    # for filename in os.listdir(directory_path):
+    #     file_path = os.path.join(directory_path, filename)
         
-        # Verifica che sia un file TSPLIB
-        if os.path.isfile(file_path) and filename.endswith(".tsp"):
-            print(f"\nAnalizzando il file: {filename}")
+    #     # Verifica che sia un file TSPLIB
+    #     if os.path.isfile(file_path) and filename.endswith(".tsp"):
+    #         print(f"\nAnalizzando il file: {filename}")
             
-            # Leggi il file usando readTSPLIB
-            try:
-                n, points, dist = readTSPLIB(file_path)
-                print(f"Numero di nodi (DIMENSION): {n}")
-                print("Punti (coordinate):")
-                for i, point in enumerate(points, start=1):
-                    print(f"  Nodo {i}: {point}")
-                print("Esempio distanze (prime 5):")
-                for k, (edge, weight) in enumerate(dist.items()):
-                    if k >= 5:  # Stampa solo le prime 5 distanze per esempio
-                        break
-                    print(f"  {edge}: {weight}")
-            except Exception as e:
-                print(f"Errore durante la lettura di '{filename}': {e}")
-        # input("Premi INVIO per continuare...")
+    #         # Leggi il file usando readTSPLIB
+    #         try:
+    #             n, points, dist = readTSPLIB(file_path)
+    #             print(f"Numero di nodi (DIMENSION): {n}")
+    #             print("Punti (coordinate):")
+    #             for i, point in enumerate(points, start=1):
+    #                 print(f"  Nodo {i}: {point}")
+    #             print("Esempio distanze (prime 5):")
+    #             for k, (edge, weight) in enumerate(dist.items()):
+    #                 if k >= 5:  # Stampa solo le prime 5 distanze per esempio
+    #                     break
+    #                 print(f"  {edge}: {weight}")
+    #         except Exception as e:
+    #             print(f"Errore durante la lettura di '{filename}': {e}")
+    #     # input("Premi INVIO per continuare...")
