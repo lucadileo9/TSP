@@ -19,8 +19,17 @@ def ils_sa_tsp(file_path, iterations):
 
 
     for iteration in range(iterations):
-        # Perturba la soluzione
-        new_solution = multi_swap(best_solution,3, points)
+        # Calcola la fase corrente
+        progress = iteration / iterations
+        if progress < 0.5:
+            phase = "aggressive"
+        elif progress < 0.8:
+            phase = "medium"
+        else:
+            phase = "soft"
+
+        # Applica la perturbazione basata sulla fase
+        new_solution = perturbation(best_solution, phase, points, n)
 
         # Applica SA alla soluzione perturbata
         new_solution = simulated_annealing(new_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
