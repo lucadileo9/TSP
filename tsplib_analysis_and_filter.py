@@ -82,7 +82,7 @@ def list_files_by_distance_type(directory):
     return files_by_type
 
 # Funzione 4: Filtrare i file TSPLIB per tipo di distanza
-def filter_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}, max_nodes=10000):
+def filter_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}, max_nodes=500):
     """
     Filtra i file TSPLIB mantenendo solo quelli con EDGE_WEIGHT_TYPE specificati
     e meno di max_nodes nodi.
@@ -134,46 +134,154 @@ def filter_solutions(solution_file, filtered_directory, output_file):
             if instance_name in valid_instances:
                 outfile.write(line)
 
-# Esempio di utilizzo
+def filter_and_organize_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}):
+    """
+    Filtra i file TSPLIB per EDGE_WEIGHT_TYPE e li organizza in sottocartelle 
+    basate sul numero di nodi (DIMENSION).
+    
+    Args:
+        source_dir (str): Directory sorgente con i file TSPLIB.
+        dest_dir (str): Directory principale di destinazione.
+        valid_types (set): Tipi validi di EDGE_WEIGHT_TYPE.
+    """
+    # Definizione dei range per le sottocartelle
+    ranges = [
+        (0, 50, "50_nodes"),
+        (51, 100, "100_nodes"),
+        (101, 200, "200_nodes"),
+        (201, 500, "500_nodes"),
+        (501, 1000, "1000_nodes"),
+        (1001, 2000, "2000_nodes"),
+        (2001, float("inf"), "2000_plus_nodes"),
+    ]
+    
+    # Crea la directory principale di destinazione se non esiste
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+    
+    for filename in os.listdir(source_dir):
+        file_path = os.path.join(source_dir, filename)
+        if os.path.isfile(file_path) and filename.endswith(".tsp"):
+            with open(file_path, 'r') as file:
+                edge_weight_type = None
+                dimension = None
+                for line in file:
+                    line = line.strip()
+                    if line.startswith("EDGE_WEIGHT_TYPE"):
+                        edge_weight_type = line.split(":")[1].strip()
+                    elif line.startswith("DIMENSION"):
+                        dimension = int(line.split(":")[1].strip())
+                    # Termina la lettura se entrambi i valori sono trovati
+                    if edge_weight_type and dimension:
+                        break
+                
+                # Verifica se il file soddisfa i criteri
+                if edge_weight_type in valid_types and dimension is not None:
+                    # Determina il range appropriato
+                    for min_nodes, max_nodes, folder_name in ranges:
+                        if min_nodes <= dimension <= max_nodes:
+                            # Crea la sottocartella se non esiste
+                            subfolder = os.path.join(dest_dir, folder_name)
+                            if not os.path.exists(subfolder):
+                                os.makedirs(subfolder)
+                            # Copia il file nella sottocartella appropriata
+                            shutil.copy(file_path, os.path.join(subfolder, filename))
+                            break
+
+
+def organize_solutions(solution_file, organized_instances_dir, output_dir):
+    """
+    Organizza il file delle soluzioni in base alle sottocartelle delle istanze TSPLIB.
+    
+    Args:
+        solution_file (str): Percorso del file originale delle soluzioni.
+        organized_instances_dir (str): Directory organizzata con le sottocartelle delle istanze TSPLIB.
+        output_dir (str): Directory in cui salvare i file delle soluzioni organizzati.
+    """
+    # Carica tutte le soluzioni dal file originale in un dizionario
+    solutions = {}
+    with open(solution_file, 'r') as infile:
+        for line in infile:
+            parts = line.split(":")
+            if len(parts) == 2:
+                instance_name = parts[0].strip()
+                solution_value = parts[1].strip()
+                solutions[instance_name] = solution_value
+
+    # Itera sulle sottocartelle delle istanze organizzate
+    for subfolder in os.listdir(organized_instances_dir):
+        subfolder_path = os.path.join(organized_instances_dir, subfolder)
+        if os.path.isdir(subfolder_path):
+            # Trova tutte le istanze nella sottocartella
+            instance_files = os.listdir(subfolder_path)
+            instance_names = {os.path.splitext(filename)[0] for filename in instance_files if filename.endswith(".tsp")}
+            
+            # Crea un file delle soluzioni per questa sottocartella
+            solutions_file_path = os.path.join(subfolder_path, "solutions.txt")
+            with open(solutions_file_path, 'w') as outfile:
+                for instance_name in instance_names:
+                    if instance_name in solutions:
+                        outfile.write(f"{instance_name} : {solutions[instance_name]}\n")
+            
+            print(f"File delle soluzioni salvato in: {solutions_file_path}")
+
 
 # Script principale
 if __name__ == "__main__":
-    # Percorsi delle directory
+    #___________________ FILTRAGGIO E ORGANIZZAZIONE DEI FILE TSPLIB ___________________
+    # source_directory = "new_instances"  # Cambia con il percorso della directory sorgente
+    # destination_directory = "organized_instances"  # Directory principale di destinazione
+    
+    # print("Filtraggio e organizzazione dei file per EDGE_WEIGHT_TYPE e DIMENSION...")
+    # filter_and_organize_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"})
+    # print(f"File organizzati salvati in: {destination_directory}")
+    # # PER CARICARE LE SOLUZIONI
+    # solution_file_path = "new_instances/solutions"  # File originale delle soluzioni
+    # organized_instances_path = "organized_instances"  # Directory con le istanze organizzate
+    # output_solutions_path = "organized_solutions"  # Directory per i file delle soluzioni organizzati
+    
+    # print("Organizzazione delle soluzioni in corso...")
+    # organize_solutions(solution_file_path, organized_instances_path, output_solutions_path)
+    # print(f"Soluzioni organizzate salvate in: {output_solutions_path}")
+
+
+    
+    # # Percorsi delle directory
     source_directory = "new_instances"  # Cambia con il percorso reale della tua directory
-    destination_directory = "new_instances_filtered"
+    # destination_directory = "new_instances_filtered"
     
-    # Filtro dei file TSPLIB
-    print("Filtraggio dei file in corso...")
-    filter_tsplib_files(source_directory, destination_directory)
-    print(f"File filtrati salvati in: {destination_directory}")
+    # # Filtro dei file TSPLIB
+    # print("Filtraggio dei file in corso...")
+    # filter_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"}, max_nodes=100)
+    # print(f"File filtrati salvati in: {destination_directory}")
     
-#     # Analisi della directory filtrata
-#     print("\nAnalisi della directory filtrata...")
-#     filtered_summary = analyze_tsplib_directory(destination_directory)
-#     print("Totale istanze:", filtered_summary["total_instances"])
-#     print("Tipologie di problemi:", filtered_summary["types"])
-#     print("Tipi di distanza (EDGE_WEIGHT_TYPE):", filtered_summary["edge_weight_types"])
-#     print("Formati dei pesi (EDGE_WEIGHT_FORMAT):", filtered_summary["edge_weight_formats"])
-#     print("Istanze senza EDGE_WEIGHT_FORMAT:", filtered_summary["missing_edge_weight_format"])
+    # Analisi della directory filtrata
+    print("\nAnalisi della directory filtrata...")
+    filtered_summary = analyze_tsplib_directory(source_directory)
+    print("Totale istanze:", filtered_summary["total_instances"])
+    print("Tipologie di problemi:", filtered_summary["types"])
+    print("Tipi di distanza (EDGE_WEIGHT_TYPE):", filtered_summary["edge_weight_types"])
+    print("Formati dei pesi (EDGE_WEIGHT_FORMAT):", filtered_summary["edge_weight_formats"])
+    print("Istanze senza EDGE_WEIGHT_FORMAT:", filtered_summary["missing_edge_weight_format"])
     
-#     # Lista dei file per tipo di distanza
-#     print("\nElenco dei file raggruppati per tipo di distanza:")
-#     files_by_type = list_files_by_distance_type(destination_directory)
-#     for edge_weight_type, files in files_by_type.items():
-#         print(f"EDGE_WEIGHT_TYPE: {edge_weight_type}")
-#         print("File:", ", ".join(files))
-#         print()
+    # Lista dei file per tipo di distanza
+    print("\nElenco dei file raggruppati per tipo di distanza:")
+    files_by_type = list_files_by_distance_type(source_directory)
+    for edge_weight_type, files in files_by_type.items():
+        print(f"EDGE_WEIGHT_TYPE: {edge_weight_type}")
+        print("File:", ", ".join(files))
+        print()
     
-    solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
-    filtered_directory = "new_instances_filtered"  # Directory con i file filtrati
-    output_file = "new_instances_filtered/solutions"  # Nuovo file per le soluzioni filtrate
+    # solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
+    # filtered_directory = "new_instances_filtered"  # Directory con i file filtrati
+    # output_file = "new_instances_filtered/solutions"  # Nuovo file per le soluzioni filtrate
 
-    filter_solutions(solution_file, filtered_directory, output_file)
-    print(f"Soluzioni filtrate salvate in: {output_file}")
+    # filter_solutions(solution_file, filtered_directory, output_file)
+    # print(f"Soluzioni filtrate salvate in: {output_file}")
 
 
-if __name__ == "__main__":
-    directory_path = "new_instances_filtered"  # Cambia con la directory contenente i file filtrati
+# if __name__ == "__main__":
+#     directory_path = "new_instances_filtered"  # Cambia con la directory contenente i file filtrati
     
     # Controlla che la directory esista
     # if not os.path.exists(directory_path):

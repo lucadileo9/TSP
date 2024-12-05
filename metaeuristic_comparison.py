@@ -45,7 +45,7 @@ def load_results_from_json(filename="tsp_comparison_results.json"):
         return {}
 
 
-def process_instances(instances_folder, optimal_solutions):
+def process_instances(instances_folder, optimal_solutions, output_file=None):
     results = {}
     
     # Leggi tutte le istanze
@@ -72,10 +72,26 @@ def process_instances(instances_folder, optimal_solutions):
             "ILSSA": ils_sa_cost,
             "Optimal Cost": optimal_value
         }
-    save_results_to_json(results, "tsp_comparison_results.json")
+    save_results_to_json(results, output_file)
     return results
 
+def process_all_folders(base_folder):
+    """Processa tutte le cartelle di dimensioni."""
+    for folder in os.listdir(base_folder):
+        folder_path = os.path.join(base_folder, folder)
+        if os.path.isdir(folder_path):
+            # File delle soluzioni e file di output
+            optimal_solutions_file = os.path.join(folder_path, "solutions.txt")
+            output_file = os.path.join(folder_path, f"{folder}_comparison_results.json")
+            
+            # Processa le istanze nella cartella
+            print(f"Processando la cartella: {folder}")
+            process_instances(folder_path, optimal_solutions_file, output_file)
+
+
 if __name__ == "__main__":
+    process_all_folders("organized_instances")
+
     # instances_folder = "new_instances"
 
     # solutions_file_path = os.path.join(instances_folder, "solutions")
@@ -87,8 +103,8 @@ if __name__ == "__main__":
     # # Elabora le istanze e ottieni i risultati
     # results = process_instances(instances_folder, optimal_solutions)
     
-    # # Stampa i risultati
-    # print_results(results)
-    result = load_results_from_json()
-    print_results(result)
+    # # # Stampa i risultati
+    # # print_results(results)
+    # result = load_results_from_json()
+    # print_results(result)
 
