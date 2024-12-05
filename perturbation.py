@@ -2,6 +2,32 @@ import numpy as np
 from algorithm_metrics import check_path
 import random
 
+def perturbation(solution, phase, points,n, DEBUG=False):
+    """
+    Applica una perturbazione al percorso attuale in base alla fase corrente.
+    La perturbazione può essere di diverso tipo a seconda della fase:
+    - "aggressive": 3-opt randomizzata
+    - "medium": Double Bridge Move
+    - "soft": 2-opt randomizzata
+    Args:
+        solution (list): Il percorso attuale.
+        phase (str): La fase corrente ("aggressive", "medium", "soft").
+        points (list): Lista di punti (coordinate o dati relativi al problema TSP).
+        n (int): Numero di nodi del problema TSP.
+        DEBUG (bool): Se True, stampa informazioni aggiuntive.
+    Returns:
+        list: Il percorso perturbato valido.
+    """
+    if phase == "aggressive":
+        return double_bridge_move(solution, points, DEBUG)
+    elif phase == "medium":
+        return multi_swap(solution, k=n/50 , points=points, DEBUG=DEBUG)
+    elif phase == "soft":
+        return shuffle_partial(solution, n=n/10, points=points, DEBUG=DEBUG)
+    else:
+        raise ValueError("Fase non valida.")
+    
+    
 def two_opt_randomized(solution, n, points, DEBUG=False):
     """
     Effettua una perturbazione sul percorso attuale selezionando un segmento casuale e invertendone l'ordine.
