@@ -1,20 +1,38 @@
 {
-    "a280": {
-        "ILS": 3147,
-        "SA": 3211,
-        "ILSSA": 2709,
-        "Optimal Cost": 2579
-    },
     "berlin52": {
-        "ILS": 7984,
-        "SA": 8477,
-        "ILSSA": 8119,
+        "ILS": 8198,
+        "SA": 9106,
+        "ILSSA": 8081,
         "Optimal Cost": 7542
     },
-    "bier127": {
-        "ILS": 123582,
-        "SA": 131517,
-        "ILSSA": 127189,
-        "Optimal Cost": 118282
+    "eil51": {
+        "ILS": 463,
+        "SA": 488,
+        "ILSSA": 458,
+        "Optimal Cost": 426
+    },
+    "eil76": {
+        "ILS": 630,
+        "SA": 651,
+        "ILSSA": 557,
+        "Optimal Cost": 538
+    },
+    "pr76": {
+        "ILS": 116995,
+        "SA": 116644,
+        "ILSSA": 118101,
+        "Optimal Cost": 108159
+    },
+    "rat99": {
+        "ILS": 1483,
+        "SA": 1527,
+        "ILSSA": 1300,
+        "Optimal Cost": 1211
+    },
+    "st70": {
+        "ILS": 828,
+        "SA": 828,
+        "ILSSA": 742,
+        "Optimal Cost": 675
     }
 }
