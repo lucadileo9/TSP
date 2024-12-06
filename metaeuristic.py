@@ -1,3 +1,4 @@
+from tqdm import tqdm
 from tsp_utils import readTSPLIB
 from my_utils import nearest_neighbor_second
 from algorithm_metrics import path_length
@@ -95,50 +96,56 @@ def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterat
         print(f"Temperatura iniziale: {T_0}")
         print(f"Soluzione iniziale: {current_solution} con costo {current_cost}")
     
-    while T > T_min and total_iterations < max_iterations:
-        for iteration in range(number_of_iterations_with_same_temperature):
-            total_iterations += 1
-            if DEBUG:  # Stampa periodica ogni 10 iterazioni
-                print(f"Temperatura attuale: {T:.4f}")
+    with tqdm(total=total_iterations, desc="Simulated Annealing Progress") as pbar:
+        while T > T_min and total_iterations < max_iterations:
+            for iteration in range(number_of_iterations_with_same_temperature):
+                total_iterations += 1
+                pbar.update(1)  # Aggiorna la barra di progresso
 
-            # Genera il vicinato usando il metodo 2-opt
-            neighbor_solution = two_opt_single_neighbor(current_solution)
-            neighbor_cost = path_length(dist, neighbor_solution)
+                if DEBUG:  # Stampa periodica ogni 10 iterazioni
+                    print(f"Temperatura attuale: {T:.4f}")
 
-            # Calcolo della differenza di costo
-            delta = neighbor_cost - current_cost
+                # Genera il vicinato usando il metodo 2-opt
+                neighbor_solution = two_opt_single_neighbor(current_solution)
+                neighbor_cost = path_length(dist, neighbor_solution)
 
-            # Decidi se accettare la nuova soluzione
-            if delta < 0 or random.uniform(0, 1) < math.exp(-delta / T):
-                if DEBUG:
-                    if delta < 0:
-                        print(f"Nuova soluzione CORRENTE, perchè MIGLIORE di {delta}. Costo {neighbor_cost}")
-                    else:
-                        print(f"Nuova soluzione CORRENTE, anche se  PEGGIORE di {delta}. Costo {neighbor_cost}")
-                # Accetta la nuova soluzione
-                current_solution = neighbor_solution
-                current_cost = neighbor_cost
+                # Calcolo della differenza di costo
+                delta = neighbor_cost - current_cost
 
-                # Aggiorna la migliore soluzione trovata
-                if current_cost < best_cost:
-                    best_solution = current_solution
-                    best_cost = current_cost
+                # Decidi se accettare la nuova soluzione
+                if delta < 0 or random.uniform(0, 1) < math.exp(-delta / T):
                     if DEBUG:
-                        print(f"Nuova soluzione GENERALE con costo {best_cost}")
-            else:
-                if DEBUG:
-                    print(f"Nuova soluzione SCARTATA, perchè PEGGIORE di {delta}. Costo {neighbor_cost}")
-        # Aggiorna la temperatura
-        T = T * alpha
+                        if delta < 0:
+                            print(f"Nuova soluzione CORRENTE, perchè MIGLIORE di {delta}. Costo {neighbor_cost}")
+                        else:
+                            print(f"Nuova soluzione CORRENTE, anche se  PEGGIORE di {delta}. Costo {neighbor_cost}")
+                    # Accetta la nuova soluzione
+                    current_solution = neighbor_solution
+                    current_cost = neighbor_cost
+
+                    # Aggiorna la migliore soluzione trovata
+                    if current_cost < best_cost:
+                        best_solution = current_solution
+                        best_cost = current_cost
+                        if DEBUG:
+                            print(f"Nuova soluzione GENERALE con costo {best_cost}")
+                else:
+                    if DEBUG:
+                        print(f"Nuova soluzione SCARTATA, perchè PEGGIORE di {delta}. Costo {neighbor_cost}")
+            # Aggiorna la temperatura
+            T = T * alpha
 
     # Ritorna la migliore soluzione trovata
 
     return best_solution
 
-def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False):
-     # Inizializzazione
-    n, points, dist = readTSPLIB(file_path)
+from tqdm import tqdm
 
+def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False):
+    # Inizializzazione
+    n, points, dist = readTSPLIB(file_path)
+    if n > 1000:
+        
     current_solution = nearest_neighbor_second(points, dist)
     print("Costo della soluzione iniziale:", path_length(dist, current_solution))
 
@@ -156,60 +163,64 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
         print(f"Temperatura iniziale: {T_0}")
         print(f"Soluzione iniziale: {current_solution} con costo {current_cost}")
     
-    while T > T_min and total_iterations < max_iterations:
-        for iteration in range(number_of_iterations_with_same_temperature):
-            total_iterations += 1
-            if DEBUG:  # Stampa periodica ogni 10 iterazioni
-                print(f"Temperatura attuale: {T:.4f}")
+    # Calcolo delle iterazioni totali previste per tqdm
+    total_iterations_estimate = max_iterations * number_of_iterations_with_same_temperature
+    with tqdm(total=total_iterations_estimate, desc="Simulated Annealing Progress") as pbar:
+        while T > T_min and total_iterations < max_iterations:
+            for iteration in range(number_of_iterations_with_same_temperature):
+                total_iterations += 1
+                pbar.update(1)  # Aggiorna la barra di progresso
+                
+                if DEBUG:  # Stampa periodica ogni 10 iterazioni
+                    print(f"Temperatura attuale: {T:.4f}")
 
-            # Genera il vicinato usando il metodo 2-opt
-            neighbor_solution = two_opt_single_neighbor(current_solution)
-            neighbor_cost = path_length(dist, neighbor_solution)
+                # Genera il vicinato usando il metodo 2-opt
+                neighbor_solution = two_opt_single_neighbor(current_solution)
+                neighbor_cost = path_length(dist, neighbor_solution)
 
-            # Calcolo della differenza di costo
-            delta = neighbor_cost - current_cost
+                # Calcolo della differenza di costo
+                delta = neighbor_cost - current_cost
 
-            # Decidi se accettare la nuova soluzione
-            if delta < 0 or random.uniform(0, 1) < math.exp(-delta / T):
-                if DEBUG:
-                    if delta < 0:
-                        print(f"Nuova soluzione CORRENTE, perchè MIGLIORE di {delta}. Costo {neighbor_cost}")
-                    else:
-                        print(f"Nuova soluzione CORRENTE, anche se  PEGGIORE di {delta}. Costo {neighbor_cost}")
-                # Accetta la nuova soluzione
-                current_solution = neighbor_solution
-                current_cost = neighbor_cost
-
-                # Aggiorna la migliore soluzione trovata
-                if current_cost < best_cost:
-                    best_solution = current_solution
-                    best_cost = current_cost
+                # Decidi se accettare la nuova soluzione
+                if delta < 0 or random.uniform(0, 1) < math.exp(-delta / T):
                     if DEBUG:
-                        print(f"Nuova soluzione GENERALE con costo {best_cost}")
-            else:
-                if DEBUG:
-                    print(f"Nuova soluzione SCARTATA, perchè PEGGIORE di {delta}. Costo {neighbor_cost}")
-        # Aggiorna la temperatura
-        T = T * alpha
+                        if delta < 0:
+                            print(f"Nuova soluzione CORRENTE, perchè MIGLIORE di {delta}. Costo {neighbor_cost}")
+                        else:
+                            print(f"Nuova soluzione CORRENTE, anche se PEGGIORE di {delta}. Costo {neighbor_cost}")
+                    # Accetta la nuova soluzione
+                    current_solution = neighbor_solution
+                    current_cost = neighbor_cost
+
+                    # Aggiorna la migliore soluzione trovata
+                    if current_cost < best_cost:
+                        best_solution = current_solution
+                        best_cost = current_cost
+                        if DEBUG:
+                            print(f"Nuova soluzione GENERALE con costo {best_cost}")
+                else:
+                    if DEBUG:
+                        print(f"Nuova soluzione SCARTATA, perchè PEGGIORE di {delta}. Costo {neighbor_cost}")
+            # Aggiorna la temperatura
+            T = T * alpha
 
     # Ritorna la migliore soluzione trovata
-
     return best_solution, path_length(dist, best_solution)
 
 
-def iterated_local_search(file_path, max_iterations):
+def iterated_local_search(file_path, max_iterations, DEBUG=False):
     n, points, dist = readTSPLIB(file_path)
 
     current_solution = nearest_neighbor_second(points, dist)
-    print("Costo della soluzione iniziale:", path_length(dist, current_solution))
+    if DEBUG:
+        print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     best_solution = local_search(dist, current_solution, two_opt_neighborhood) 
     
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
 
     # CONTROLLARE
-    for iteration in range(max_iterations):
-        print(f"Iterazione {iteration}")
+    for iteration in tqdm(range(max_iterations), desc="Iterations"):
         # Perturba la soluzione
         new_solution = three_opt_randomized(best_solution, points)
 
@@ -224,7 +235,8 @@ def iterated_local_search(file_path, max_iterations):
             no_improvement_count += 1
 
         if no_improvement_count >= max_no_improvement:
-            print(f"Stopping early at iteration {iteration} due to no improvement.")
+            if DEBUG:
+                print(f"Stopping early at iteration {iteration} due to no improvement.")
             break
 
     return best_solution, path_length(dist, best_solution)
