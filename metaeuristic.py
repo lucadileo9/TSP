@@ -1,6 +1,6 @@
 from tqdm import tqdm
 from tsp_utils import readTSPLIB
-from my_utils import nearest_neighbor_second
+from my_utils import nearest_neighbor_second, generate_random_path
 from algorithm_metrics import path_length
 from neighborhood import two_opt_single_neighbor, two_opt_neighborhood
 from perturbation import *
@@ -145,8 +145,9 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
     # Inizializzazione
     n, points, dist = readTSPLIB(file_path)
     if n > 1000:
-        
-    current_solution = nearest_neighbor_second(points, dist)
+        current_solution = generate_random_path(n)
+    else:
+        current_solution = nearest_neighbor_second(points, dist)
     print("Costo della soluzione iniziale:", path_length(dist, current_solution))
 
     T = T_0  # Temperatura iniziale
@@ -211,7 +212,12 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
 def iterated_local_search(file_path, max_iterations, DEBUG=False):
     n, points, dist = readTSPLIB(file_path)
 
-    current_solution = nearest_neighbor_second(points, dist)
+    if n > 1000:
+        current_solution = generate_random_path(n)
+    else:
+        current_solution = nearest_neighbor_second(points, dist)
+    print("Costo della soluzione iniziale:", path_length(dist, current_solution))
+
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     best_solution = local_search(dist, current_solution, two_opt_neighborhood) 
@@ -243,12 +249,11 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
 
 if __name__ == "__main__":
     # testiamo il simulated annealing
-    file_path = "new_instances/pcb3038.tsp"
-    n, points, dist = readTSPLIB(file_path)
-    
-    best_solution= complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False)
-    print("Costo della soluzione migliore con simulated annealing:", path_length(dist, best_solution))
+    file_path = "new_instances/vm1748.tsp"
+    n, points, dist = readTSPLIB(file_path)    
+    best_solution, best_length = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False)
+    print("Costo della soluzione migliore con simulated annealing:", best_length )
     
     # testiamo l'iterated local search
-    best_solution = iterated_local_search(file_path, max_iterations=100)
-    print("Costo della soluzione migliore con iterated local search:", path_length(dist, best_solution))
+    best_solution, best_length = iterated_local_search(file_path, max_iterations=100)
+    print("Costo della soluzione migliore con iterated local search:", best_length)
