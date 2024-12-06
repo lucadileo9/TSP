@@ -4,21 +4,23 @@ from my_utils import nearest_neighbor_second
 from algorithm_metrics import path_length
 from perturbation import *
 from metaeuristic import simulated_annealing
+from tqdm import tqdm
 # In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
 
-def ils_sa_tsp(file_path, iterations):
+def ils_sa_tsp(file_path, iterations, DEBUG=False):
     n, points, dist = readTSPLIB(file_path)
 
     current_solution = nearest_neighbor_second(points, dist)
-    print("Costo della soluzione iniziale:", path_length(dist, current_solution))
+    if DEBUG:
+        print("Costo della soluzione iniziale:", path_length(dist, current_solution))
+    
     best_solution = simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
                         number_of_iterations_with_same_temperature=10, DEBUG=False)
 
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
 
-
-    for iteration in range(iterations):
+    for iteration in tqdm(range(iterations), desc="Iterations"):
         # Calcola la fase corrente
         progress = iteration / iterations
         if progress < 0.5:
@@ -43,7 +45,8 @@ def ils_sa_tsp(file_path, iterations):
             no_improvement_count += 1
 
         if no_improvement_count >= max_no_improvement:
-            print(f"Stopping early at iteration {iteration} due to no improvement.")
+            if DEBUG:
+                print(f"Stopping early at iteration {iteration} due to no improvement.")
             break
 
     return best_solution, path_length(dist, best_solution)
