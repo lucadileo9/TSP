@@ -124,6 +124,29 @@ def nearest_neighbor_first(points, dist, debug=False):
     path.append(last_point)
     return path
 
+def generate_random_path(points):
+    """
+    Genera un percorso casuale dato un insieme di punti in un grafo.
+
+    Args:
+        points (list): Una lista di punti (nodi), ciascuno rappresentato da un identificatore unico (es. interi o stringhe).
+    
+    Returns:
+        list: Un percorso casuale che include tutti i punti e ritorna al punto iniziale (ciclo).
+    """
+    if len(points) < 2:
+        raise ValueError("Il numero di punti deve essere almeno 2 per generare un percorso valido.")
+    
+    # Crea una copia dei punti per evitare di modificare l'input originale
+    shuffled_points = points[:]
+    
+    # Mescola i punti casualmente
+    random.shuffle(shuffled_points)
+    
+    # Aggiungi il punto iniziale alla fine per chiudere il ciclo
+    random_path = shuffled_points + [shuffled_points[0]]
+    
+    return random_path
 def nearest_neighbor_second(points, dist, debug=False):
     """
     Implements the nearest neighbor algorithm to find a path through a set of points.
