@@ -228,31 +228,14 @@ def organize_solutions(solution_file, organized_instances_dir, output_dir):
 
 # Script principale
 if __name__ == "__main__":
-    #___________________ FILTRAGGIO E ORGANIZZAZIONE DEI FILE TSPLIB ___________________
-    # source_directory = "new_instances"  # Cambia con il percorso della directory sorgente
-    # destination_directory = "organized_instances"  # Directory principale di destinazione
-    
-    # print("Filtraggio e organizzazione dei file per EDGE_WEIGHT_TYPE e DIMENSION...")
-    # filter_and_organize_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"})
-    # print(f"File organizzati salvati in: {destination_directory}")
-    # # PER CARICARE LE SOLUZIONI
-    # solution_file_path = "new_instances/solutions"  # File originale delle soluzioni
-    # organized_instances_path = "organized_instances"  # Directory con le istanze organizzate
-    # output_solutions_path = "organized_solutions"  # Directory per i file delle soluzioni organizzati
-    
-    # print("Organizzazione delle soluzioni in corso...")
-    # organize_solutions(solution_file_path, organized_instances_path, output_solutions_path)
-    # print(f"Soluzioni organizzate salvate in: {output_solutions_path}")
-
-
-   #___________________ FILTRAGGIO DEI FILE TSPLIB E DELLE SOLUZIONI ___________________ 
+       #___________________ FILTRAGGIO DEI FILE TSPLIB E DELLE SOLUZIONI ___________________ 
     # # Percorsi delle directory
     source_directory = "new_instances"  # Cambia con il percorso reale della tua directory
     destination_directory = "new_instances_filtered"
     
     # Filtro dei file TSPLIB
     print("Filtraggio dei file in corso...")
-    filter_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"}, max_nodes=100)
+    filter_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"}, max_nodes=500)
     print(f"File filtrati salvati in: {destination_directory}")
     
     solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
@@ -261,6 +244,24 @@ if __name__ == "__main__":
 
     filter_solutions(solution_file, filtered_directory, output_file)
     print(f"Soluzioni filtrate salvate in: {output_file}")
+
+    # ___________________ FILTRAGGIO E ORGANIZZAZIONE DEI FILE TSPLIB ___________________
+    source_directory = "new_instances_filtered"  # Cambia con il percorso della directory sorgente
+    destination_directory = "organized_instances"  # Directory principale di destinazione
+    
+    print("Filtraggio e organizzazione dei file per EDGE_WEIGHT_TYPE e DIMENSION...")
+    filter_and_organize_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"})
+    print(f"File organizzati salvati in: {destination_directory}")
+    # PER CARICARE LE SOLUZIONI
+    solution_file_path = "new_instances/solutions"  # File originale delle soluzioni
+    organized_instances_path = "organized_instances"  # Directory con le istanze organizzate
+    output_solutions_path = "organized_solutions"  # Directory per i file delle soluzioni organizzati
+    
+    print("Organizzazione delle soluzioni in corso...")
+    organize_solutions(solution_file_path, organized_instances_path, output_solutions_path)
+    print(f"Soluzioni organizzate salvate in: {output_solutions_path}")
+
+
 
     # #___________________ ANALISI DEI FILE TSPLIB ___________________
     # # Analisi della directory filtrata
