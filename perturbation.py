@@ -21,9 +21,9 @@ def perturbation(solution, phase, points,n, DEBUG=False):
     if phase == "aggressive":
         return double_bridge_move(solution, points, DEBUG)
     elif phase == "medium":
-        return multi_swap(solution, k=n/50 , points=points, DEBUG=DEBUG)
+        return multi_swap(solution, k=n//50 , points=points, DEBUG=DEBUG)
     elif phase == "soft":
-        return shuffle_partial(solution, n=n/10, points=points, DEBUG=DEBUG)
+        return shuffle_partial(solution, n=n//10, points=points, DEBUG=DEBUG)
     else:
         raise ValueError("Fase non valida.")
     
