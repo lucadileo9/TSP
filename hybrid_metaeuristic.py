@@ -11,7 +11,7 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
     n, points, dist = readTSPLIB(file_path)
 
     if n > 1000:
-        current_solution = generate_random_path(points)
+        current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)
     print("Costo della soluzione iniziale:", path_length(dist, current_solution))
@@ -19,7 +19,7 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     
     best_solution = simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
-                        number_of_iterations_with_same_temperature=10, DEBUG=False)
+                        number_of_iterations_with_same_temperature=50, DEBUG=False)
 
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
@@ -36,10 +36,9 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
 
         # Applica la perturbazione basata sulla fase
         new_solution = perturbation(best_solution, phase, points, n)
-
         # Applica SA alla soluzione perturbata
         new_solution = simulated_annealing(new_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
-                        number_of_iterations_with_same_temperature=10, DEBUG=False)
+                        number_of_iterations_with_same_temperature=50, DEBUG=False)
         
         # Aggiorna la soluzione corrente e globale
         if path_length(dist, new_solution) < path_length(dist, best_solution):
@@ -58,9 +57,8 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
 
 if __name__ == "__main__":
     # testiamo il simulated annealing
-    file_path = "new_instances/pcb3038.tsp"
-    n, points, dist = readTSPLIB(file_path)
+    file_path = "new_instances/fl3795.tsp"
 
-    best_solution = ils_sa_tsp(file_path, 10)
+    best_solution, best_length = ils_sa_tsp(file_path, 10)
     # print("Soluzione migliore:", best_solution)
-    print("Costo della soluzione migliore:", path_length(dist, best_solution))
+    print("Costo della soluzione migliore:", best_length)
