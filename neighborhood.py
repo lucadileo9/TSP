@@ -1,4 +1,5 @@
 from my_utils import print_in_square
+import random
 
 def swap_neighborhood(path):
     """
@@ -60,7 +61,6 @@ def two_opt_neighborhood(path, print_neighbors=False):
             print(neighbor)
     return neighbors
 
-import random
 
 def two_opt_single_neighbor(path):
     """
