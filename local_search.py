@@ -62,7 +62,6 @@ def local_search(dist, path, neighborhood_function):
     current_length = path_length(dist, path)
     # Set the 'improved' variable to True to enter the loop
     improved = True
-
     # This loop will continue as long as there are improvements in the path
     while improved:
         improved = False  # At the beginning of each iteration, assume no improvements
@@ -81,6 +80,62 @@ def local_search(dist, path, neighborhood_function):
 
     # Return the improved path at the end of the algorithm
     return current_path
+
+def local_search_optimized(dist, path):
+    """
+    Performs a local search on a given path in the Traveling Salesman Problem (TSP) using a given neighborhood function.
+    The local search iteratively explores the neighborhood of the current path and moves to the best neighbor that improves the path.
+    The search continues until no neighbor can be found that improves the path.
+    Args:
+        dist (dict): A dictionary containing the pairwise distances between nodes.
+        path (list): A list representing the current path of nodes in the TSP.
+        neighborhood_function (function): A function that generates the neighborhood of a given path.
+    Returns:
+        list: The best path found during the local search.
+    """
+    # Initialize the current path with the one provided as a parameter
+    current_path = path
+    # Calculate the length of the initial path
+    current_length = path_length(dist, path)
+    # Set the 'improved' variable to True to enter the loop
+    improved = True
+# in questa versione la funzione di vicinato è la 2-opt, è già inclusa ed è più efficiente
+    while improved:
+        improved = False
+        for i in range(1, len(path) - 1):  # Evita il primo nodo e l'ultimo
+            for j in range(i + 2, len(path) - 1):  # j è almeno due posizioni dopo i
+
+                # Calcola solo la differenza di costo
+                delta = calculate_delta(dist, current_path, i, j)
+                
+                if delta < 0:  # Miglioramento trovato
+                    # Applica lo scambio solo se migliora
+                    current_path = (
+                        current_path[:i] +
+                        current_path[i:j+1][::-1] +
+                        current_path[j+1:]
+                    )
+                    current_length += delta  # Aggiorna la lunghezza
+                    improved = True
+                    break  # Esci dal ciclo per cercare di nuovo
+            if improved:
+                break
+
+    # Return the improved path at the end of the algorithm
+    return current_path
+
+def calculate_delta(dist, path, i, j):
+    """
+    Calcola la differenza di costo (delta) causata dall'inversione tra i e j.
+    """
+    # Nodi coinvolti nell'inversione
+    a, b = path[i-1], path[i]   # Arco entrante prima dello scambio
+    c, d = path[j], path[j+1]   # Arco uscente prima dello scambio
+    
+    # Delta di costo
+    delta = (dist[a,c] + dist[b,d]) - (dist[a,b] + dist[c,d])
+    return delta
+
 
 def local_search_with_counted_iterations(dist, path, neighborhood_function, iterations=100):
     """
