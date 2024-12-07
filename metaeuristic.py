@@ -6,7 +6,7 @@ from neighborhood import two_opt_single_neighbor, two_opt_neighborhood
 from perturbation import *
 import math
 import random
-from local_search import local_search
+from local_search import local_search, local_search_optimized
 
 # In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
 # L'idea è fare un algoritmo ibrido tra due metaeuristiche: Simulated Annealing e Iterated Local Search.
@@ -96,11 +96,9 @@ def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterat
         print(f"Temperatura iniziale: {T_0}")
         print(f"Soluzione iniziale: {current_solution} con costo {current_cost}")
     
-    with tqdm(total=total_iterations, desc="Simulated Annealing Progress") as pbar:
         while T > T_min and total_iterations < max_iterations:
             for iteration in range(number_of_iterations_with_same_temperature):
                 total_iterations += 1
-                pbar.update(1)  # Aggiorna la barra di progresso
 
                 if DEBUG:  # Stampa periodica ogni 10 iterazioni
                     print(f"Temperatura attuale: {T:.4f}")
@@ -165,8 +163,7 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
         print(f"Soluzione iniziale: {current_solution} con costo {current_cost}")
     
     # Calcolo delle iterazioni totali previste per tqdm
-    total_iterations_estimate = max_iterations * number_of_iterations_with_same_temperature
-    with tqdm(total=total_iterations_estimate, desc="Simulated Annealing Progress") as pbar:
+    with tqdm(total=max_iterations, desc="Simulated Annealing Progress") as pbar:
         while T > T_min and total_iterations < max_iterations:
             for iteration in range(number_of_iterations_with_same_temperature):
                 total_iterations += 1
@@ -220,18 +217,20 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
 
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
-    best_solution = local_search(dist, current_solution, two_opt_neighborhood) 
+    best_solution = local_search_optimized(dist, current_solution) 
+    print("Costo della soluzione iniziale dopo la local search:", path_length(dist, best_solution))
     
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
 
-    # CONTROLLARE
     for iteration in tqdm(range(max_iterations), desc="Iterations"):
         # Perturba la soluzione
-        new_solution = three_opt_randomized(best_solution, points)
+        print("Perturbo la soluzione")
+        new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
 
+        print("Applico la local search")
         # Applica SA alla soluzione perturbata
-        new_solution = local_search(dist, new_solution, two_opt_neighborhood) 
+        new_solution = local_search_optimized(dist, new_solution) 
             
         # Aggiorna la soluzione corrente e globale
         if path_length(dist, new_solution) < path_length(dist, best_solution):
@@ -249,9 +248,9 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
 
 if __name__ == "__main__":
     # testiamo il simulated annealing
-    file_path = "new_instances/vm1748.tsp"
-    n, points, dist = readTSPLIB(file_path)    
-    best_solution, best_length = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False)
+    file_path = "new_instances/u1060.tsp"
+
+    best_solution, best_length = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False)
     print("Costo della soluzione migliore con simulated annealing:", best_length )
     
     # testiamo l'iterated local search
