@@ -80,7 +80,7 @@ def simulated_annealing_easy(current_solution, dist, T_0=1000, alpha=0.95, max_i
     return best_solution
 
 def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
-                        number_of_iterations_with_same_temperature=10, DEBUG=False):
+                        number_of_iterations_with_same_temperature=50, DEBUG=False):
     # Inizializzazione
     T = T_0  # Temperatura iniziale
     current_cost = path_length(dist, current_solution)  # Calcolo del costo iniziale
