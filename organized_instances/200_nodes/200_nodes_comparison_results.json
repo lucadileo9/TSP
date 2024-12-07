@@ -1,0 +1,104 @@
+{
+    "bier127": {
+        "ILS": 150450,
+        "SA": 122291,
+        "ILSSA": 120762,
+        "Optimal Cost": 118282
+    },
+    "ch130": {
+        "ILS": 8236,
+        "SA": 7579,
+        "ILSSA": 6559,
+        "Optimal Cost": 6110
+    },
+    "ch150": {
+        "ILS": 7363,
+        "SA": 7632,
+        "ILSSA": 6791,
+        "Optimal Cost": 6528
+    },
+    "d198": {
+        "ILS": 18309,
+        "SA": 18293,
+        "ILSSA": 16419,
+        "Optimal Cost": 15780
+    },
+    "eil101": {
+        "ILS": 829,
+        "SA": 819,
+        "ILSSA": 656,
+        "Optimal Cost": 629
+    },
+    "kroA150": {
+        "ILS": 35143,
+        "SA": 34473,
+        "ILSSA": 28033,
+        "Optimal Cost": 26524
+    },
+    "kroA200": {
+        "ILS": 37385,
+        "SA": 35769,
+        "ILSSA": 31275,
+        "Optimal Cost": 29368
+    },
+    "kroB150": {
+        "ILS": 35265,
+        "SA": 34650,
+        "ILSSA": 27819,
+        "Optimal Cost": 26130
+    },
+    "kroB200": {
+        "ILS": 38905,
+        "SA": 37590,
+        "ILSSA": 31560,
+        "Optimal Cost": 29437
+    },
+    "lin105": {
+        "ILS": 17316,
+        "SA": 17599,
+        "ILSSA": 15079,
+        "Optimal Cost": 14379
+    },
+    "pr107": {
+        "ILS": 49248,
+        "SA": 43689,
+        "ILSSA": 46527,
+        "Optimal Cost": 44303
+    },
+    "pr124": {
+        "ILS": 71949,
+        "SA": 68606,
+        "ILSSA": 61979,
+        "Optimal Cost": 59030
+    },
+    "pr136": {
+        "ILS": 123292,
+        "SA": 115185,
+        "ILSSA": 105045,
+        "Optimal Cost": 96772
+    },
+    "pr144": {
+        "ILS": 65271,
+        "SA": 60401,
+        "ILSSA": 59519,
+        "Optimal Cost": 58537
+    },
+    "pr152": {
+        "ILS": 81220,
+        "SA": 87107,
+        "ILSSA": 75616,
+        "Optimal Cost": 73682
+    },
+    "rat195": {
+        "ILS": 2926,
+        "SA": 2653,
+        "ILSSA": 2477,
+        "Optimal Cost": 2323
+    },
+    "u159": {
+        "ILS": 51941,
+        "SA": 51156,
+        "ILSSA": 44260,
+        "Optimal Cost": 42080
+    }
+}

@@ -59,7 +59,7 @@ def process_instances(instances_folder, optimal_solutions, output_file=None):
         
         # Calcola i risultati per ILS, SA e ILSSA
         ils_result, ils_cost = ils_sa_tsp(file_path, 10)
-        sa_result, sa_cost = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False)
+        sa_result, sa_cost = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False)
         ils_sa_result, ils_sa_cost= iterated_local_search(file_path, max_iterations=100)
         
         # Ottieni la soluzione ottima per l'istanza
@@ -84,9 +84,10 @@ def process_all_folders(base_folder):
             optimal_solutions_file = os.path.join(folder_path, "solutions.txt")
             output_file = os.path.join(folder_path, f"{folder}_comparison_results.json")
             
+            optimal_solutions=load_optimal_solutions(optimal_solutions_file)
             # Processa le istanze nella cartella
             print(f"Processando la cartella: {folder}")
-            process_instances(folder_path, optimal_solutions_file, output_file)
+            process_instances(folder_path, optimal_solutions, output_file)
 
 
 if __name__ == "__main__":
