@@ -218,17 +218,14 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     best_solution = local_search_optimized(dist, current_solution) 
-    print("Costo della soluzione iniziale dopo la local search:", path_length(dist, best_solution))
     
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
 
     for iteration in tqdm(range(max_iterations), desc="Iterations"):
         # Perturba la soluzione
-        print("Perturbo la soluzione")
         new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
 
-        print("Applico la local search")
         # Applica SA alla soluzione perturbata
         new_solution = local_search_optimized(dist, new_solution) 
             
