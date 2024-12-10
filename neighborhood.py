@@ -64,7 +64,8 @@ def two_opt_neighborhood(path, print_neighbors=False):
 
 def two_opt_single_neighbor(path):
     """
-    Genera un singolo vicino casuale utilizzando la mossa 2-opt su un dato percorso.
+    Genera un singolo vicino casuale utilizzando la mossa 2-opt su un dato percorso,
+    assicurandosi di non modificare il primo e l'ultimo nodo.
     La mossa 2-opt scambia l'ordine dei nodi tra due indici casuali del percorso.
 
     Args:
@@ -75,14 +76,13 @@ def two_opt_single_neighbor(path):
     """
     n = len(path)
     # Seleziona casualmente due indici validi i e j, rispettando i vincoli di 2-opt
-    i = random.randint(1, n - 1)  # i parte da 1 e termina a n-3 per evitare il nodo iniziale e la penultima posizione
-    j = random.randint(i + 1, n )  # j è sempre almeno 2 posizioni avanti rispetto a i, e finisce prima dell'ultimo nodo
+    i = random.randint(1, n - 3)  # i parte da 1 e termina a n-3 per evitare il primo e il penultimo nodo
+    j = random.randint(i + 1, n - 2)  # j è almeno 1 posizione avanti rispetto a i e termina prima dell'ultimo nodo
 
     # Crea il nuovo percorso invertendo i nodi tra i e j
     new_path = path[:i] + path[i:j+1][::-1] + path[j+1:]
 
     return new_path
-
 def swap_single_neighbor(path):
     """
     Genera un singolo vicino casuale effettuando uno swap di due nodi in un percorso.
