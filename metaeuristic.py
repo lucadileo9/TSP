@@ -139,7 +139,7 @@ def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterat
 
 from tqdm import tqdm
 
-def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False):
+def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False):
     # Inizializzazione
     n, points, dist = readTSPLIB(file_path)
     if n > 2000:
