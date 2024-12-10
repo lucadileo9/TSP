@@ -39,8 +39,8 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
             phase = "soft"
 
         # Applica la perturbazione basata sulla fase
-        # new_solution = perturbation(best_solution, phase, points, n)
-        new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=False)
+        new_solution = perturbation(best_solution, phase, points, n)
+        #new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=False)
         
         if not check_path(points, current_solution, DEBUG=True):
             input("Nella funzione ils_sa_tsp, la soluzione perturbata non è valida. Premi invio per continuare...")
