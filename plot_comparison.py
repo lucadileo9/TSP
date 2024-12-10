@@ -1,88 +1,205 @@
-import json
 import matplotlib.pyplot as plt
+import json
+import os
 import numpy as np
-from metaeuristic_comparison import load_results_from_json
 
-def plot_results(results):
-    instances = list(results.keys())  # Nomi delle istanze
-    algorithms = ["ILS", "SA", "ILSSA"]  # Algoritmi
-    num_algorithms = len(algorithms)
+def extract_number(folder_name):
+    """Estrae il numero dalla stringa della cartella per ordinare in modo incrementale."""
+    return int(''.join(filter(str.isdigit, folder_name)))
 
-    # Organizza i dati per il grafico
-    values = {alg: [results[instance][alg] for instance in instances] for alg in algorithms}
+def plot_comparisons_by_dimension(base_folder):
 
-    x = np.arange(len(instances))  # Posizioni delle istanze
-    bar_width = 0.25  # Larghezza delle barre
-
-    # Crea la figura
-    plt.figure(figsize=(12, 6))
-
-    # Disegna le barre
-    for i, alg in enumerate(algorithms):
-        plt.bar(x + i * bar_width, values[alg], width=bar_width, label=alg)
-
-    # Personalizza il grafico
-    plt.xlabel("Istanze", fontsize=12)
-    plt.ylabel("Costo", fontsize=12)
-    plt.title("Confronto tra algoritmi sulle istanze TSP", fontsize=14)
-    plt.xticks(x + bar_width, instances, rotation=45, ha="right", fontsize=10)
-    plt.legend(title="Algoritmi")
+    dimension_folders = [f for f in os.listdir(base_folder) if os.path.isdir(os.path.join(base_folder, f))]
+    dimension_folders = sorted(dimension_folders, key=extract_number)  # Ordina per dimensione
+    
+    num_dimensions = len(dimension_folders)
+    fig, axes = plt.subplots(1, num_dimensions, figsize=(15, 6), sharey=True)
+    
+    for i, folder in enumerate((dimension_folders)):
+        json_file = os.path.join(base_folder, folder, f"{folder}_comparison_results.json")
+        
+        if not os.path.exists(json_file):
+            print(f"File JSON non trovato per la cartella {folder}")
+            continue
+        
+        with open(json_file, "r") as f:
+            results = json.load(f)
+        
+        instances = list(results.keys())
+        ils_costs = [results[inst]["ILS"] / results[inst]["Optimal Cost"] for inst in instances]
+        sa_costs = [results[inst]["SA"] / results[inst]["Optimal Cost"] for inst in instances]
+        ils_sa_costs = [results[inst]["ILSSA"] / results[inst]["Optimal Cost"] for inst in instances]
+        optimal_costs = [1] * len(instances)  # Valore normalizzato dell'ottimo
+        
+        x = np.arange(len(instances))
+        bar_width = 0.2
+        
+        axes[i].bar(x - bar_width, ils_costs, width=bar_width, label="ILS", color="blue")
+        axes[i].bar(x, sa_costs, width=bar_width, label="SA", color="green")
+        axes[i].bar(x + bar_width, ils_sa_costs, width=bar_width, label="ILSSA", color="red")
+        
+        # Aggiungi punti per l'ottimo
+        axes[i].scatter(x, optimal_costs, color="black", label="Optimal Cost", zorder=5)
+        
+        axes[i].set_title(folder)
+        axes[i].set_xticks(x)
+        axes[i].set_xticklabels(instances, rotation=45, ha="right")
+        
+        if i == 0:
+            axes[i].set_ylabel("Costo Normalizzato")
+    
+    axes[0].legend()
     plt.tight_layout()
-
-    # Mostra il grafico
+    plt.show()
+    
+    
+def plot_comparisons_in_separate_windows(base_folder):
+    """
+    Plotta i risultati dei file JSON generati per ogni dimensione, in finestre separate.
+    
+    Args:
+        base_folder (str): Cartella principale contenente le sottocartelle delle dimensioni.
+    """
+    # Ottieni tutte le sottocartelle (dimensioni)
+    dimension_folders = [f for f in os.listdir(base_folder) if os.path.isdir(os.path.join(base_folder, f))]
+    dimension_folders = sorted(dimension_folders, key=extract_number)  # Ordina per dimensione
+    
+    for folder in dimension_folders:
+        json_file = os.path.join(base_folder, folder, f"{folder}_comparison_results.json")
+        
+        if not os.path.exists(json_file):
+            print(f"File JSON non trovato per la cartella {folder}")
+            continue
+        
+        # Carica i risultati
+        with open(json_file, "r") as f:
+            results = json.load(f)
+        
+        # Estrai dati
+        instances = list(results.keys())
+        ils_costs = [results[inst]["ILS"] for inst in instances]
+        sa_costs = [results[inst]["SA"] for inst in instances]
+        ils_sa_costs = [results[inst]["ILSSA"] for inst in instances]
+        optimal_costs = [results[inst]["Optimal Cost"] for inst in instances]
+        
+        # Calcola i valori normalizzati (rispetto alla soluzione ottima)
+        normalized_ils = [ils / opt if opt else None for ils, opt in zip(ils_costs, optimal_costs)]
+        normalized_sa = [sa / opt if opt else None for sa, opt in zip(sa_costs, optimal_costs)]
+        normalized_ils_sa = [ils_sa / opt if opt else None for ils_sa, opt in zip(ils_sa_costs, optimal_costs)]
+        
+        # Crea una nuova finestra per questa dimensione
+        plt.figure(figsize=(10, 6))
+        
+        # Plot delle barre
+        x = np.arange(len(instances))  # Indici delle istanze
+        bar_width = 0.2
+        
+        plt.bar(x - bar_width, normalized_ils, width=bar_width, label="ILS", color="blue")
+        plt.bar(x, normalized_sa, width=bar_width, label="SA", color="green")
+        plt.bar(x + bar_width, normalized_ils_sa, width=bar_width, label="ILSSA", color="red")
+        
+        # Aggiungi punti per l'ottimo
+        plt.scatter(x, [1] * len(instances), color="black", label="Optimal Cost", zorder=5)
+        
+        
+        # Titolo, asse e legenda
+        plt.title(f"Confronto per dimensione: {folder}")
+        plt.xticks(x, instances, rotation=45, ha="right")
+        plt.ylabel("Costo Normalizzato")
+        plt.legend()
+        
+        # Layout e mostra il grafico
+        plt.tight_layout()
+        plt.show()
+def plot_comparisons_by_dimension_non_normalized(base_folder):
+    
+    dimension_folders = [f for f in os.listdir(base_folder) if os.path.isdir(os.path.join(base_folder, f))]
+    dimension_folders = sorted(dimension_folders, key=extract_number)  # Ordina per dimensione
+    
+    num_dimensions = len(dimension_folders)
+    fig, axes = plt.subplots(1, num_dimensions, figsize=(15, 6), sharey=True)
+    
+    for i, folder in enumerate((dimension_folders)):
+        json_file = os.path.join(base_folder, folder, f"{folder}_comparison_results.json")
+        
+        if not os.path.exists(json_file):
+            print(f"File JSON non trovato per la cartella {folder}")
+            continue
+        
+        with open(json_file, "r") as f:
+            results = json.load(f)
+        
+        instances = list(results.keys())
+        ils_costs = [results[inst]["ILS"] for inst in instances]
+        sa_costs = [results[inst]["SA"] for inst in instances]
+        ils_sa_costs = [results[inst]["ILSSA"] for inst in instances]
+        optimal_costs = [results[inst]["Optimal Cost"] for inst in instances]
+        
+        x = np.arange(len(instances))
+        bar_width = 0.2
+        
+        axes[i].bar(x - bar_width, ils_costs, width=bar_width, label="ILS", color="blue")
+        axes[i].bar(x, sa_costs, width=bar_width, label="SA", color="green")
+        axes[i].bar(x + bar_width, ils_sa_costs, width=bar_width, label="ILSSA", color="red")
+        
+        # Aggiungi punti per l'ottimo
+        axes[i].scatter(x, optimal_costs, color="black", label="Optimal Cost", zorder=5)
+        
+        axes[i].set_title(folder)
+        axes[i].set_xticks(x)
+        axes[i].set_xticklabels(instances, rotation=45, ha="right")
+        
+        if i == 0:
+            axes[i].set_ylabel("Costo Assoluto")
+    
+    axes[0].legend()
+    plt.tight_layout()
     plt.show()
 
-def plot_grouped_results(results, group_size=10):
-    instances = list(results.keys())  # Nomi delle istanze
-    algorithms = ["ILS", "SA", "ILSSA"]  # Algoritmi
-    num_algorithms = len(algorithms)
 
-    # Calcola il numero di gruppi necessari
-    num_groups = (len(instances) + group_size - 1) // group_size
+def plot_comparisons_in_separate_windows_non_normalized(base_folder):
+    dimension_folders = [f for f in os.listdir(base_folder) if os.path.isdir(os.path.join(base_folder, f))]
+    dimension_folders = sorted(dimension_folders, key=extract_number)  # Ordina per dimensione
 
-    # Organizza i dati in gruppi
-    grouped_instances = [instances[i:i + group_size] for i in range(0, len(instances), group_size)]
+    for folder in dimension_folders:
+        json_file = os.path.join(base_folder, folder, f"{folder}_comparison_results.json")
+        
+        if not os.path.exists(json_file):
+            print(f"File JSON non trovato per la cartella {folder}")
+            continue
+        
+        with open(json_file, "r") as f:
+            results = json.load(f)
+        
+        instances = list(results.keys())
+        ils_costs = [results[inst]["ILS"] for inst in instances]
+        sa_costs = [results[inst]["SA"] for inst in instances]
+        ils_sa_costs = [results[inst]["ILSSA"] for inst in instances]
+        optimal_costs = [results[inst]["Optimal Cost"] for inst in instances]
+        
+        x = np.arange(len(instances))
+        bar_width = 0.2
+        
+        plt.figure(figsize=(10, 6))
+        plt.bar(x - bar_width, ils_costs, width=bar_width, label="ILS", color="blue")
+        plt.bar(x, sa_costs, width=bar_width, label="SA", color="green")
+        plt.bar(x + bar_width, ils_sa_costs, width=bar_width, label="ILSSA", color="red")
+        
+        # Aggiungi punti per l'ottimo
+        plt.scatter(x, optimal_costs, color="black", label="Optimal Cost", zorder=5)
+        
+        plt.title(f"Confronto per dimensione: {folder}")
+        plt.xticks(x, instances, rotation=45, ha="right")
+        plt.ylabel("Costo Assoluto")
+        plt.legend()
+        plt.tight_layout()
+        plt.show()
 
-    # Crea la figura e i subplot
-    fig, axes = plt.subplots(1, num_groups, figsize=(5 * num_groups, 6), constrained_layout=True)
-
-    # Se c'è un solo gruppo, axes è un oggetto singolo, trasformalo in una lista
-    if num_groups == 1:
-        axes = [axes]
-
-    # Disegna i grafici per ciascun gruppo
-    for i, group in enumerate(grouped_instances):
-        ax = axes[i]
-        values = {alg: [results[instance][alg] for instance in group] for alg in algorithms}
-
-        x = np.arange(len(group))  # Posizioni delle istanze nel gruppo
-        bar_width = 0.25  # Larghezza delle barre
-
-        # Disegna le barre per ogni algoritmo
-        for j, alg in enumerate(algorithms):
-            ax.bar(x + j * bar_width, values[alg], width=bar_width, label=alg)
-
-        # Personalizza ogni subplot
-        ax.set_title(f"Gruppo {i + 1}", fontsize=14)
-        ax.set_xlabel("Istanze", fontsize=12)
-        ax.set_ylabel("Costo", fontsize=12)
-        ax.set_xticks(x + bar_width)
-        ax.set_xticklabels(group, rotation=45, ha="right", fontsize=10)
-        ax.legend(title="Algoritmi")
-        ax.grid(True, axis='y', linestyle='--', alpha=0.7)
-
-    # Mostra la figura
-    plt.suptitle("Confronto tra algoritmi sulle istanze TSP", fontsize=16)
-    plt.show()
 
 if __name__ == "__main__":
+    base_folder = "organized_instances"
+    plot_comparisons_by_dimension_non_normalized(base_folder)
+    plot_comparisons_in_separate_windows_non_normalized(base_folder)
+    plot_comparisons_by_dimension(base_folder)
+    plot_comparisons_in_separate_windows(base_folder)
 
-
-    # Percorso del file JSON
-    results_file_path = "tsp_comparison_results.json"
-
-    # Carica i risultati e genera il grafico
-    results = load_results_from_json(results_file_path)
-    plot_grouped_results(results, group_size=10)
-
-    plot_results(results)
