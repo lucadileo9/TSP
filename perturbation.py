@@ -18,8 +18,9 @@ def perturbation(solution, phase, points,n, DEBUG=False):
     Returns:
         list: Il percorso perturbato valido.
     """
+    
     if phase == "aggressive":
-        return double_bridge_move(solution, points, DEBUG)
+        return double_bridge_move(solution, points, DEBUG=DEBUG)
     elif phase == "medium":
         return multi_swap(solution, k=n//50 , points=points, DEBUG=DEBUG)
     elif phase == "soft":
@@ -41,10 +42,10 @@ def two_opt_randomized(solution, n, points, DEBUG=False):
     Returns:
         list: Il percorso perturbato valido.
     """
-    size = len(solution)
+    size = len(solution) - 1  # Escludi l'ultimo nodo
     while True:
-        i = random.randint(0, size - n - 1)  # Indice di inizio casuale
-        j = i + n  # Indice di fine (n passi avanti)
+        i = random.randint(1, size - n - 1)  # Evita il primo e l'ultimo nodo
+        j = i + n
         new_solution = solution[:i] + solution[i:j][::-1] + solution[j:]
         if check_path(points, new_solution):
             if DEBUG:
@@ -64,13 +65,13 @@ def multi_swap(solution, k, points, DEBUG=False):
     Returns:
         list: Il percorso perturbato valido.
     """
-    size = len(solution)
+    size = len(solution) - 1  # Escludi l'ultimo nodo
     while True:
         new_solution = solution[:]
         for _ in range(k):
-            i, j = random.sample(range(size), 2)  # Due indici casuali diversi
+            i, j = random.sample(range(1, size), 2)  # Evita il primo e l'ultimo nodo
             new_solution[i], new_solution[j] = new_solution[j], new_solution[i]
-        if check_path(points, new_solution):
+        if check_path(points, new_solution, DEBUG):
             if DEBUG:
                 print(f"Multi-swap valido con {k} scambi.")
             return new_solution
@@ -89,14 +90,14 @@ def shuffle_partial(solution, n, points, DEBUG=False):
     Returns:
         list: Il percorso perturbato valido.
     """
-    size = len(solution)
+    size = len(solution) - 1  # Escludi l'ultimo nodo
     while True:
-        i = random.randint(0, size - n - 1)  # Indice di inizio casuale
-        j = i + n  # Indice di fine (n passi avanti)
+        i = random.randint(1, size - n - 1)  # Evita il primo e l'ultimo nodo
+        j = i + n
         segment = solution[i:j]
         random.shuffle(segment)
         new_solution = solution[:i] + segment + solution[j:]
-        if check_path(points, new_solution):
+        if check_path(points, new_solution, DEBUG):
             if DEBUG:
                 print(f"Shuffle valido: segmento [{i}:{j}] mescolato.")
             return new_solution
@@ -115,9 +116,9 @@ def three_opt_randomized(solution, points, DEBUG=False):
     Returns:
         list: Il percorso perturbato valido.
     """
-    size = len(solution)
+    size = len(solution) - 1  # Escludi l'ultimo nodo
     while True:
-        a, b, c = sorted(random.sample(range(size), 3))  # Tre indici casuali ordinati
+        a, b, c = sorted(random.sample(range(1, size), 3))  # Evita il primo e l'ultimo nodo
         configurations = [
             solution[:a] + solution[a:b] + solution[b:c] + solution[c:],  # Originale
             solution[:a] + solution[b:c] + solution[a:b] + solution[c:],  # Swap 1
@@ -146,11 +147,11 @@ def double_bridge_move(solution, points, DEBUG=False):
     Returns:
         list: Il percorso perturbato valido.
     """
-    size = len(solution)
+    size = len(solution) - 1  # Escludi l'ultimo nodo
     if size < 8:
         raise ValueError("La soluzione deve contenere almeno 8 nodi per il Double Bridge Move.")
     while True:
-        a, b, c, d = sorted(random.sample(range(1, size - 1), 4))  # Quattro punti di taglio distinti
+        a, b, c, d = sorted(random.sample(range(1, size), 4))  # Evita il primo e l'ultimo nodo
         new_solution = (
             solution[:a] +
             solution[c:d] +
@@ -158,7 +159,7 @@ def double_bridge_move(solution, points, DEBUG=False):
             solution[a:b] +
             solution[d:]
         )
-        if check_path(points, new_solution):
+        if check_path(points, new_solution, DEBUG):
             if DEBUG:
                 print(f"Double Bridge Move valido trovato: a={a}, b={b}, c={c}, d={d}.")
             return new_solution
@@ -179,16 +180,16 @@ def perturbation_swap_segments(solution, points, DEBUG=False):
     Returns:
         Lista rappresentante il percorso perturbato valido.
     """
-    n = len(solution)
+    size = len(solution) - 1  # Escludi l'ultimo nodo
     while True:
         # Genera due segmenti casuali
-        i1, j1 = sorted(np.random.randint(0, n, 2))
-        i2, j2 = sorted(np.random.randint(0, n, 2))
+        i1, j1 = sorted(random.sample(range(1, size), 2))  # Evita il primo e l'ultimo nodo
+        i2, j2 = sorted(random.sample(range(1, size), 2))  # Evita il primo e l'ultimo nodo
 
         # Assicura che i segmenti non si sovrappongano
         while i1 <= j2 and i2 <= j1:
-            i1, j1 = sorted(np.random.randint(0, n, 2))
-            i2, j2 = sorted(np.random.randint(0, n, 2))
+            i1, j1 = sorted(random.sample(range(1, size), 2))
+            i2, j2 = sorted(random.sample(range(1, size), 2))
 
         if DEBUG:
             print(f"Swap segments: scelti segmenti [i1={i1}, j1={j1}] e [i2={i2}, j2={j2}]")
