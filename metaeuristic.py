@@ -142,7 +142,7 @@ from tqdm import tqdm
 def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=10, DEBUG=False):
     # Inizializzazione
     n, points, dist = readTSPLIB(file_path)
-    if n > 1000:
+    if n > 2000:
         current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)
@@ -209,7 +209,7 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
 def iterated_local_search(file_path, max_iterations, DEBUG=False):
     n, points, dist = readTSPLIB(file_path)
 
-    if n > 1000:
+    if n > 2000:
         current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)

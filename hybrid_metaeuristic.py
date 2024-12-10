@@ -10,7 +10,7 @@ from tqdm import tqdm
 def ils_sa_tsp(file_path, iterations, DEBUG=False):
     n, points, dist = readTSPLIB(file_path)
 
-    if n > 1000:
+    if n > 2000:
         current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)
