@@ -1,0 +1,38 @@
+{
+    "d657": {
+        "ILS": 64286,
+        "SA": 62917,
+        "ILSSA": 53597,
+        "Optimal Cost": 48912
+    },
+    "p654": {
+        "ILS": 46268,
+        "SA": 45929,
+        "ILSSA": 35665,
+        "Optimal Cost": 34643
+    },
+    "rat575": {
+        "ILS": 8145,
+        "SA": 8772,
+        "ILSSA": 7325,
+        "Optimal Cost": 6773
+    },
+    "rat783": {
+        "ILS": 10889,
+        "SA": 11327,
+        "ILSSA": 9523,
+        "Optimal Cost": 8806
+    },
+    "u574": {
+        "ILS": 47796,
+        "SA": 47485,
+        "ILSSA": 40548,
+        "Optimal Cost": 36905
+    },
+    "u724": {
+        "ILS": 53191,
+        "SA": 53662,
+        "ILSSA": 45782,
+        "Optimal Cost": 41910
+    }
+}

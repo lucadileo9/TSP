@@ -1,0 +1,86 @@
+{
+    "a280": {
+        "ILS": 3211,
+        "SA": 3093,
+        "ILSSA": 2795,
+        "Optimal Cost": 2579
+    },
+    "d493": {
+        "ILS": 44378,
+        "SA": 40516,
+        "ILSSA": 37388,
+        "Optimal Cost": 35002
+    },
+    "fl417": {
+        "ILS": 15474,
+        "SA": 15386,
+        "ILSSA": 12365,
+        "Optimal Cost": 11861
+    },
+    "gil262": {
+        "ILS": 3006,
+        "SA": 3367,
+        "ILSSA": 2573,
+        "Optimal Cost": 2378
+    },
+    "lin318": {
+        "ILS": 52680,
+        "SA": 51528,
+        "ILSSA": 45525,
+        "Optimal Cost": 42029
+    },
+    "linhp318": {
+        "ILS": 51562,
+        "SA": 52655,
+        "ILSSA": 44517,
+        "Optimal Cost": 41345
+    },
+    "pcb442": {
+        "ILS": 60271,
+        "SA": 65733,
+        "ILSSA": 54244,
+        "Optimal Cost": 50778
+    },
+    "pr226": {
+        "ILS": 93996,
+        "SA": 99278,
+        "ILSSA": 83370,
+        "Optimal Cost": 80369
+    },
+    "pr264": {
+        "ILS": 58077,
+        "SA": 58734,
+        "ILSSA": 52961,
+        "Optimal Cost": 49135
+    },
+    "pr299": {
+        "ILS": 62796,
+        "SA": 60703,
+        "ILSSA": 51307,
+        "Optimal Cost": 48191
+    },
+    "pr439": {
+        "ILS": 131687,
+        "SA": 131069,
+        "ILSSA": 116942,
+        "Optimal Cost": 107217
+    },
+    "rd400": {
+        "ILS": 19277,
+        "SA": 19464,
+        "ILSSA": 16457,
+        "Optimal Cost": 15281
+    },
+    "ts225": {
+        "ILS": 143233,
+        "SA": 151642,
+        "ILSSA": 129506,
+        "Optimal Cost": 126643
+    },
+    "tsp225": {
+        "ILS": 5157,
+        "SA": 5208,
+        "ILSSA": 4217,
+        "Optimal Cost": 3916
+    }
+}
