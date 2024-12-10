@@ -1,0 +1,74 @@
+{
+    "berlin52": {
+        "ILS": 9112,
+        "SA": 7963,
+        "ILSSA": 7930,
+        "Optimal Cost": 7542
+    },
+    "eil51": {
+        "ILS": 507,
+        "SA": 438,
+        "ILSSA": 445,
+        "Optimal Cost": 426
+    },
+    "eil76": {
+        "ILS": 642,
+        "SA": 606,
+        "ILSSA": 561,
+        "Optimal Cost": 538
+    },
+    "kroA100": {
+        "ILS": 28086,
+        "SA": 27387,
+        "ILSSA": 21847,
+        "Optimal Cost": 21282
+    },
+    "kroB100": {
+        "ILS": 27407,
+        "SA": 25795,
+        "ILSSA": 22837,
+        "Optimal Cost": 22141
+    },
+    "kroC100": {
+        "ILS": 28916,
+        "SA": 23660,
+        "ILSSA": 20907,
+        "Optimal Cost": 20749
+    },
+    "kroD100": {
+        "ILS": 27789,
+        "SA": 24955,
+        "ILSSA": 22302,
+        "Optimal Cost": 21294
+    },
+    "kroE100": {
+        "ILS": 26681,
+        "SA": 25518,
+        "ILSSA": 22821,
+        "Optimal Cost": 22068
+    },
+    "pr76": {
+        "ILS": 150505,
+        "SA": 111257,
+        "ILSSA": 116265,
+        "Optimal Cost": 108159
+    },
+    "rat99": {
+        "ILS": 1531,
+        "SA": 1438,
+        "ILSSA": 1258,
+        "Optimal Cost": 1211
+    },
+    "rd100": {
+        "ILS": 10133,
+        "SA": 9864,
+        "ILSSA": 8054,
+        "Optimal Cost": 7910
+    },
+    "st70": {
+        "ILS": 830,
+        "SA": 729,
+        "ILSSA": 697,
+        "Optimal Cost": 675
+    }
+}

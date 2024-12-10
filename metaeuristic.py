@@ -146,7 +146,6 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
         current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)
-    print("Costo della soluzione iniziale:", path_length(dist, current_solution))
 
     T = T_0  # Temperatura iniziale
     current_cost = path_length(dist, current_solution)  # Calcolo del costo iniziale
@@ -213,7 +212,6 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
         current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)
-    print("Costo della soluzione iniziale:", path_length(dist, current_solution))
 
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
@@ -222,7 +220,7 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
 
-    for iteration in tqdm(range(max_iterations), desc="Iterations"):
+    for iteration in tqdm(range(max_iterations), desc="Iterated Local Search Progress"):
         # Perturba la soluzione
         new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
 

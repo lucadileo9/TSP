@@ -14,7 +14,6 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
         current_solution = generate_random_path(n)
     else:
         current_solution = nearest_neighbor_second(points, dist)
-    print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     
@@ -24,7 +23,7 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
     no_improvement_count = 0
     max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
 
-    for iteration in tqdm(range(iterations), desc="Iterations"):
+    for iteration in tqdm(range(iterations), desc="ILS-SA"):
         # Calcola la fase corrente
         progress = iteration / iterations
         if progress < 0.5:
