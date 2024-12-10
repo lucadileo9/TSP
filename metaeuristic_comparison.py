@@ -58,7 +58,7 @@ def process_instances(instances_folder, optimal_solutions, output_file=None):
         # n, points, dist = readTSPLIB(file_path)
         
         # Calcola i risultati per ILS, SA e ILSSA
-        ils_result, ils_cost = ils_sa_tsp(file_path, 10)
+        ils_result, ils_cost = ils_sa_tsp(file_path, 100)
         sa_result, sa_cost = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False)
         ils_sa_result, ils_sa_cost= iterated_local_search(file_path, max_iterations=100)
         
@@ -91,7 +91,7 @@ def process_all_folders(base_folder):
 
 
 if __name__ == "__main__":
-    process_all_folders("organized_instances")
+    process_all_folders("second_try")
 
     # instances_folder = "new_instances"
 
