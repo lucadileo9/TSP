@@ -80,7 +80,7 @@ def simulated_annealing_easy(current_solution, dist, T_0=1000, alpha=0.95, max_i
     return best_solution
 
 def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
-                        number_of_iterations_with_same_temperature=50, DEBUG=False):
+                        number_of_iterations_with_same_temperature=50, DEBUG=False, points=None):
     # Inizializzazione
     T = T_0  # Temperatura iniziale
     current_cost = path_length(dist, current_solution)  # Calcolo del costo iniziale
@@ -105,6 +105,9 @@ def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterat
 
                 # Genera il vicinato usando il metodo 2-opt
             neighbor_solution = two_opt_single_neighbor(current_solution)
+            if not check_path(points, current_solution, DEBUG=True):
+                input("Nella funzione intermedia SA del ILS_SA, la soluzione intermedia non è valida. Premi invio per continuare...")
+
             neighbor_cost = path_length(dist, neighbor_solution)
 
             # Calcolo della differenza di costo
@@ -147,6 +150,8 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
     else:
         current_solution = nearest_neighbor_second(points, dist)
 
+    if not check_path(points, current_solution, DEBUG=True):
+        input("Nella funzione SA, la soluzione iniziale non è valida. Premi invio per continuare...")
     T = T_0  # Temperatura iniziale
     current_cost = path_length(dist, current_solution)  # Calcolo del costo iniziale
 
@@ -173,6 +178,9 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
 
                 # Genera il vicinato usando il metodo 2-opt
                 neighbor_solution = two_opt_single_neighbor(current_solution)
+                
+                if not check_path(points, current_solution, DEBUG=True):
+                    input("Nella funzione SA, una soluzione intermedia non è valida. Premi invio per continuare...")
                 neighbor_cost = path_length(dist, neighbor_solution)
 
                 # Calcolo della differenza di costo
@@ -215,7 +223,15 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
 
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
+        
+        
+    if not check_path(points, current_solution, DEBUG=True):
+        input("Nella funzione ILS, la soluzione iniziale non è valida. Premi invio per continuare...")
+        
     best_solution = local_search_optimized(dist, current_solution) 
+    
+    if not check_path(points, current_solution, DEBUG=True):
+        input("Nella funzione ILS, la prima soluzione locale non è valida. Premi invio per continuare...")
     
     no_improvement_count = 0
     max_no_improvement = 20  # Numero massimo di iterazioni senza miglioramenti
@@ -223,10 +239,14 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
     for iteration in tqdm(range(max_iterations), desc="Iterated Local Search Progress"):
         # Perturba la soluzione
         new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
+        if not check_path(points, current_solution, DEBUG=True):
+            input("Nella funzione ILS, la soluzione perturbata locale non è valida. Premi invio per continuare...")
 
         # Applica SA alla soluzione perturbata
         new_solution = local_search(dist, new_solution, two_opt_neighborhood) 
-            
+        if not check_path(points, current_solution, DEBUG=True):
+            input("Nella funzione ILS, la soluzione locale intermedia non è valida. Premi invio per continuare...")
+
         # Aggiorna la soluzione corrente e globale
         if path_length(dist, new_solution) < path_length(dist, best_solution):
             best_solution = new_solution

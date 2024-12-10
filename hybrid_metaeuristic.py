@@ -17,9 +17,14 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
     if DEBUG:
         print("Costo della soluzione iniziale:", path_length(dist, current_solution))
     
+    if not check_path(points, current_solution, DEBUG=True):
+        input("Nella funzione ils_sa_tsp, la soluzione iniziale non è valida. Premi invio per continuare...")
     best_solution = simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
-                        number_of_iterations_with_same_temperature=50, DEBUG=False)
+                        number_of_iterations_with_same_temperature=50, DEBUG=False, points=points)
 
+    if not check_path(points, current_solution, DEBUG=True):
+        input("Nella funzione ils_sa_tsp, la soluzione migliore non è valida. Premi invio per continuare...")
+        
     no_improvement_count = 0
     max_no_improvement = iterations  # Numero massimo di iterazioni senza miglioramenti
 
@@ -35,10 +40,16 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
 
         # Applica la perturbazione basata sulla fase
         # new_solution = perturbation(best_solution, phase, points, n)
-        new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
+        new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=False)
+        
+        if not check_path(points, current_solution, DEBUG=True):
+            input("Nella funzione ils_sa_tsp, la soluzione perturbata non è valida. Premi invio per continuare...")
         # Applica SA alla soluzione perturbata
         new_solution = simulated_annealing(new_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
-                        number_of_iterations_with_same_temperature=50, DEBUG=False)
+                        number_of_iterations_with_same_temperature=50, DEBUG=False, points=points)
+        
+        if not check_path(points, current_solution, DEBUG=True):
+            input("Nella funzione ils_sa_tsp, la soluzione intemerdia del SA non è valida. Premi invio per continuare...")
         
         # Aggiorna la soluzione corrente e globale
         if path_length(dist, new_solution) < path_length(dist, best_solution):
