@@ -21,7 +21,7 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
                         number_of_iterations_with_same_temperature=50, DEBUG=False)
 
     no_improvement_count = 0
-    max_no_improvement = 10  # Numero massimo di iterazioni senza miglioramenti
+    max_no_improvement = iterations  # Numero massimo di iterazioni senza miglioramenti
 
     for iteration in tqdm(range(iterations), desc="ILS-SA"):
         # Calcola la fase corrente
@@ -34,7 +34,8 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
             phase = "soft"
 
         # Applica la perturbazione basata sulla fase
-        new_solution = perturbation(best_solution, phase, points, n)
+        # new_solution = perturbation(best_solution, phase, points, n)
+        new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
         # Applica SA alla soluzione perturbata
         new_solution = simulated_annealing(new_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
                         number_of_iterations_with_same_temperature=50, DEBUG=False)
