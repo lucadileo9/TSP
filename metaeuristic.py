@@ -243,7 +243,11 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
             input("Nella funzione ILS, la soluzione perturbata locale non è valida. Premi invio per continuare...")
 
         # Applica SA alla soluzione perturbata
-        new_solution = local_search(dist, new_solution, two_opt_neighborhood) 
+        if n > 500:
+            new_solution =  local_search_optimized(dist, new_solution)
+        else:
+            new_solution = local_search(dist, new_solution, two_opt_neighborhood) 
+            
         if not check_path(points, current_solution, DEBUG=True):
             input("Nella funzione ILS, la soluzione locale intermedia non è valida. Premi invio per continuare...")
 
