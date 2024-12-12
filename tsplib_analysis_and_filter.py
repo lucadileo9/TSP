@@ -229,13 +229,13 @@ def organize_solutions(solution_file, organized_instances_dir, output_dir):
 # Script principale
 if __name__ == "__main__":
        #___________________ FILTRAGGIO DEI FILE TSPLIB E DELLE SOLUZIONI ___________________ 
-    # # Percorsi delle directory
+    # Percorsi delle directory
     source_directory = "new_instances"  # Cambia con il percorso reale della tua directory
     destination_directory = "new_instances_filtered"
     
     # Filtro dei file TSPLIB
     print("Filtraggio dei file in corso...")
-    filter_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"}, max_nodes=1000)
+    filter_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"}, max_nodes=100)
     print(f"File filtrati salvati in: {destination_directory}")
     
     solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
@@ -245,38 +245,39 @@ if __name__ == "__main__":
     filter_solutions(solution_file, filtered_directory, output_file)
     print(f"Soluzioni filtrate salvate in: {output_file}")
 
-    # ___________________ FILTRAGGIO E ORGANIZZAZIONE DEI FILE TSPLIB ___________________
-    source_directory = "new_instances_filtered"  # Cambia con il percorso della directory sorgente
-    destination_directory = "second_try"  # Directory principale di destinazione
+    # # ___________________ FILTRAGGIO E ORGANIZZAZIONE DEI FILE TSPLIB ___________________
+    # source_directory = "new_instances_filtered"  # Cambia con il percorso della directory sorgente
+    # destination_directory = "EXPLICIT"  # Directory principale di destinazione
     
-    print("Filtraggio e organizzazione dei file per EDGE_WEIGHT_TYPE e DIMENSION...")
-    filter_and_organize_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"})
-    print(f"File organizzati salvati in: {destination_directory}")
-    # PER CARICARE LE SOLUZIONI
-    solution_file_path = "new_instances/solutions"  # File originale delle soluzioni
-    organized_instances_path = "second_try"  # Directory con le istanze organizzate
-    output_solutions_path = "organized_solutions"  # Directory per i file delle soluzioni organizzati
+    # print("Filtraggio e organizzazione dei file per EDGE_WEIGHT_TYPE e DIMENSION...")
+    # filter_and_organize_tsplib_files(source_directory, destination_directory, valid_types={"EXPLICIT"})
+    # print(f"File organizzati salvati in: {destination_directory}")
+    # # PER CARICARE LE SOLUZIONI
+    # solution_file_path = "new_instances_filtered/solutions"  # File originale delle soluzioni
+    # organized_instances_path = "EXPLICIT"  # Directory con le istanze organizzate
+    # output_solutions_path = "solution"  # Directory per i file delle soluzioni organizzati
     
-    print("Organizzazione delle soluzioni in corso...")
-    organize_solutions(solution_file_path, organized_instances_path, output_solutions_path)
-    print(f"Soluzioni organizzate salvate in: {output_solutions_path}")
+    # print("Organizzazione delle soluzioni in corso...")
+    # organize_solutions(solution_file_path, organized_instances_path, output_solutions_path)
+    # print(f"Soluzioni organizzate salvate in: {output_solutions_path}")
 
 
 
     # #___________________ ANALISI DEI FILE TSPLIB ___________________
     # # Analisi della directory filtrata
+    # destination_directory = "EUC_2D"  
     # print(f"\nAnalisi della directory {destination_directory}...")
-    # filtered_summary = analyze_tsplib_directory(source_directory)
+    # filtered_summary = analyze_tsplib_directory(destination_directory)
     # print("Totale istanze:", filtered_summary["total_instances"])
     # print("Tipologie di problemi:", filtered_summary["types"])
     # print("Tipi di distanza (EDGE_WEIGHT_TYPE):", filtered_summary["edge_weight_types"])
     # print("Formati dei pesi (EDGE_WEIGHT_FORMAT):", filtered_summary["edge_weight_formats"])
     # print("Istanze senza EDGE_WEIGHT_FORMAT:", filtered_summary["missing_edge_weight_format"])
     
-    # #___________________ RAGGRUPPAMENTO DEI FILE PER TIPO DI DISTANZA ___________________
-    # # Lista dei file per tipo di distanza
+    # # #___________________ RAGGRUPPAMENTO DEI FILE PER TIPO DI DISTANZA ___________________
+    # # # Lista dei file per tipo di distanza
     # print("\nElenco dei file raggruppati per tipo di distanza:")
-    # files_by_type = list_files_by_distance_type(source_directory)
+    # files_by_type = list_files_by_distance_type(destination_directory)
     # for edge_weight_type, files in files_by_type.items():
     #     print(f"EDGE_WEIGHT_TYPE: {edge_weight_type}")
     #     print("File:", ", ".join(files))
