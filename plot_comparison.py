@@ -219,6 +219,12 @@ if __name__ == "__main__":
         type=str, 
         nargs="?", 
     )
+    # l'utente può anche decidere se salvare i plot in una cartella dedicata
+    parser.add_argument(
+        "--save_plots", 
+        action="store_true", 
+        help="Salva i plot in una cartella dedicata."
+    )
     
     # Parso gli argomenti dalla linea di comando
     args = parser.parse_args()
@@ -230,4 +236,4 @@ if __name__ == "__main__":
     # plot_comparisons_by_dimension_non_normalized(args.folder)
     # plot_comparisons_in_separate_windows_non_normalized(args.folder)
     # plot_comparisons_by_dimension(args.folder)
-    plot_comparisons_in_separate_windows(args.folder)
+    plot_comparisons_in_separate_windows(args.folder, args.save_plots)
