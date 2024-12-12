@@ -1,3 +1,4 @@
+import argparse
 import matplotlib.pyplot as plt
 import json
 import os
@@ -197,9 +198,21 @@ def plot_comparisons_in_separate_windows_non_normalized(base_folder):
 
 
 if __name__ == "__main__":
-    base_folder = "organized_instances"
-    plot_comparisons_by_dimension_non_normalized(base_folder)
-    plot_comparisons_in_separate_windows_non_normalized(base_folder)
-    plot_comparisons_by_dimension(base_folder)
-    plot_comparisons_in_separate_windows(base_folder)
-
+    parser = argparse.ArgumentParser(description="Genera i plot di una cartella specifica.")
+    parser.add_argument(
+        "folder", 
+        type=str, 
+        nargs="?", 
+    )
+    
+    # Parso gli argomenti dalla linea di comando
+    args = parser.parse_args()
+    
+    # Stampo la cartella selezionata
+    print(f"Cartella selezionata: {args.folder}")
+    
+    # Processo la cartella specificata
+    # plot_comparisons_by_dimension_non_normalized(args.folder)
+    # plot_comparisons_in_separate_windows_non_normalized(args.folder)
+    # plot_comparisons_by_dimension(args.folder)
+    plot_comparisons_in_separate_windows(args.folder)
