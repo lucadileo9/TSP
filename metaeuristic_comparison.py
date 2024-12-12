@@ -1,3 +1,4 @@
+import argparse
 import os
 from tsp_utils import readTSPLIB
 from algorithm_metrics import path_length
@@ -53,6 +54,7 @@ def process_instances(instances_folder, optimal_solutions, output_file=None):
     
     for file in instance_files:
         file_path = os.path.join(instances_folder, file)
+        print(f"Processando l'istanza: {file}")
         
         # Leggi l'istanza
         # n, points, dist = readTSPLIB(file_path)
@@ -91,21 +93,21 @@ def process_all_folders(base_folder):
 
 
 if __name__ == "__main__":
-    process_all_folders("second_try")
-
-    # instances_folder = "new_instances"
-
-    # solutions_file_path = os.path.join(instances_folder, "solutions")
-
-    # optimal_solutions = load_optimal_solutions(solutions_file_path)
-
-    # instances_folder = "new_instances_filtered"
-
-    # # Elabora le istanze e ottieni i risultati
-    # results = process_instances(instances_folder, optimal_solutions)
+    # Configura argparse
+    parser = argparse.ArgumentParser(description="Processa le cartelle in una directory specificata.")
+    parser.add_argument(
+        "folder", 
+        type=str, 
+        nargs="?", 
+        default="organized_instances", 
+        help="La cartella da processare (default: organized_instances)"
+    )
     
-    # # # Stampa i risultati
-    # # print_results(results)
-    # result = load_results_from_json()
-    # print_results(result)
-
+    # Parso gli argomenti dalla linea di comando
+    args = parser.parse_args()
+    
+    # Stampo la cartella selezionata
+    print(f"Cartella selezionata: {args.folder}")
+    
+    # Processo la cartella specificata
+    process_all_folders(args.folder)
