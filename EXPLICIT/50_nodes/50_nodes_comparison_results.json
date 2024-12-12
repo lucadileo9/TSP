@@ -1,0 +1,20 @@
+{
+    "bayg29": {
+        "ILS": 1854,
+        "SA": 1721,
+        "ILSSA": 1610,
+        "Optimal Cost": 1610
+    },
+    "bays29": {
+        "ILS": 2114,
+        "SA": 2034,
+        "ILSSA": 2020,
+        "Optimal Cost": 2020
+    },
+    "dantzig42": {
+        "ILS": 753,
+        "SA": 713,
+        "ILSSA": 699,
+        "Optimal Cost": 699
+    }
+}
