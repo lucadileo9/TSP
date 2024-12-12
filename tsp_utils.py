@@ -178,33 +178,68 @@ def randomGraph2D (n, p):
         
     return points, dist    
 
+# def readTSPLIB(file_path):
+#     """
+#     Reads a TSPLIB file and extracts the problem's dimension, node coordinates, and edge weights.
+#     Args:
+#         file_path (str): The path to the TSPLIB file.
+#     Returns:
+#         tuple: A tuple containing:
+#             - n (int): The number of nodes in the TSP problem.
+#             - points (tuple): A tuple of coordinates for each node.
+#             - dist (dict): A dictionary where keys are tuples representing edges (i, j) and values are the weights of those edges.
+#     """
+#     problem = tsplib95.load(file_path)
+#     n = problem.dimension # number of nodes
+    
+#     nodes = list(problem.get_nodes()) # get nodes
+#     nodes = [x-1 for x in nodes] # shift nodes to start from 0
+
+#     points = [((x, y), False) for x, y in problem.node_coords.values()]
+#     if len(points) == 0:
+#         points = tuple(problem.display_data.values()) 
+    
+#     edges = list(problem.get_edges()) # get edges
+#     edges = [(i-1,j-1) for (i,j) in edges] # shift edges to start from 0
+    
+#     dist = {(i,j) : 0 for  (i,j) in edges} # initialize dictionary of distances
+#     for (i,j) in edges:
+#         dist[i,j] = problem.get_weight(i+1, j+1) # get weight of edge (i,j)
+    
+#     return n, points, dist
+
 def readTSPLIB(file_path):
     """
     Reads a TSPLIB file and extracts the problem's dimension, node coordinates, and edge weights.
+    
     Args:
         file_path (str): The path to the TSPLIB file.
+    
     Returns:
         tuple: A tuple containing:
             - n (int): The number of nodes in the TSP problem.
-            - points (tuple): A tuple of coordinates for each node.
-            - dist (dict): A dictionary where keys are tuples representing edges (i, j) and values are the weights of those edges.
+            - points (list): A list of coordinates for each node (or generated ones if not available).
+            - dist (dict): A dictionary where keys are tuples representing edges (i, j)
+                           and values are the weights of those edges.
     """
     problem = tsplib95.load(file_path)
-    n = problem.dimension # number of nodes
+    n = problem.dimension  # Numero di nodi
     
-    nodes = list(problem.get_nodes()) # get nodes
-    nodes = [x-1 for x in nodes] # shift nodes to start from 0
-
-    points = [((x, y), False) for x, y in problem.node_coords.values()]
-    if len(points) == 0:
-        points = tuple(problem.display_data.values()) 
+    # Estrai le coordinate dei nodi (se disponibili)
+    if problem.node_coords:
+        points = [((x, y), False) for x, y in problem.node_coords.values()]
+    elif problem.display_data:
+        points = [((x, y), False) for x, y in problem.display_data.values()]
+    else:
+        # Genera coordinate fittizie se non disponibili
+        points = [((i, i), False) for i in range(n)]
     
-    edges = list(problem.get_edges()) # get edges
-    edges = [(i-1,j-1) for (i,j) in edges] # shift edges to start from 0
-    
-    dist = {(i,j) : 0 for  (i,j) in edges} # initialize dictionary of distances
-    for (i,j) in edges:
-        dist[i,j] = problem.get_weight(i+1, j+1) # get weight of edge (i,j)
+    # Estrai le distanze (usando tsplib95.get_weight)
+    dist = {}
+    for i in range(1, n + 1):  # TSPLIB usa nodi indicizzati da 1
+        for j in range(1, n + 1):
+            if i != j:  # Ignora i loop
+                dist[(i - 1, j - 1)] = problem.get_weight(i, j)
     
     return n, points, dist
 
