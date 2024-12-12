@@ -1,0 +1,20 @@
+{
+    "burma14": {
+        "ILS": 3371,
+        "SA": 3323,
+        "ILSSA": 3323,
+        "Optimal Cost": 3323
+    },
+    "ulysses16": {
+        "ILS": 7025,
+        "SA": 6870,
+        "ILSSA": 6859,
+        "Optimal Cost": 6859
+    },
+    "ulysses22": {
+        "ILS": 7222,
+        "SA": 7013,
+        "ILSSA": 7013,
+        "Optimal Cost": 7013
+    }
+}
