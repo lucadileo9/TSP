@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
-from benchmark_runner import *  
 import numpy as np
 from enum import Enum
 
+from analysis.benchmark_runner import load_results
 class DataType(Enum):
     """
     DataType(Enum):

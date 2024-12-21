@@ -88,10 +88,10 @@
 
 import os
 import csv
-import tsp_utils
 import shutil
 from tqdm import tqdm
 
+import utils.tsp_utils as tsp_utils
 def generate_all_dataset():
     """
     Generates benchmark datasets for different types of graphs and saves them to specified directories.

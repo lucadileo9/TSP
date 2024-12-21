@@ -1,12 +1,13 @@
-from tsp_utils import readTSPLIB, read_optimal_tour
-from local_search_algorithms import multistart_local_search
-from neighborhood_generators import swap_neighborhood, two_opt_neighborhood
-from algorithm_metrics import path_length
-from path_utils import nearest_neighbor_second, nearest_neighbor_random
 from collections import defaultdict
 from pathlib import Path
 import json
 import os
+
+from algorithms.local_search_algorithms import multistart_local_search
+from algorithms.neighborhood_generators import swap_neighborhood, two_opt_neighborhood
+from utils.algorithm_metrics import path_length
+from utils.path_utils import nearest_neighbor_random, nearest_neighbor_second
+from utils.tsp_utils import readTSPLIB, read_optimal_tour
 
 # TODO:
 # - Modificare come vengano passati i parametri alle funzioni

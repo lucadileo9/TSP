@@ -1,7 +1,7 @@
 import json
 import matplotlib.pyplot as plt
 import numpy as np
-from analyze_performances import load_optimal_path_lengths, load_performance_data
+from analysis.analyze_performances import load_optimal_path_lengths, load_performance_data
 
 def abbreviate(label):
     mapping = {

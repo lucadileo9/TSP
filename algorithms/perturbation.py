@@ -1,6 +1,8 @@
 import numpy as np
-from algorithm_metrics import check_path
 import random
+
+from utils.algorithm_metrics import check_path
+
 
 def perturbation(solution, phase, points,n, DEBUG=False):
     """

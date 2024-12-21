@@ -1,5 +1,6 @@
-from path_utils import print_in_square
 import random
+
+from utils.path_utils import print_in_square
 
 def swap_neighborhood(path, print_neighbors=False):
     """

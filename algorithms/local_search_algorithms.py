@@ -1,9 +1,9 @@
-from algorithm_metrics import path_length
-from path_utils import nearest_neighbor_second, nearest_neighbor_random, reset_points, print_in_square
 from neighborhood_generators import swap_neighborhood, two_opt_neighborhood
-from tsp_utils import readTSPLIB, read_optimal_tour
 from tqdm import tqdm
-from algorithm_metrics import path_length
+
+from utils.algorithm_metrics import path_length
+from utils.path_utils import nearest_neighbor_random, nearest_neighbor_second, reset_points, print_in_square
+from utils.tsp_utils import read_optimal_tour, readTSPLIB
     
 def multistart_local_search(points, dist, path_function, neighborhood_function, num_starts=10):
     """
