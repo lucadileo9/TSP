@@ -119,58 +119,6 @@ def research_path_time(points, dist, function, print_time=False, make_readable=T
 
     return readable_time
     
-
-import timeit
-from concurrent.futures import ProcessPoolExecutor
-
-def run_wrapper(points, dist, function):
-    from my_utils import reset_points
-
-    """Esegue la funzione e resetta i punti."""
-    function(points, dist)
-    reset_points(points)
-
-def execute_run(args):
-    """Funzione per misurare il tempo di esecuzione."""
-    points, dist, function = args
-    return timeit.timeit(lambda: run_wrapper(points, dist, function), number=1)
-
-def average_research_path_time_parallel(points, dist, function, num_runs=1000, print_time=False, make_readable=True):
-    """
-    Measures the execution time of a given function on a set of parameters.
-
-    This function calculates the time taken to execute the given function multiple times
-    and print the average time in a readable format.
-
-    Parameters:
-        points (list): A list of nodes in the graph.
-        dist (list): A 2D list representing the distances between nodes in the graph.
-        function (function): The function to be executed.
-        num_runs (int): The number of times the function is executed to calculate the average time.
-
-    Returns:
-        print the average time in a readable format.
-    """
-
-    with ProcessPoolExecutor() as executor:
-        # Creare una lista di tuple per gli argomenti
-        args_list = [(points, dist, function) for _ in range(num_runs)]
-        # Esegui execute_run per ogni tupla in parallelo
-        times = list(executor.map(execute_run, args_list))
-
-    # Calcola il tempo totale e la media
-    total_time = sum(times)
-    avg_time = total_time / num_runs
-    if make_readable:
-        readable_time = make_readable_time(avg_time)
-    else:
-        readable_time = avg_time
-        
-    if print_time:
-        print(f"Average execution time over {num_runs} runs: {readable_time}")
-
-    return readable_time
-
 def average_research_path_time(points, dist, function, num_runs=1000, print_time=False, make_readable=True):
     """
     Measures the execution time of a given function on a set of parameters.
