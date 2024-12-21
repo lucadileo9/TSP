@@ -2,10 +2,10 @@ import argparse
 import os
 import json
 
-from utils.tsp_utils import readTSPLIB
-from utils.algorithm_metrics import path_length
-from algorithms.metaheuristic_algorithms import iterated_local_search, complete_simulated_annealing
-from algorithms.hybrid_metaheuristic import ils_sa_tsp
+from ..utils.tsp_utils import readTSPLIB
+from ..utils.algorithm_metrics import path_length
+from ..algorithms.metaheuristic_algorithms import iterated_local_search, complete_simulated_annealing
+from ..algorithms.hybrid_metaheuristic import ils_sa_tsp
 
 def load_optimal_solutions(file_path="solutions"):
     optimal_solutions = {}
@@ -100,8 +100,8 @@ if __name__ == "__main__":
         "folder", 
         type=str, 
         nargs="?", 
-        default="organized_instances", 
-        help="La cartella da processare (default: organized_instances)"
+        default="TSP/data/EUC_2D", 
+        help="La cartella da processare (default: TSP/data/EUC_2D)"
     )
     
     args = parser.parse_args()

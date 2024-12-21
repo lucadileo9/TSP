@@ -1,12 +1,10 @@
-
-
-from perturbation import *
-from metaheuristic_algorithms import simulated_annealing
+from .perturbation import *
+from .metaheuristic_algorithms import simulated_annealing
 from tqdm import tqdm
 
-from utils.algorithm_metrics import path_length
-from utils.path_utils import generate_random_path, nearest_neighbor_second
-from utils.tsp_utils import readTSPLIB
+from ..utils.algorithm_metrics import path_length
+from ..utils.path_utils import generate_random_path, nearest_neighbor_second
+from ..utils.tsp_utils import readTSPLIB
 # In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
 
 def ils_sa_tsp(file_path, iterations, DEBUG=False):
@@ -70,7 +68,7 @@ def ils_sa_tsp(file_path, iterations, DEBUG=False):
 
 if __name__ == "__main__":
     # testiamo il simulated annealing
-    file_path = "new_instances/fl3795.tsp"
+    file_path = "TSP/data/new_instances/a280.tsp"
 
     best_solution, best_length = ils_sa_tsp(file_path, 10)
     print("Soluzione migliore:", best_solution)

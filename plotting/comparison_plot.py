@@ -218,6 +218,7 @@ if __name__ == "__main__":
         "folder", 
         type=str, 
         nargs="?", 
+        default="TSP/data/EUC_2D"
     )
     # l'utente può anche decidere se salvare i plot in una cartella dedicata
     parser.add_argument(

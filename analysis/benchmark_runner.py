@@ -1,11 +1,11 @@
 import os, json
 from tqdm import tqdm
 
-from dataset_generator import *
+from .dataset_generator import *
 
-from utils.path_utils import nearest_neighbor_second as nearest_neighbor, reset_points, nearest_neighbor_random
-from utils.algorithm_metrics import *
-from utils.tsp_utils import *
+from ..utils.path_utils import nearest_neighbor_second as nearest_neighbor, reset_points, nearest_neighbor_random
+from ..utils.algorithm_metrics import *
+from ..utils.tsp_utils import *
 
 def save_results(results, output_file):
     """

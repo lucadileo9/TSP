@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from enum import Enum
 
-from analysis.benchmark_runner import load_results
+from ..analysis.benchmark_runner import load_results
 class DataType(Enum):
     """
     DataType(Enum):
@@ -219,7 +219,7 @@ def plot_graph_with_distances(coordinates, distances):
     plt.show()
 
 
-if __name__ == "__main__":
-    plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.DISTANCE)
-    plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.TIME)
-    plot_two_bar_charts("random_euclidean_results.json", "first_euclidean_results.json", DataType.AVG_TIME)
+if __name__ == "__main__": 
+    plot_two_bar_charts("TSP/outputs/analysis_results/random_euclidean_results.json", "TSP/outputs/analysis_results/first_euclidean_results.json", DataType.DISTANCE)
+    plot_two_bar_charts("TSP/outputs/analysis_results/random_euclidean_results.json", "TSP/outputs/analysis_results/first_euclidean_results.json", DataType.TIME)
+    plot_two_bar_charts("TSP/outputs/analysis_results/random_euclidean_results.json", "TSP/outputs/analysis_results/first_euclidean_results.json", DataType.AVG_TIME)

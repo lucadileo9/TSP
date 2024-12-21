@@ -1,9 +1,9 @@
-from neighborhood_generators import swap_neighborhood, two_opt_neighborhood
 from tqdm import tqdm
+from .neighborhood_generators import swap_neighborhood, two_opt_neighborhood
 
-from utils.algorithm_metrics import path_length
-from utils.path_utils import nearest_neighbor_random, nearest_neighbor_second, reset_points, print_in_square
-from utils.tsp_utils import read_optimal_tour, readTSPLIB
+from ..utils.algorithm_metrics import path_length
+from ..utils.path_utils import nearest_neighbor_random, nearest_neighbor_second, reset_points, print_in_square
+from ..utils.tsp_utils import read_optimal_tour, readTSPLIB
     
 def multistart_local_search(points, dist, path_function, neighborhood_function, num_starts=10):
     """
@@ -174,9 +174,9 @@ def local_search_with_counted_iterations(dist, path, neighborhood_function, iter
 if __name__ == "__main__":
     # TO LOAD GRAPH DATA____________________________________
     # Obtain graph data
-    n, points, dist = readTSPLIB("a280.tsp")
+    n, points, dist = readTSPLIB("TSP/data/TSP_instances/a280.tsp")
     # Obtain the optimal path
-    perfect_path = read_optimal_tour("a280.opt.tour")
+    perfect_path = read_optimal_tour("TSP/data/TSP_instances/a280.opt.tour")
     
     # TO EXECUTE LOCAL SEARCH______________________________________
     # Calculate the initial path

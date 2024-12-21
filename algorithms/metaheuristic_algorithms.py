@@ -1,13 +1,13 @@
 from tqdm import tqdm
-from perturbation import *
 import math
 import random
 
-from local_search_algorithms import local_search, local_search_optimized
-from neighborhood_generators import two_opt_single_neighbor, two_opt_neighborhood
-from utils.algorithm_metrics import path_length
-from utils.path_utils import generate_random_path, nearest_neighbor_second
-from utils.tsp_utils import readTSPLIB, check_path
+from .perturbation import *
+from .local_search_algorithms import local_search, local_search_optimized
+from .neighborhood_generators import two_opt_single_neighbor, two_opt_neighborhood
+from ..utils.algorithm_metrics import path_length
+from ..utils.path_utils import generate_random_path, nearest_neighbor_second
+from ..utils.tsp_utils import readTSPLIB
 # In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
 # L'idea è fare un algoritmo ibrido tra due metaeuristiche: Simulated Annealing e Iterated Local Search.
 
@@ -267,7 +267,7 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
 
 if __name__ == "__main__":
     # testiamo usando una istanza di esempio
-    file_path = "new_instances/u1060.tsp"
+    file_path = "TSP/data/TSP_instances/a280.tsp"
 
     best_solution, best_length = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False)
     print("Costo della soluzione migliore con simulated annealing:", best_length )

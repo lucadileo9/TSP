@@ -3,7 +3,7 @@ import pickle
 from tqdm import tqdm
 import itertools
 import math
-import algorithm_metrics
+from . import algorithm_metrics
 
 def brute_force_tsp(points, dist):
     """

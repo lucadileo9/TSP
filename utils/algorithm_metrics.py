@@ -137,7 +137,7 @@ def average_research_path_time(points, dist, function, num_runs=1000, print_time
     """
 
     def wrapper():
-        from path_utils import reset_points
+        from .path_utils import reset_points
         function(points, dist)
         reset_points(points)
     # Misura il tempo totale su num_runs esecuzioni e calcola la media
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     print(make_readable_time(1))     # 1.00 s
     
     # lazy import
-    from path_utils import nearest_neighbor_first
+    from .path_utils import nearest_neighbor_first
     
     # Test the research_path_time function
     research_path_time(points, dist, nearest_neighbor_first, print_time=True, make_readable=True)

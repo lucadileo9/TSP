@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from tsp_utils import readTSPLIB
+from .tsp_utils import readTSPLIB
 
 # Funzione 1: Parsing del file TSPLIB
 def parse_tsplib_instance(file_path):

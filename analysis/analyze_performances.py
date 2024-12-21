@@ -3,11 +3,11 @@ from pathlib import Path
 import json
 import os
 
-from algorithms.local_search_algorithms import multistart_local_search
-from algorithms.neighborhood_generators import swap_neighborhood, two_opt_neighborhood
-from utils.algorithm_metrics import path_length
-from utils.path_utils import nearest_neighbor_random, nearest_neighbor_second
-from utils.tsp_utils import readTSPLIB, read_optimal_tour
+from ..algorithms.local_search_algorithms import multistart_local_search
+from ..algorithms.neighborhood_generators import swap_neighborhood, two_opt_neighborhood
+from ..utils.algorithm_metrics import path_length
+from ..utils.path_utils import nearest_neighbor_random, nearest_neighbor_second
+from ..utils.tsp_utils import readTSPLIB, read_optimal_tour
 
 # TODO:
 # - Modificare come vengano passati i parametri alle funzioni
@@ -15,7 +15,7 @@ from utils.tsp_utils import readTSPLIB, read_optimal_tour
 # - Dare nomi più significativi alle funzioni
 
 
-def store_performance_data(performance_data, output_filepath="performances.json"):
+def store_performance_data(performance_data, output_filepath="TSP/outputs/analysis_results/performances.json"):
     """
     Save the given performance data to a JSON file.
     Args:
@@ -34,7 +34,7 @@ def store_performance_data(performance_data, output_filepath="performances.json"
     except IOError as e:
         print(f"Errore nel salvataggio delle performances in '{output_filepath}': {e}")
 
-def load_performance_data(input_filepath="performances.json"):
+def load_performance_data(input_filepath="TSP/outputs/analysis_results/performances.json"):
     """
     Load performance data from a JSON file.
     This function attempts to load performance data from the specified JSON file.
@@ -59,7 +59,7 @@ def load_performance_data(input_filepath="performances.json"):
         print(f"Errore nel caricamento delle performances da '{input_filepath}': {e}")
         return {}
 
-def store_optimal_path_lengths(optimal_path_lengths, output_filepath="optimal_lengths.json"):
+def store_optimal_path_lengths(optimal_path_lengths, output_filepath="TSP/outputs/analysis_results/optimal_lengths.json"):
     """
     Save the optimal lengths to a JSON file.
     Parameters:
@@ -77,7 +77,7 @@ def store_optimal_path_lengths(optimal_path_lengths, output_filepath="optimal_le
     except IOError as e:
         print(f"Errore nel salvataggio degli optimal lengths in '{output_filepath}': {e}")
 
-def load_optimal_path_lengths(input_filepath="optimal_lengths.json"):
+def load_optimal_path_lengths(input_filepath="TSP/outputs/analysis_results/optimal_lengths.json"):
     """
     Load optimal lengths from a JSON file.
     This function attempts to load a dictionary of optimal lengths from a specified JSON file.
@@ -330,6 +330,6 @@ if __name__ == "__main__":
     # Esempio di utilizzo
     # Bisogna passare la cartella contenente i file .tsp e .opt.tour,
     # le funzioni di inizializzazione del percorso, di neighborhood e il numero di inizi sono decise nella funzione stessa (riga 285-286-287)
-    aggregate_performance_data, optimal_path_lengths = batch_performance_analysis("TSP_instances_clean/")
+    aggregate_performance_data, optimal_path_lengths = batch_performance_analysis("TSP/data/TSP_instances_clean/")
     print_tsp_analysis_summary(aggregate_performance_data)
     print(optimal_path_lengths)

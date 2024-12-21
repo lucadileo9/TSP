@@ -91,7 +91,7 @@ import csv
 import shutil
 from tqdm import tqdm
 
-import utils.tsp_utils as tsp_utils
+from ..utils import tsp_utils
 def generate_all_dataset():
     """
     Generates benchmark datasets for different types of graphs and saves them to specified directories.
@@ -237,7 +237,7 @@ def load_graph_data(file_path):
 
 if __name__ == "__main__":
     # Pulisce la directory dei dati
-    clean_directory('./data')
+    # clean_directory('./data')
     # Genera i dataset
     generate_all_dataset()
     # in principio veniva usata per generare i dataset con funzioni diverse, ma adesso usa solo randomEuclGraph
