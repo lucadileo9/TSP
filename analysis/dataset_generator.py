@@ -109,9 +109,9 @@ def generate_all_dataset():
     Returns:
     None
     """
-    generate_dataset([10, 50, 100, 500, 1000], [50, 100, 1000], tsp_utils.randomEuclGraph, 20, "./data/euclidean")
-    # generate_dataset([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraphGeo, 20, "./data/graphGeo")
-    # generate_dataset([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraph2D, 20, "./data/graph2D")    
+    generate_dataset([10, 50, 100, 500, 1000], [50, 100, 1000], tsp_utils.randomEuclGraph, 20, "TSP/data/euclidean")
+    # generate_dataset([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraphGeo, 20, "TSP/data/graphGeo")
+    # generate_dataset([10, 50, 100, 500, 1000], [10, 100, 1000], tsp_utils.randomGraph2D, 20, "TSP/data/graph2D")    
     
 def generate_dataset(num_vertices_list, max_coords_list, function,  num_instances, output_dir):
     """
