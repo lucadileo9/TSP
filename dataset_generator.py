@@ -236,5 +236,8 @@ def load_graph_data(file_path):
 
 
 if __name__ == "__main__":
+    # Pulisce la directory dei dati
     clean_directory('./data')
+    # Genera i dataset
     generate_all_dataset()
+    # in principio veniva usata per generare i dataset con funzioni diverse, ma adesso usa solo randomEuclGraph

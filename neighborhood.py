@@ -1,7 +1,7 @@
 from my_utils import print_in_square
 import random
 
-def swap_neighborhood(path):
+def swap_neighborhood(path, print_neighbors=False):
     """
     Generate all possible neighbors of a path by swapping two nodes.
     
@@ -23,7 +23,11 @@ def swap_neighborhood(path):
             new_path[i], new_path[j] = new_path[j], new_path[i]
             # Add the new path to the neighborhood
             neighbors.append(new_path)
-    
+    if print_neighbors:
+        print_in_square("Path", path)
+        print("Swap Neighborhood:")
+        for neighbor in neighbors:
+            print(neighbor)
     return neighbors
 
 
@@ -113,12 +117,15 @@ def swap_single_neighbor(path):
 
     return new_path
 
-
 if __name__ == "__main__":
-    path = [0, 1, 2, 3, 4, 5, 6, 7]
+    path = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]
+    # print_in_square("Path", path)
+    print("2-opt Neighborhood:")
     two_opt_neighborhood(path, print_neighbors=True)
-    swap_neighborhood(path)
-    print_in_square("Path", path)
     print("Swap Neighborhood:")
-    for neighbor in swap_neighborhood(path):
-        print(neighbor)
+    swap_neighborhood(path, print_neighbors=True)
+    print("Swap Single Neighbor:")
+    print(swap_single_neighbor(path))
+    print("2-opt Single Neighbor:")
+    print(two_opt_single_neighbor(path))
+    

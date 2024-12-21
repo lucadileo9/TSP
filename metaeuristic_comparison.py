@@ -93,7 +93,7 @@ def process_all_folders(base_folder):
 
 
 if __name__ == "__main__":
-    # Configura argparse
+    # Configurazione argparse
     parser = argparse.ArgumentParser(description="Processa le cartelle in una directory specificata.")
     parser.add_argument(
         "folder", 
@@ -103,10 +103,9 @@ if __name__ == "__main__":
         help="La cartella da processare (default: organized_instances)"
     )
     
-    # Parso gli argomenti dalla linea di comando
     args = parser.parse_args()
     
-    # Stampo la cartella selezionata
+    # Stampo la cartella selezionata che contiene le istanze, strutturate per dimensione
     print(f"Cartella selezionata: {args.folder}")
     
     # Processo la cartella specificata

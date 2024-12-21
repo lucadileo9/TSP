@@ -71,5 +71,5 @@ if __name__ == "__main__":
     file_path = "new_instances/fl3795.tsp"
 
     best_solution, best_length = ils_sa_tsp(file_path, 10)
-    # print("Soluzione migliore:", best_solution)
+    print("Soluzione migliore:", best_solution)
     print("Costo della soluzione migliore:", best_length)

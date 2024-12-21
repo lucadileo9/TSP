@@ -327,7 +327,8 @@ def batch_performance_analysis(tsp_datasets_folderpath):
 
 if __name__ == "__main__":
     # Esempio di utilizzo
-    # results = analyze_tsp_instance("a280.tsp", path_functions=[nearest_neighbor_second, nearest_neighbor_random], neighborhood_functions=[swap_neighborhood, two_opt_neighborhood], num_starts=[1,2,3])
+    # Bisogna passare la cartella contenente i file .tsp e .opt.tour,
+    # le funzioni di inizializzazione del percorso, di neighborhood e il numero di inizi sono decise nella funzione stessa (riga 285-286-287)
     aggregate_performance_data, optimal_path_lengths = batch_performance_analysis("TSP_instances_clean/")
     print_tsp_analysis_summary(aggregate_performance_data)
     print(optimal_path_lengths)

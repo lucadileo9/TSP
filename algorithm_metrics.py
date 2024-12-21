@@ -152,4 +152,28 @@ def average_research_path_time(points, dist, function, num_runs=1000, print_time
         print(f"Average execution time over {num_runs} runs: {readable_time}")
     
     return readable_time
+ 
+if __name__ == "__main__":
+    # Test the check_path function
+    points = [((56, 7), False), ((50, 76), False), ((15, 34), False), ((32, 88), False), ((94, 9), False)] 
+    dist = {(0, 0): 0.0, (0, 1): 69.26, (0, 2): 49.09, (0, 3): 84.48, (0, 4): 38.05, (1, 0): 69.26, (1, 1): 0.0, (1, 2): 54.67, (1, 3): 21.63, (1, 4): 80.16, (2, 0): 49.09, (2, 1): 54.67, (2, 2): 0.0, (2, 3): 56.61, (2, 4): 82.86, (3, 0): 84.48, (3, 1): 21.63, (3, 2): 56.61, (3, 3): 0.0, (3, 4): 100.42, (4, 0): 38.05, (4, 1): 80.16, (4, 2): 82.86, (4, 3): 100.42, (4, 4): 0.0}
+    path = [0, 1, 2, 3, 4,0]
+    print(check_path(points, path, DEBUG=True))  # True
+
+    # Test the path_length function
+    print(path_length(dist, path, print_length=True))  
+
+    # Test the make_readable_time function
+    print(make_readable_time(1e-9))  # 1.00 nanoseconds
+    print(make_readable_time(1e-6))  # 1.00 microseconds  
+    print(make_readable_time(1e-3))  # 1.00 milliseconds
+    print(make_readable_time(1))     # 1.00 s
     
+    # lazy import
+    from my_utils import nearest_neighbor_first
+    
+    # Test the research_path_time function
+    research_path_time(points, dist, nearest_neighbor_first, print_time=True, make_readable=True)
+    
+    # Test the average_research_path_time function
+    average_research_path_time(points, dist, nearest_neighbor_first, num_runs=1000, print_time=True, make_readable=True) 

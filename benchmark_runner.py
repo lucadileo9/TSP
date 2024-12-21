@@ -169,12 +169,11 @@ def load_results(file_path):
 
 
 if __name__ == "__main__":
+    # Vengono generati i risultati per tutti gli algoritmi e salvati in memoria
+    # il nome della cartella, il numero di vertici, numero di istanze ecc.. sono definiti all'interno della funzione
     generate_all_statistics()
-    # print("Dizionario dell'algoritmo nearest_neighbor")
-    # print_results(results[0])
-    # print("Dizionario dell'algoritmo nearest_neighbor_random")
-    # print_results(results[1])
-
+    # Le statistiche generate per ogni accoppiata num_vertices, max_coord sono la lunghezza del percorso, il tempo di esecuzione e il tempo di esecuzione medio
+    # è prima necessario generare il benchmark per tutti gli algoritmi, nel modulo dataset_generator.py
 
 # La struttura dati per memorizzare queste info sarà fatta così:
                 # dizionario chaive = coppia (num_vertices, max_coord) e valore = lista di tuple (path_distance, execution_time, average_execution_time)

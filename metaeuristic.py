@@ -266,7 +266,7 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
     return best_solution, path_length(dist, best_solution)
 
 if __name__ == "__main__":
-    # testiamo il simulated annealing
+    # testiamo usando una istanza di esempio
     file_path = "new_instances/u1060.tsp"
 
     best_solution, best_length = complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False)

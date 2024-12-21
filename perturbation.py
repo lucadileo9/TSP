@@ -216,28 +216,23 @@ if __name__ == "__main__":
 
     # Perturbazioni
     perturbed_solution = perturbation_swap_segments(current_solution, points, DEBUG=True)
-    print("Perturbazione Swap Segments:", perturbed_solution)
-    input()
+    print("Perturbazione Swap Segments:", perturbed_solution) 
 
 # 2-opt randomizzato
     perturbed_solution = two_opt_randomized(current_solution, n=3, points=points, DEBUG=True)
     print("Perturbazione 2-opt randomizzata:", perturbed_solution)
-    input()
 
     # Multi-swap
     perturbed_solution = multi_swap(current_solution, k=2, points=points, DEBUG=True)
     print("Perturbazione Multi-swap:", perturbed_solution)
-    input()
 
     # Shuffle parziale
     perturbed_solution = shuffle_partial(current_solution, n=4, points=points, DEBUG=True)
     print("Perturbazione Shuffle Parziale:", perturbed_solution)
-    input()
 
     # 3-opt randomizzato
     perturbed_solution = three_opt_randomized(current_solution, points=points, DEBUG=True)
     print("Perturbazione 3-opt randomizzata:", perturbed_solution)
-    input()
 
     # Double Bridge Move
     perturbed_solution = double_bridge_move(current_solution, points=points, DEBUG=True)

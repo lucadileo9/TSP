@@ -169,6 +169,8 @@ def local_search_with_counted_iterations(dist, path, neighborhood_function, iter
             break  # Exit the loop if there are no improvements
 
     return current_path
+
+
 if __name__ == "__main__":
     # TO LOAD GRAPH DATA____________________________________
     # Obtain graph data
@@ -178,27 +180,27 @@ if __name__ == "__main__":
     
     # TO EXECUTE LOCAL SEARCH______________________________________
     # Calculate the initial path
-    # path = nearest_neighbor_random(points, dist)
-    # print("Initial Path Found")
-    # # Execute local search with the provided neighborhood
-    # optimized_path = local_search(dist, path, two_opt_neighborhood)
-    # # Print results
-    # print("Initial Path Length:", path_length(dist, path))
-    # # print_in_square("Initial path", path)
+    path = nearest_neighbor_random(points, dist)
+    print("Initial Path Found")
+    # Execute local search with the provided neighborhood
+    optimized_path = local_search(dist, path, two_opt_neighborhood)
+    # Print results
+    print("Initial Path Length:", path_length(dist, path))
+    print_in_square("Initial path", path)
     
-    # print("Optimized Path Length:", path_length(dist, optimized_path))
-    # # print_in_square("Optimized path", path)
+    print("Optimized Path Length:", path_length(dist, optimized_path))
+    print_in_square("Optimized path", path)
     
-    # print("Perfect Path Length:", path_length(dist, perfect_path))
-    # # print_in_square("Perfect path", path)
-    # input("Press ENTER to continue...")
+    print("Perfect Path Length:", path_length(dist, perfect_path))
+    print_in_square("Perfect path", path)
+    input("Press ENTER to execute multistart local search...")
     
     
     # TO EXECUTE MULTISTART LOCAL SEARCH__________________________
     best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_second, two_opt_neighborhood, num_starts=10)
-    print("Best Path Length:", best_length)
+    print("Best Path Length with nearest neighbor:", best_length)
     
     best_path, best_length = multistart_local_search(points, dist, nearest_neighbor_random , two_opt_neighborhood, num_starts=10)
-    print("Best Path Length:", best_length)
+    print("Best Path Length with nearest neighbor random:", best_length)
 
     print("Perfect Path Length:", path_length(dist, perfect_path))
