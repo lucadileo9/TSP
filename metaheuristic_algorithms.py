@@ -1,12 +1,12 @@
 from tqdm import tqdm
 from tsp_utils import readTSPLIB
-from my_utils import nearest_neighbor_second, generate_random_path
+from path_utils import nearest_neighbor_second, generate_random_path
 from algorithm_metrics import path_length
-from neighborhood import two_opt_single_neighbor, two_opt_neighborhood
+from neighborhood_generators import two_opt_single_neighbor, two_opt_neighborhood
 from perturbation import *
 import math
 import random
-from local_search import local_search, local_search_optimized
+from local_search_algorithms import local_search, local_search_optimized
 
 # In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
 # L'idea è fare un algoritmo ibrido tra due metaeuristiche: Simulated Annealing e Iterated Local Search.

@@ -1,9 +1,9 @@
 
 from tsp_utils import readTSPLIB
-from my_utils import nearest_neighbor_second, generate_random_path
+from path_utils import nearest_neighbor_second, generate_random_path
 from algorithm_metrics import path_length
 from perturbation import *
-from metaeuristic import simulated_annealing
+from metaheuristic_algorithms import simulated_annealing
 from tqdm import tqdm
 # In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
 

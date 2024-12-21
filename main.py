@@ -1,5 +1,5 @@
 import argparse
-from my_utils import *
+from path_utils import *
 from algorithm_metrics import *
 from tsp_utils import *
 

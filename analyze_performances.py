@@ -1,8 +1,8 @@
 from tsp_utils import readTSPLIB, read_optimal_tour
-from local_search import multistart_local_search
-from neighborhood import swap_neighborhood, two_opt_neighborhood
+from local_search_algorithms import multistart_local_search
+from neighborhood_generators import swap_neighborhood, two_opt_neighborhood
 from algorithm_metrics import path_length
-from my_utils import nearest_neighbor_second, nearest_neighbor_random
+from path_utils import nearest_neighbor_second, nearest_neighbor_random
 from collections import defaultdict
 from pathlib import Path
 import json

@@ -1,4 +1,4 @@
-from my_utils import print_in_square, nearest_neighbor_random
+from path_utils import print_in_square, nearest_neighbor_random
 from tsp_utils import *
 from algorithm_metrics import path_length
 

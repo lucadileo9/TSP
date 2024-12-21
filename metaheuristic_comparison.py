@@ -2,8 +2,8 @@ import argparse
 import os
 from tsp_utils import readTSPLIB
 from algorithm_metrics import path_length
-from metaeuristic import iterated_local_search, complete_simulated_annealing
-from hybrid_metaeuristic import ils_sa_tsp
+from metaheuristic_algorithms import iterated_local_search, complete_simulated_annealing
+from hybrid_metaheuristic import ils_sa_tsp
 import json
 
 def load_optimal_solutions(file_path="solutions"):

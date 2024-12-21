@@ -1,7 +1,7 @@
 import os, json
 from tqdm import tqdm
-from my_utils import nearest_neighbor_second as nearest_neighbor, reset_points
-from my_utils import nearest_neighbor_random
+from path_utils import nearest_neighbor_second as nearest_neighbor, reset_points
+from path_utils import nearest_neighbor_random
 from algorithm_metrics import *
 from tsp_utils import *
 from dataset_generator import *
