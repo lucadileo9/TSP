@@ -9,12 +9,6 @@ from ..utils.algorithm_metrics import path_length
 from ..utils.path_utils import nearest_neighbor_random, nearest_neighbor_second
 from ..utils.tsp_utils import readTSPLIB, read_optimal_tour
 
-# TODO:
-# - Modificare come vengano passati i parametri alle funzioni
-# - Dare nomi più significativi alle variabili
-# - Dare nomi più significativi alle funzioni
-
-
 def store_performance_data(performance_data, output_filepath="TSP/outputs/analysis_results/performances.json"):
     """
     Save the given performance data to a JSON file.
