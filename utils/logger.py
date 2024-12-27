@@ -13,7 +13,7 @@ execution_totals = {}
 call_counts = {}
 
 # Nome del file per il log
-log_file = "execution_times.log"
+log_file = "TSP/outputs/logs/execution_times.log"
 
 # Funzione per scrivere i tempi e i conteggi nel log
 def write_log():
