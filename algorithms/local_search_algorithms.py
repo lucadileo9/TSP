@@ -1,10 +1,31 @@
+''' 
+This module contains various local search algorithms for solving the Traveling Salesman Problem (TSP). 
+The algorithms include basic local search, optimized local search, and multistart local search. 
+Each algorithm attempts to find an optimized path by exploring neighboring solutions and iteratively improving the current solution.
+Functions:
+    multistart_local_search(points, dist, path_function, neighborhood_function, num_starts=10)
+    local_search(dist, path, neighborhood_function):
+        Perform a local search on a given path using a neighborhood function.
+    local_search_optimized(dist, path):
+        Perform a first improvement local search on a given path using the 2-opt neighborhood function.
+    calculate_delta(dist, path, i, j):
+        Calculate the difference in cost (delta) caused by reversing the segment between indices i and j.
+    local_search_with_counted_iterations(dist, path, neighborhood_function, iterations=100):
+        Perform a local search on a given path for a specified number of iterations.
+Usage:
+    To use this module, you need to have the necessary data files for the TSP instances and the optimal tour. 
+    The module can be executed directly to perform local search and multistart local search on the TSP instance.
+    Example:
+        python local_search_algorithms.py
+    This will read the TSP instance from "TSP/data/TSP_instances/a280.tsp" and execute local search and multistart local search.
+'''
 from tqdm import tqdm
 from .neighborhood_generators import swap_neighborhood, two_opt_neighborhood
 
 from ..utils.algorithm_metrics import path_length
 from ..utils.path_utils import nearest_neighbor_random, nearest_neighbor_second, reset_points, print_in_square
-from ..utils.tsp_utils import read_optimal_tour, readTSPLIB
-    
+from ..utils.tsp_utils import read_optimal_tour, readTSPLIB 
+ 
 def multistart_local_search(points, dist, path_function, neighborhood_function, num_starts=10):
     """
     Perform a multistart local search to find an optimized path.
@@ -84,7 +105,7 @@ def local_search(dist, path, neighborhood_function):
 def local_search_optimized(dist, path):
     """
     Performs a local search on a given path in the Traveling Salesman Problem (TSP) using a given neighborhood function.
-    The local search iteratively explores the neighborhood of the current path and moves to the best neighbor that improves the path.
+    This version don't choose the best neighbor, but it applies the first improvement found.
     The search continues until no neighbor can be found that improves the path.
     Args:
         dist (dict): A dictionary containing the pairwise distances between nodes.
@@ -189,10 +210,10 @@ if __name__ == "__main__":
     print_in_square("Initial path", path)
     
     print("Optimized Path Length:", path_length(dist, optimized_path))
-    print_in_square("Optimized path", path)
+    print_in_square("Optimized path", optimized_path)
     
     print("Perfect Path Length:", path_length(dist, perfect_path))
-    print_in_square("Perfect path", path)
+    print_in_square("Perfect path", perfect_path)
     input("Press ENTER to execute multistart local search...")
     
     
