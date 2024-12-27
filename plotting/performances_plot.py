@@ -1,9 +1,24 @@
-import json
+'''
+This module provides functions to plot the performance of different TSP algorithms based on various datasets, starting points, neighborhoods, and strategies.
+'''
 import matplotlib.pyplot as plt
 import numpy as np
+
 from ..analysis.analyze_performances import load_optimal_path_lengths, load_performance_data
 
 def abbreviate(label):
+    """
+    Abbreviates a given label based on predefined mappings.
+
+    This function takes a string label and replaces specific substrings with their
+    abbreviated forms according to a predefined mapping dictionary.
+
+    Args:
+        label (str): The label to be abbreviated.
+
+    Returns:
+        str: The abbreviated label.
+    """
     mapping = {
         "swap_neighborhood": "swap",
         "two_opt_neighborhood": "2opt",
@@ -16,6 +31,33 @@ def abbreviate(label):
     return label
 
 def first_plot(data, optimal_lengths):
+    """
+    Plots the performance of different TSP algorithms based on various datasets, starting points, neighborhoods, and strategies.
+    Parameters:
+    data (dict): A nested dictionary containing the tour lengths for each dataset, start, neighborhood, and strategy.
+                 Example structure:
+                 {
+                     "dataset1": {
+                         "1": {
+                             "swap_neighborhood": {
+                                 "deterministic": value,
+                                 "randomic": value
+                             },
+                             "two_opt_neighborhood": {
+                                 "deterministic": value,
+                                 "randomic": value
+                         },
+                         ...
+                     },
+                     ...
+    optimal_lengths (dict): A dictionary containing the optimal tour lengths for each dataset.
+                            Example structure:
+                            {
+                                "dataset1": optimal_value,
+                                ...
+    Returns:
+        None: This function does not return any value. It displays a bar plot with the tour lengths and optimal lengths.
+    """
     datasets = list(data.keys())
     neighborhoods = ["swap_neighborhood", "two_opt_neighborhood"]
     strategies = ["deterministic", "randomic"]
@@ -72,6 +114,21 @@ def first_plot(data, optimal_lengths):
 
 
 def second_plot(data, optimal_lengths, max_charts_per_figure=4):
+    """
+    Plots the performance of different TSP algorithms across multiple datasets.
+    Parameters:
+        data (dict): A dictionary where keys are dataset names and values are dictionaries
+                    containing start points and their corresponding path lengths for different
+                    neighborhoods and search types.
+        optimal_lengths (dict): A dictionary where keys are dataset names and values are the
+                                optimal path lengths for those datasets.
+        max_charts_per_figure (int, optional): The maximum number of charts to display per figure.
+                                            Default is 4.
+    The function generates bar plots for each dataset, showing the path lengths for different
+    neighborhoods and search types. It also includes a horizontal line indicating the optimal
+    path length. The plots are displayed in multiple figures if the number of datasets exceeds
+    the maximum charts per figure.
+    """
     datasets = list(data.keys())
     total_datasets = len(datasets)
     num_figures = (total_datasets + max_charts_per_figure - 1) // max_charts_per_figure  # Calcola il numero di figure

@@ -1,3 +1,6 @@
+'''
+This module provides functions to plot various charts for analyzing the results of the Traveling Salesman Problem (TSP) instances.
+'''
 import matplotlib.pyplot as plt
 import numpy as np
 from enum import Enum
