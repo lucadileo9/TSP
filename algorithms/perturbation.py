@@ -1,17 +1,41 @@
+'''
+This module provides various perturbation functions for the Traveling Salesman Problem (TSP). 
+Each function applies a different type of perturbation to a given TSP solution to explore the solution space.
+Functions:
+    perturbation(solution, phase, points, n, DEBUG=False):
+        Applies a perturbation to the current path based on the current phase.
+    two_opt_randomized(solution, n, points, DEBUG=False):
+        Performs a randomized 2-opt perturbation by selecting a random segment and reversing its order.
+    multi_swap(solution, k, points, DEBUG=False):
+        Executes k random swaps between pairs of nodes with validity checks.
+    shuffle_partial(solution, n, points, DEBUG=False):
+        Randomly selects a subsequence of nodes in the path and shuffles them.
+    three_opt_randomized(solution, points, DEBUG=False):
+        Applies a randomized 3-opt perturbation by dividing the path into three random segments and reconnecting them.
+    double_bridge_move(solution, points, DEBUG=False):
+        Cuts the path into four distinct segments and recombines them by swapping the positions of two central segments.
+    perturbation_swap_segments(solution, points, DEBUG=False):
+        Selects two random segments in the path, ensuring they do not overlap, and swaps their positions.
+Usage:
+    The perturbation functions can be used to explore the solution space of the TSP by applying different types of perturbations to a given solution.
+    Example:
+        python perturbation.py
+    This will test the perturbation functions by applying each perturbation type to a sample TSP solution.
+'''
 import numpy as np
 import random
 
 from ..utils.algorithm_metrics import check_path
 
-
-
 def perturbation(solution, phase, points,n, DEBUG=False):
     """
     Applica una perturbazione al percorso attuale in base alla fase corrente.
     La perturbazione può essere di diverso tipo a seconda della fase:
-    - "aggressive": 3-opt randomizzata
-    - "medium": Double Bridge Move
+    - "aggressive": double bridge move
+    - "medium": multi-swap
     - "soft": 2-opt randomizzata
+    The number of multi-swap operations is set to n//50, and the number of nodes to shuffle is set to n//10, 
+    so that the perturbation is proportional to the size of the problem.
     Args:
         solution (list): Il percorso attuale.
         phase (str): La fase corrente ("aggressive", "medium", "soft").
@@ -221,7 +245,7 @@ if __name__ == "__main__":
     perturbed_solution = perturbation_swap_segments(current_solution, points, DEBUG=True)
     print("Perturbazione Swap Segments:", perturbed_solution) 
 
-# 2-opt randomizzato
+    # 2-opt randomizzato
     perturbed_solution = two_opt_randomized(current_solution, n=3, points=points, DEBUG=True)
     print("Perturbazione 2-opt randomizzata:", perturbed_solution)
 
