@@ -1,14 +1,28 @@
-# In this file there will be a function that takes as input the points of a graph and the path connecting them, and checks if the path is correct.
-# Specifically, it checks that:
-#  - no node is visited twice,
-#  - the path is closed,
-#  - all nodes are present,
-#  - the nodes are part of the graph.
+'''
+This module provides utility functions for validating paths, calculating path lengths, 
+measuring execution times, and converting time durations to human-readable formats.
+Functions:
+    check_path(points, path, DEBUG=False):
+        Validates a given path in a graph.
+    path_length(dist, path, print_length=False):
+        Computes the length of a given path in a graph.
+    make_readable_time(time):
+        Converts a time duration in seconds to a human-readable string format.
+    research_path_time(points, dist, function, print_time=False, make_readable=True):
+        Measures the execution time of a given function on a set of parameters.
+    average_research_path_time(points, dist, function, num_runs=1000, print_time=False, make_readable=True):
+        Measures the execution time of a given function on a set of parameters over multiple runs and prints the average time.
+Usage:
+    To use the functions in this module, import the module and call the desired function.
+    There are a lot of examples in the main part of the module.
+'''
 import timeit
 
 def check_path(points, path, DEBUG=False):
     """
     Validates a given path in a graph.
+    It checks if the path is closed, contains all the nodes, contains only the nodes in the graph, 
+    and contains the nodes only once, except for the first and the last.
 
     Parameters:
         points (list): A list of nodes in the graph.
