@@ -1,3 +1,25 @@
+'''
+This script generates benchmark datasets for different types of graphs and saves them to specified directories.
+It focuses on generating Euclidean graphs with various sizes and maximum coordinate values.
+Functions:
+- generate_all_dataset: Generates datasets for different types of graphs and saves them in respective directories.
+- generate_dataset: Generates random Euclidean graphs and saves them in structured folders.
+- clean_directory: Empties the specified directory.
+- load_graph_data: Loads graph data from a CSV file and returns the coordinates of points and distances.
+Usage:
+- To generate all datasets, run the script directly.
+- To clean the data directory, uncomment the clean_directory function call in the main block.
+Directory Structure:
+- data
+    - euclidean
+        - NumVertices_{num_vertices}
+            - MaxVal_{max_coord}
+                - instance_{instance_num}.csv
+Each CSV file contains:
+- Coordinates of points in the format: x, y
+- Distances between points in the format: i,j : distance
+
+'''
 # Adesso devo fare in modo di creare dei file che contengano varie isanze di grafi. 
 # Queste varie istanze devono essere differenziate nei seguenti modi:
 # - tipo di grafo: euclideo o geometrico
