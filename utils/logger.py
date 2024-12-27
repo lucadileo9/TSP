@@ -1,12 +1,19 @@
-# logger.py
+'''
+"""
+This module provides a decorator to measure the execution time of functions and count how many times they are called.
+The total times and call counts are saved in a log file. Each time a decorated function is called, the times and counts
+are updated and written to the file. The log file is overwritten each time a decorated function is called.
+Attributes:
+    execution_totals (dict): Dictionary to store the total execution times of functions.
+    call_counts (dict): Dictionary to store the call counts of functions.
+    log_file (str): The name of the log file where execution times and call counts are saved.
+Functions:
+    write_log(): Writes the total execution times and call counts to the log file.
+    timer(func): Decorator to measure the cumulative execution time and count the calls of a function.
+"""
+
+'''
 import time
-
-# Questo modulo serve per misurare il tempo di esecuzione di una funzione e per contare quante volte viene chiamata.
-# I tempi totali e i conteggi delle chiamate vengono salvati in un file di log.
-# Ogni volta che una funzione decorata viene chiamata, i tempi e i conteggi vengono aggiornati e scritti nel file.
-# Il file di log viene sovrascritto ogni volta che viene chiamata una funzione decorata.
-# Le funzioni tipicamente decorate con @timer sono: nearest_neighbor_random, nearest_neighbor_second, local_search, multi_start_local_search, swap_neighborhood, two_opt_neighborhood. 
-
 
 # Dizionari per salvare i tempi totali e i conteggi delle chiamate
 execution_totals = {}
