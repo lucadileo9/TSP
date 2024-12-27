@@ -1,3 +1,24 @@
+'''
+This module contains implementations of various metaheuristic algorithms for solving the Traveling Salesman Problem (TSP).
+The algorithms included are Simulated Annealing (SA) and Iterated Local Search (ILS).
+Functions:
+    simulated_annealing_easy(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000, DEBUG=False):
+        Perform a simplified version of the Simulated Annealing algorithm to find an optimized solution for the TSP.
+        This function is a simplified version of the simulated_annealing function, because it execute only one iteration for each temperature.
+    simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False, points=None):
+        Perform the Simulated Annealing optimization algorithm to find a near-optimal solution for the TSP.
+        This version starts from a given initial solution. It is used in the hybrid metaheuristic algorithm.
+    complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False):
+        Perform the Simulated Annealing algorithm to solve the TSP using a TSPLIB file.
+    iterated_local_search(file_path, max_iterations, DEBUG=False):
+        Perform Iterated Local Search (ILS) to solve the TSP using a TSPLIB file.
+Usage:
+    Execute this module to test the implemented metaheuristic algorithms for solving the TSP.
+    Example:
+        python metaheuristic_algorithms.py
+    This will run the Simulated Annealing and Iterated Local Search algorithms on a sample TSP instance and print the results.
+    In this example, the sample TSP instance is read from the file "TSP/data/TSP_instances/a280.tsp".
+'''
 from tqdm import tqdm
 import math
 import random
@@ -8,25 +29,23 @@ from .neighborhood_generators import two_opt_single_neighbor, two_opt_neighborho
 from ..utils.algorithm_metrics import path_length
 from ..utils.path_utils import generate_random_path, nearest_neighbor_second
 from ..utils.tsp_utils import readTSPLIB
-# In questo file costruiremo un'metaeuristica per risolvere il problema del commesso viaggiatore (TSP) su un'istanza TSPLIB.
-# L'idea è fare un algoritmo ibrido tra due metaeuristiche: Simulated Annealing e Iterated Local Search.
 
 
 def simulated_annealing_easy(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000, DEBUG=False):
     """
-    Esegue l'algoritmo di Simulated Annealing per il TSP.
-
-    Args:
-        current_solution (list): Soluzione iniziale (percorso).
-        dist (list): Matrice delle distanze.
-        T_0 (float): Temperatura iniziale.
-        alpha (float): Fattore di raffreddamento (0 < alpha < 1).
-        max_iterations (int): Numero massimo di iterazioni.
-        debug (bool): Se True, attiva le stampe di debug.
-
+    Perform simulated annealing to find an optimized solution for the given problem.
+    This function is a simplified version of the simulated_annealing function, because it execute only one iteration for each temperature.
+    Parameters:
+    current_solution (list): The initial solution to start the optimization process.
+    dist (2D list): The distance matrix representing the problem space.
+    T_0 (float, optional): The initial temperature for the annealing process. Default is 1000.
+    alpha (float, optional): The cooling rate, a factor by which the temperature is multiplied each iteration. Default is 0.95.
+    max_iterations (int, optional): The maximum number of iterations to perform. Default is 10000.
+    DEBUG (bool, optional): If True, prints detailed debug information during the optimization process. Default is False.
     Returns:
-        list: La migliore soluzione trovata.
+    list: The best solution found during the optimization process.
     """
+
     # Inizializzazione
     T = T_0  # Temperatura iniziale
     current_cost = path_length(dist, current_solution)  # Calcolo del costo iniziale
@@ -81,6 +100,21 @@ def simulated_annealing_easy(current_solution, dist, T_0=1000, alpha=0.95, max_i
 
 def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterations=10000,
                         number_of_iterations_with_same_temperature=50, DEBUG=False, points=None):
+    """
+    Perform the Simulated Annealing optimization algorithm to find a near-optimal solution for the TSP.
+    This version starts from a given initial solution. It is used in the hybrid metaheuristic algorithm.
+    Parameters:
+        current_solution (list): The initial solution path.
+        dist (2D list): The distance matrix representing the TSP.
+        T_0 (float): The initial temperature. Default is 1000.
+        alpha (float): The cooling rate. Default is 0.95.
+        max_iterations (int): The maximum number of iterations. Default is 10000.
+        number_of_iterations_with_same_temperature (int): Number of iterations to perform at each temperature level. Default is 50.
+        DEBUG (bool): If True, print debug information. Default is False.
+        points (list): List of points representing the TSP. Default is None.
+    Returns:
+        list: The best solution found.
+    """
     # Inizializzazione
     T = T_0  # Temperatura iniziale
     current_cost = path_length(dist, current_solution)  # Calcolo del costo iniziale
@@ -140,9 +174,20 @@ def simulated_annealing(current_solution, dist, T_0=1000, alpha=0.95, max_iterat
 
     return best_solution
 
-from tqdm import tqdm
 
 def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations=10000, number_of_iterations_with_same_temperature=50, DEBUG=False):
+    """
+    Perform the Simulated Annealing algorithm to solve the Traveling Salesman Problem (TSP).
+    Parameters:
+        file_path (str): The path to the TSPLIB file containing the TSP instance.
+        T_0 (float, optional): The initial temperature. Default is 1000.
+        alpha (float, optional): The cooling rate. Default is 0.95.
+        max_iterations (int, optional): The maximum number of iterations. Default is 10000.
+        number_of_iterations_with_same_temperature (int, optional): The number of iterations to perform at the same temperature before cooling. Default is 50.
+        DEBUG (bool, optional): If True, print debug information. Default is False.
+    Returns:
+        tuple: A tuple containing the best solution found and its cost.
+    """
     # Inizializzazione
     n, points, dist = readTSPLIB(file_path)
     if n > 2000:
@@ -214,6 +259,15 @@ def complete_simulated_annealing(file_path, T_0=1000, alpha=0.95, max_iterations
 
 
 def iterated_local_search(file_path, max_iterations, DEBUG=False):
+    """
+    Perform Iterated Local Search (ILS) to solve the Traveling Salesman Problem (TSP).
+    Parameters:
+        file_path (str): Path to the TSPLIB file containing the TSP instance.
+        max_iterations (int): Maximum number of iterations for the ILS algorithm.
+        DEBUG (bool): If True, print debug information. Default is False.
+    Returns:
+        tuple: A tuple containing the best solution found and its path length.
+    """
     n, points, dist = readTSPLIB(file_path)
 
     if n > 2000:
