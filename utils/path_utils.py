@@ -1,3 +1,23 @@
+'''
+This module provides utility functions for solving the Traveling Salesman Problem (TSP) using various algorithms.
+Functions:
+- brute_force_tsp(points, dist):
+    Solves the TSP using brute force by exploring all permutations of points. It takes too long for large instances. (n>15)
+- nearest_neighbor_first(points, dist, debug=False):
+    Implements the nearest neighbor heuristic for the TSP.
+- generate_random_path(num_points):
+    Generates a random path as a list of indices for a given number of points.
+- nearest_neighbor_second(points, dist, debug=False):
+    Implements the nearest neighbor heuristic for the TSP.
+- nearest_neighbor_random(points, dist, debug=False, iterations=10):
+    Generates a path using a nearest neighbor heuristic with a random element.
+- get_or_create_graph_data(n=0, maxcoord=0, function=None, file_name='graph_data.pkl', use_existing=True, debug=False):
+    Generates or loads graph data for a TSP instance.
+- print_in_square(title, content):
+    Prints the given title and content inside a square-like frame.
+- reset_points(points):
+    Resets the visited flag for all points in the list.
+'''
 import random
 import pickle
 from tqdm import tqdm
