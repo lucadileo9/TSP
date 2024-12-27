@@ -1,11 +1,37 @@
+'''
+This module provides various utility functions for analyzing, filtering, and organizing TSPLIB instance files.
+Functions:
+    parse_tsplib_instance(file_path):
+        Parses a TSPLIB instance file and extracts relevant information.
+    analyze_tsplib_directory(directory):
+        Analyzes a directory of TSPLIB files and returns a summary.
+    list_files_by_distance_type(directory):
+        Lists TSPLIB files in a directory grouped by their edge weight type.
+    filter_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}, max_nodes=500):
+        Filters TSPLIB files based on specified edge weight types and maximum number of nodes.
+    filter_solutions(solution_file, filtered_directory, output_file):
+        Filters solutions based on the presence of corresponding instance files in a specified directory.
+    filter_and_organize_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}):
+        Filters TSPLIB files by edge weight type and organizes them into subfolders based on the number of nodes.
+    organize_solutions(solution_file, organized_instances_dir, output_dir):
+        Organizes the solution file based on the subfolders of the TSPLIB instances.
+
+'''
 import os
 import shutil
 
-from .tsp_utils import readTSPLIB
-
-# Funzione 1: Parsing del file TSPLIB
 def parse_tsplib_instance(file_path):
-    """Parsa un file TSPLIB e restituisce le informazioni principali."""
+    """
+    Parses a TSPLIB instance file and extracts relevant information.
+    Args:
+        file_path (str): The path to the TSPLIB instance file.
+    Returns:
+        dict: A dictionary containing the following keys:
+            - "NAME" (str): The name of the instance, derived from the file name.
+            - "TYPE" (str or None): The type of the instance (e.g., TSP, ATSP), if specified.
+            - "EDGE_WEIGHT_TYPE" (str or None): The type of edge weights (e.g., EUC_2D), if specified.
+            - "EDGE_WEIGHT_FORMAT" (str or None): The format of edge weights (e.g., FULL_MATRIX), if specified.
+    """
     info = {
         "NAME": os.path.basename(file_path),
         "TYPE": None,
@@ -25,9 +51,19 @@ def parse_tsplib_instance(file_path):
     
     return info
 
-# Funzione 2: Analisi dei file TSPLIB in una directory
 def analyze_tsplib_directory(directory):
-    """Analizza una directory di file TSPLIB e restituisce un riepilogo."""
+    """
+    Analyzes a directory of TSPLIB files and returns a summary.
+    Args:
+        directory (str): The path to the directory containing TSPLIB files.
+    Returns:
+        dict: A summary dictionary containing the following keys:
+            - total_instances (int): The total number of TSPLIB instances found.
+            - types (dict): A dictionary with the count of each TYPE found in the instances.
+            - edge_weight_types (dict): A dictionary with the count of each EDGE_WEIGHT_TYPE found in the instances.
+            - edge_weight_formats (dict): A dictionary with the count of each EDGE_WEIGHT_FORMAT found in the instances.
+            - missing_edge_weight_format (int): The number of instances missing the EDGE_WEIGHT_FORMAT.
+    """
     summary = {
         "total_instances": 0,
         "types": {},
@@ -63,9 +99,15 @@ def analyze_tsplib_directory(directory):
     
     return summary
 
-# Funzione 3: Raggruppare i file per tipo di distanza
 def list_files_by_distance_type(directory):
-    """Crea una lista di file raggruppati per EDGE_WEIGHT_TYPE."""
+    """
+    Lists TSPLIB files in a directory grouped by their edge weight type.
+    Args:
+        directory (str): The path to the directory containing .tsp files.
+    Returns:
+        dict: A dictionary where the keys are edge weight types and the values 
+              are lists of instance names that have that edge weight type.
+    """
     files_by_type = {}
     
     for filename in os.listdir(directory):
@@ -81,7 +123,6 @@ def list_files_by_distance_type(directory):
     
     return files_by_type
 
-# Funzione 4: Filtrare i file TSPLIB per tipo di distanza
 def filter_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}, max_nodes=500):
     """
     Filtra i file TSPLIB mantenendo solo quelli con EDGE_WEIGHT_TYPE specificati
@@ -117,7 +158,16 @@ def filter_tsplib_files(source_dir, dest_dir, valid_types={"EUC_2D"}, max_nodes=
                     shutil.copy(file_path, os.path.join(dest_dir, filename))
 
 def filter_solutions(solution_file, filtered_directory, output_file):
-    """Filtra il file delle soluzioni mantenendo solo quelle per le istanze filtrate."""
+    """
+    Filters solutions based on the presence of corresponding instance files in a specified directory.
+    Args:
+        solution_file (str): Path to the file containing solutions to be filtered.
+        filtered_directory (str): Path to the directory containing valid instance files.
+        output_file (str): Path to the output file where filtered solutions will be written.
+    The function reads the solution file line by line, extracts the instance name from each line,
+    and writes the line to the output file only if the instance name corresponds to a file in the
+    filtered directory with a ".tsp" extension.
+    """
     # Ottieni i nomi delle istanze nella directory filtrata
     valid_instances = set(
         os.path.splitext(filename)[0]
