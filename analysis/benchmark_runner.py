@@ -1,3 +1,20 @@
+'''
+This module provides functions to run benchmarks for the Traveling Salesman Problem (TSP) algorithms,
+save and print the results, and generate statistics for various TSP instances.
+Functions:
+    save_results(results, output_file):
+        Saves the results dictionary to a JSON file.
+    print_results(results):
+        Prints the results contained in the dictionary in a clear and readable format.
+    insert_result(results, num_vertices, max_coord, path_distance, execution_time, average_execution_time):
+        Inserts the results of a TSP benchmark into the results dictionary.
+    generate_statistics(num_vertices_list, max_coords_list, num_instances, input_dir, function, average_time=False):
+        Generates statistics for the TSP benchmark using a specified algorithm.
+    generate_all_statistics():
+        Generates and prints statistics for various TSP instances using different algorithms.
+    load_results(file_path):
+        Loads the benchmark results from a JSON file.
+'''
 import os, json
 from tqdm import tqdm
 
@@ -48,15 +65,15 @@ def insert_result(results, num_vertices, max_coord, path_distance, execution_tim
     """
     Inserts the results of a TSP benchmark into the results dictionary.
     Parameters:
-    results (dict): The dictionary to store the results. The keys are tuples of (num_vertices, max_coord),
-                    and the values are lists of tuples containing (path_distance, execution_time, average_execution_time).
-    num_vertices (int): The number of vertices in the TSP instance.     -->  These are the
-    max_coord (int): The maximum coordinate value for the vertices.     -->  keys of the dictionary
-    path_distance (float): The total distance of the path found.
-    execution_time (float): The time taken to find the path.
-    average_execution_time (float): The average time taken over multiple runs to find the path.
+        results (dict): The dictionary to store the results. The keys are tuples of (num_vertices, max_coord),
+                        and the values are lists of tuples containing (path_distance, execution_time, average_execution_time).
+        num_vertices (int): The number of vertices in the TSP instance.     -->  These are the
+        max_coord (int): The maximum coordinate value for the vertices.     -->  keys of the dictionary
+        path_distance (float): The total distance of the path found.
+        execution_time (float): The time taken to find the path.
+        average_execution_time (float): The average time taken over multiple runs to find the path.
     Returns:
-    None
+        None
     """
     key = (num_vertices, max_coord)
     
@@ -129,10 +146,10 @@ def generate_all_statistics():
     generating statistics for each combination of number of vertices, maximum coordinates,
     and number of instances. The results are then printed.
     Parameters:
-    None
+        None
     Returns:
-    None
-    Non c'è bisogno di salvare nulla, perché i dizionario di ogni algoritmo vengono salvati automaticamente in memoria
+        None
+    Non c'è bisogno di salvare nulla, perché il dizionario di ogni algoritmo vengono salvati automaticamente in memoria
     """
     
     num_vertices_list= [10, 50, 100, 500, 1000]
