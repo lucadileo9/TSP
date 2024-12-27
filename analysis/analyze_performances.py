@@ -1,3 +1,9 @@
+'''
+This module provides functions to analyze the performance of the multistart local search algorithm on TSP (Traveling Salesman Problem) instances. 
+It includes functions to store and load performance data, print analysis summaries, and perform batch analysis on multiple TSP datasets.
+
+It analyzes the performances of the multistart local search algorithm using different path initialization strategies/ neighborhood search strategies/ number of starts.
+'''
 from collections import defaultdict
 from pathlib import Path
 import json
@@ -57,12 +63,12 @@ def store_optimal_path_lengths(optimal_path_lengths, output_filepath="TSP/output
     """
     Save the optimal lengths to a JSON file.
     Parameters:
-    optimal_lengths (dict): A dictionary containing the optimal lengths to be saved.
-    filename (str): The name of the file where the optimal lengths will be saved. Default is "optimal_lengths.json".
+        optimal_lengths (dict): A dictionary containing the optimal lengths to be saved.
+        filename (str): The name of the file where the optimal lengths will be saved. Default is "optimal_lengths.json".
     Returns:
-    None
+        None
     Raises:
-    IOError: If there is an error in writing to the file.
+        IOError: If there is an error in writing to the file.
     """
     try:
         with open(output_filepath, "w") as file:
