@@ -17,6 +17,26 @@ Il progetto è organizzato nelle seguenti directory:
 
 Ogni directory include un README specifico con maggiori dettagli sui file e le loro funzionalità.
 
+## **Dettagli Directory**
+
+### **`data`**
+La directory `data` include i seguenti sottoinsiemi:
+
+- `EUC_2D`, `EXPLICIT`, `GEO`: Istanze da usare per le metaeuristiche, suddivise ulteriormente per numero di istanze.
+- `TSP_INSTANCES`: Istanze originali del TSPLIB.
+- `new_instances_filtered`: Istanze del TSPLIB filtrate per dimensione o tipo.
+- `euclidean`: Dataset generato casualmente utilizzando uno script precedente.
+- `TSP_instances_clean`: Directory di appoggio per elaborazioni temporanee.
+
+### **`outputs`**
+La directory `outputs` include:
+
+- `plots`:
+  - `EUC_2D_plot`: Grafici relativi alle istanze EUC_2D.
+  - `EXPLICIT_plot`: Grafici relativi alle istanze EXPLICIT.
+  - `GEO_plot`: Grafici relativi alle istanze GEO.
+- `analysis_results`: Risultati prodotti dagli script nella directory `analysis`.
+
 ---
 
 ## How to Use
