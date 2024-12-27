@@ -15,8 +15,6 @@ Il progetto è organizzato nelle seguenti directory:
 - **data**: Contiene dataset generati e istanze del TSPLIB organizzate.
 - **outputs**: Salva risultati di test (JSON), log del logger e grafici generati dagli script di plotting.
 
-Ogni directory include un README specifico con maggiori dettagli sui file e le loro funzionalità.
-
 ## **Dettagli Directory**
 
 ### **`data`**
@@ -36,6 +34,8 @@ La directory `outputs` include:
   - `EXPLICIT_plot`: Grafici relativi alle istanze EXPLICIT.
   - `GEO_plot`: Grafici relativi alle istanze GEO.
 - `analysis_results`: Risultati prodotti dagli script nella directory `analysis`.
+
+Per le altre directory sono presenti README specifici con maggiori dettagli sui file e le loro funzionalità.
 
 ---
 
