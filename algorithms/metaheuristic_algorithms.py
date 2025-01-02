@@ -292,7 +292,7 @@ def iterated_local_search(file_path, max_iterations, DEBUG=False):
 
     for iteration in tqdm(range(max_iterations), desc="Iterated Local Search Progress"):
         # Perturba la soluzione
-        new_solution = multi_swap(best_solution, k=n//50 , points=points, DEBUG=DEBUG)
+        new_solution = multi_swap(best_solution, k=n//25 , points=points, DEBUG=DEBUG)
         if not check_path(points, current_solution, DEBUG=True):
             input("Nella funzione ILS, la soluzione perturbata locale non è valida. Premi invio per continuare...")
 
