@@ -277,23 +277,24 @@ def organize_solutions(solution_file, organized_instances_dir, output_dir):
 
 
 # Script principale
+# SICURAMENTE BISOGNA CAMBIARE I PERCORSI
 if __name__ == "__main__":
        #___________________ FILTRAGGIO DEI FILE TSPLIB E DELLE SOLUZIONI ___________________ 
     # Percorsi delle directory
-    source_directory = "new_instances"  # Cambia con il percorso reale della tua directory
-    destination_directory = "new_instances_filtered"
+    source_directory = "TSP/data/TSP_instances"  # Cambia con il percorso reale della tua directory
+    destination_directory = "TSP/data/new_instances_filtered"
     
     # Filtro dei file TSPLIB
     print("Filtraggio dei file in corso...")
-    filter_tsplib_files(source_directory, destination_directory, valid_types={"EUC_2D"}, max_nodes=100)
+    filter_tsplib_files(source_directory, destination_directory, valid_types={"EXPLICIT"}, max_nodes=1000)
     print(f"File filtrati salvati in: {destination_directory}")
     
-    solution_file = "new_instances/solutions"  # Cambia con il percorso del file originale
-    filtered_directory = "new_instances_filtered"  # Directory con i file filtrati
-    output_file = "new_instances_filtered/solutions"  # Nuovo file per le soluzioni filtrate
+    # solution_file = "TSP/data/TSP_instances/solutions"  # Cambia con il percorso del file originale
+    # filtered_directory = "TSP/data/new_instances_filtered"  # Directory con i file filtrati
+    # output_file = "TSP/data/new_instances_filtered/solutions"  # Nuovo file per le soluzioni filtrate
 
-    filter_solutions(solution_file, filtered_directory, output_file)
-    print(f"Soluzioni filtrate salvate in: {output_file}")
+    # filter_solutions(solution_file, filtered_directory, output_file)
+    # print(f"Soluzioni filtrate salvate in: {output_file}")
 
     # # ___________________ FILTRAGGIO E ORGANIZZAZIONE DEI FILE TSPLIB ___________________
     # source_directory = "new_instances_filtered"  # Cambia con il percorso della directory sorgente
@@ -314,15 +315,15 @@ if __name__ == "__main__":
 
 
     # #___________________ ANALISI DEI FILE TSPLIB ___________________
-    # # Analisi della directory filtrata
-    # destination_directory = "EUC_2D"  
-    # print(f"\nAnalisi della directory {destination_directory}...")
-    # filtered_summary = analyze_tsplib_directory(destination_directory)
-    # print("Totale istanze:", filtered_summary["total_instances"])
-    # print("Tipologie di problemi:", filtered_summary["types"])
-    # print("Tipi di distanza (EDGE_WEIGHT_TYPE):", filtered_summary["edge_weight_types"])
-    # print("Formati dei pesi (EDGE_WEIGHT_FORMAT):", filtered_summary["edge_weight_formats"])
-    # print("Istanze senza EDGE_WEIGHT_FORMAT:", filtered_summary["missing_edge_weight_format"])
+    # Analisi della directory filtrata
+    destination_directory = "TSP/data/new_instances_filtered"  
+    print(f"\nAnalisi della directory {destination_directory}...")
+    filtered_summary = analyze_tsplib_directory(destination_directory)
+    print("Totale istanze:", filtered_summary["total_instances"])
+    print("Tipologie di problemi:", filtered_summary["types"])
+    print("Tipi di distanza (EDGE_WEIGHT_TYPE):", filtered_summary["edge_weight_types"])
+    print("Formati dei pesi (EDGE_WEIGHT_FORMAT):", filtered_summary["edge_weight_formats"])
+    print("Istanze senza EDGE_WEIGHT_FORMAT:", filtered_summary["missing_edge_weight_format"])
     
     # # #___________________ RAGGRUPPAMENTO DEI FILE PER TIPO DI DISTANZA ___________________
     # # # Lista dei file per tipo di distanza
