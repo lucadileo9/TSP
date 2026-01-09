@@ -1,5 +1,15 @@
 # TSP Solver Project
 
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-Latest-013243.svg?logo=numpy&logoColor=white)](https://numpy.org/)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-3.x-11557c.svg)](https://matplotlib.org/)
+[![TSPLIB](https://img.shields.io/badge/TSPLIB-Instances-orange.svg)](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/)
+
+[![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+[![Made for Course](https://img.shields.io/badge/Course-Optimization%20Algorithms-lightgreny.svg)](https://github.com/lucadileo9/culinary-explorer)
+[![University](https://img.shields.io/badge/University-UNIMORE-blue.svg)](https://www.unimore.it/)
+
 Questo progetto è stato sviluppato come parte del corso "Algoritmi di Ottimizzazione" e affronta il problema del Travelling Salesman Problem (TSP). L'obiettivo è stato quello di partire da algoritmi greedy basilari, sviluppare una local search e, infine, creare e testare una metaeuristica ibrida basata su ILS (Iterated Local Search) e SA (Simulated Annealing).
 
 Il risultato finale del progetto è un'analisi approfondita delle performance della metaeuristica ibrida e delle altre tecniche utilizzate, testate su istanze del TSPLIB e confrontate tramite grafici e metriche.
